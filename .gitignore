@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.ipa
+*.dSYM
+*.dSYM.zip
+.swiftpm/
+.build/
+
+# Android Studio and Gradle
+.gradle/
+.idea/
+local.properties
+**/build/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Firebase client configuration
+GoogleService-Info.plist
+google-services.json
+
+# Administrative credentials and private keys
+*service-account*.json
+serviceAccountKey.json
+firebase-adminsdk*.json
+*.keystore
+*.jks
+keystore.properties
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Local temporary files
+*.log
+*.tmp
