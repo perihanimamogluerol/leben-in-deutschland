@@ -1,5 +1,7 @@
 # Leben in Deutschland
 
+[![Android CI](https://github.com/perihanimamogluerol/leben-in-deutschland/actions/workflows/android-ci.yml/badge.svg)](https://github.com/perihanimamogluerol/leben-in-deutschland/actions/workflows/android-ci.yml)
+
 A multilingual, offline-first study application for Germany's Leben in Deutschland and naturalization tests.
 
 The project is being developed as a production-minded Android and iOS application. Its purpose is not only to deliver a useful learning product, but also to demonstrate architecture, testing, performance, accessibility, security, and cross-platform engineering decisions.
@@ -11,10 +13,11 @@ The project is currently in the foundation and architecture phase.
 - Firebase content catalog: prepared
 - Firestore release: uploaded and activated
 - iOS project: created
-- Android project: pending
+- Android project: created
+- Android CI: active
 - Production user flows: pending
-- Automated test suite: pending
-- CI/CD: pending
+- Production automated test suite: pending
+- iOS CI: pending
 
 ## Product Scope
 
