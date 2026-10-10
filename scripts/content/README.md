@@ -74,3 +74,83 @@ python3 scripts/content/validate_schema3.py \
 
 A production build succeeds only when every package is structurally valid and
 all required explanations pass the readiness checks.
+
+## Complete AI Explanations Safely
+
+`explanation_pipeline.py` prepares and applies OpenAI Batch API jobs without
+editing the source catalog in place. Request files, manifests, batch state, and
+generated catalogs must remain under `.local/`.
+
+The workflow deliberately has two stages:
+
+1. Generate missing German explanations from the authoritative German question
+   and correct answer.
+2. Translate those German explanations only into localization fields that are
+   missing or contain a repeated placeholder.
+
+The prepare and apply commands are local and make no API calls. Submission
+requires both `OPENAI_API_KEY` and the explicit confirmation value `SUBMIT`.
+
+Create and activate an ignored local virtual environment:
+
+```bash
+python3 -m venv .local/venv
+source .local/venv/bin/activate
+python -m pip install -r scripts/content/requirements-openai.txt
+```
+
+Prepare the German request file:
+
+```bash
+python scripts/content/explanation_pipeline.py prepare-german \
+  --input .local/content/schema-2.json \
+  --output .local/explanations/german-requests.jsonl
+```
+
+Review the summary before submitting. `readyForSubmit` must be `true` and
+`blockedTargetCount` must be `0`. Image-only correct answers without textual
+descriptions are blocked instead of allowing the model to invent visual facts.
+
+Submit only after review:
+
+```bash
+python scripts/content/explanation_pipeline.py submit \
+  --input .local/explanations/german-requests.jsonl \
+  --manifest .local/explanations/german-requests.manifest.json \
+  --state .local/explanations/german-batch.json \
+  --confirm-submit SUBMIT
+```
+
+Check status and download a completed batch:
+
+```bash
+python scripts/content/explanation_pipeline.py status \
+  --state .local/explanations/german-batch.json
+
+python scripts/content/explanation_pipeline.py download \
+  --state .local/explanations/german-batch.json \
+  --output .local/explanations/german-output.jsonl
+```
+
+Apply results to a new catalog after the batch completes:
+
+```bash
+python scripts/content/explanation_pipeline.py apply \
+  --input .local/content/schema-2.json \
+  --manifest .local/explanations/german-requests.manifest.json \
+  --batch-output .local/explanations/german-output.jsonl \
+  --output .local/content/schema-2-with-german-explanations.json
+```
+
+Prepare translations from the completed German explanations:
+
+```bash
+python scripts/content/explanation_pipeline.py prepare-translations \
+  --input .local/content/schema-2-with-german-explanations.json \
+  --output .local/explanations/translation-requests.jsonl
+```
+
+Use the same submit, status, download, and apply commands for the translation
+manifest. After applying translations, rebuild schema 3 without
+`--allow-incomplete` and run production validation. AI-generated explanations
+remain marked as needing human review even when structural validation passes.
