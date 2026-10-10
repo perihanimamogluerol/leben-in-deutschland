@@ -26,12 +26,13 @@ ENDPOINT = "/v1/responses"
 GERMAN_STAGE = "german"
 TRANSLATION_STAGE = "translations"
 GERMAN_PROMPT_VERSION = "de-explanation-v1"
-TRANSLATION_PROMPT_VERSION = "explanation-translation-v1"
+TRANSLATION_PROMPT_VERSION = "explanation-translation-v2"
 DEFAULT_GERMAN_MODEL = "gpt-6.1-sol"
 DEFAULT_TRANSLATION_MODEL = "gpt-6-luna"
 QUALITY_CODES_TO_REPLACE = {
     "MISSING_EXPLANATION",
     "REPEATED_PLACEHOLDER_EXPLANATION",
+    "UNVERIFIED_EXPLANATION_PROVENANCE",
 }
 
 LANGUAGE_NAMES = {
@@ -65,11 +66,13 @@ normally no more than 70 words. Do not use Markdown. Do not claim that the
 explanation is official. Do not change the question or answer. Do not invent
 dates, names, laws, or visual details that are not supported by the input."""
 
-TRANSLATION_INSTRUCTIONS = """Translate the supplied German study explanation
-faithfully into the requested target language. Preserve meaning, names, legal
-terms, and factual scope. Use natural, accessible language for learners. Do not
-add or remove facts. Do not use Markdown. Return only the required structured
-data."""
+TRANSLATION_INSTRUCTIONS = """Translate only the JSON field germanExplanation
+faithfully into the requested target language. The localizedQuestion field is
+context only: do not answer it and do not create a new explanation from it.
+Preserve the meaning of every sentence, names, legal terms, and factual scope.
+Use natural, accessible language for learners. Do not add introductions,
+examples, conclusions, or facts. Do not omit facts. Do not use Markdown. Return
+only the required structured data."""
 
 
 class PipelineError(RuntimeError):

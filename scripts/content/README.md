@@ -7,7 +7,8 @@ existing schema-2 catalog into self-contained schema-3 language packages.
 
 - Source catalogs and generated releases belong under `.local/`.
 - `.local/` must remain ignored by Git.
-- Production builds reject missing or repeated placeholder explanations.
+- Production builds reject missing explanations, repeated placeholders, and
+  explanations without verified provenance metadata.
 - `--allow-incomplete` and `--allow-draft` are for local inspection only.
 - These scripts do not connect to Firebase and cannot activate a release.
 
@@ -85,8 +86,10 @@ The workflow deliberately has two stages:
 
 1. Generate missing German explanations from the authoritative German question
    and correct answer.
-2. Translate those German explanations only into localization fields that are
-   missing or contain a repeated placeholder.
+2. Translate those German explanations into localization fields that are
+   missing, contain a repeated placeholder, or lack verified explanation
+   provenance. This prevents legacy text from passing readiness checks merely
+   because it is non-empty and unique.
 
 The prepare and apply commands are local and make no API calls. Submission
 requires both `OPENAI_API_KEY` and the explicit confirmation value `SUBMIT`.
