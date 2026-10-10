@@ -45,3 +45,10 @@ keystore.properties
 # Local temporary files
 *.log
 *.tmp
+
+# Local content inputs and generated artifacts
+.local/
+
+# Python tooling
+__pycache__/
+*.py[cod]
