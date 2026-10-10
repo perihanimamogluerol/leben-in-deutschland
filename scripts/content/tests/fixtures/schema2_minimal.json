@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 2,
+  "catalog": {
+    "id": "fixture",
+    "datasetVersion": "fixture-1",
+    "includedContentLanguages": [
+      "de",
+      "tr"
+    ]
+  },
+  "questions": [
+    {
+      "id": "general_001",
+      "sourceId": "general-001",
+      "officialNumber": 1,
+      "scope": "GENERAL",
+      "stateCode": null,
+      "correctAnswerId": "D",
+      "german": {
+        "questionText": "Warum dürfen Menschen ihre Meinung frei äußern?",
+        "explanation": "Die Meinungsfreiheit ist ein geschütztes Grundrecht.",
+        "questionImage": null,
+        "answers": [
+          {
+            "id": "A",
+            "text": "Wegen der Steuerpflicht.",
+            "image": null
+          },
+          {
+            "id": "B",
+            "text": "Wegen der Schulpflicht.",
+            "image": null
+          },
+          {
+            "id": "C",
+            "text": "Wegen des Wahlalters.",
+            "image": null
+          },
+          {
+            "id": "D",
+            "text": "Wegen der Meinungsfreiheit.",
+            "image": null
+          }
+        ]
+      },
+      "localizations": {
+        "tr": {
+          "languageCode": "tr",
+          "questionText": "İnsanlar neden düşüncelerini özgürce açıklayabilir?",
+          "explanation": "Çünkü ifade özgürlüğü anayasal olarak korunan temel bir haktır.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "Vergi yükümlülüğü nedeniyle."
+            },
+            {
+              "id": "B",
+              "text": "Okula gitme zorunluluğu nedeniyle."
+            },
+            {
+              "id": "C",
+              "text": "Oy kullanma yaşı nedeniyle."
+            },
+            {
+              "id": "D",
+              "text": "İfade özgürlüğü nedeniyle."
+            }
+          ],
+          "translationStatus": "AI_GENERATED_NEEDS_REVIEW",
+          "reviewed": false
+        }
+      }
+    },
+    {
+      "id": "state_he_001",
+      "sourceId": "state-he-001",
+      "officialNumber": 1,
+      "scope": "STATE",
+      "stateCode": "HE",
+      "correctAnswerId": "A",
+      "german": {
+        "questionText": "Welche Stadt ist die Hauptstadt von Hessen?",
+        "explanation": "Wiesbaden ist die Landeshauptstadt des Bundeslandes Hessen.",
+        "questionImage": null,
+        "answers": [
+          {
+            "id": "A",
+            "text": "Wiesbaden",
+            "image": null
+          },
+          {
+            "id": "B",
+            "text": "Frankfurt am Main",
+            "image": null
+          },
+          {
+            "id": "C",
+            "text": "Kassel",
+            "image": null
+          },
+          {
+            "id": "D",
+            "text": "Darmstadt",
+            "image": null
+          }
+        ]
+      },
+      "localizations": {
+        "tr": {
+          "languageCode": "tr",
+          "questionText": "Hessen eyaletinin başkenti hangi şehirdir?",
+          "explanation": "Wiesbaden, Hessen federal eyaletinin resmî başkentidir.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "Wiesbaden"
+            },
+            {
+              "id": "B",
+              "text": "Frankfurt am Main"
+            },
+            {
+              "id": "C",
+              "text": "Kassel"
+            },
+            {
+              "id": "D",
+              "text": "Darmstadt"
+            }
+          ],
+          "translationStatus": "AI_GENERATED_NEEDS_REVIEW",
+          "reviewed": false
+        }
+      }
+    }
+  ]
+}
