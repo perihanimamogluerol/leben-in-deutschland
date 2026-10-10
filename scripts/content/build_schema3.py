@@ -21,6 +21,10 @@ PACKAGE_STRATEGY = "SELF_CONTAINED_LANGUAGE_PACK"
 DEFAULT_CHUNK_SIZE = 10
 MAX_CHUNK_BYTES = 800_000
 REPEATED_EXPLANATION_LIMIT = 20
+ALLOWED_EXPLANATION_STATUSES = {
+    "AI_GENERATED_NEEDS_REVIEW",
+    "HUMAN_REVIEWED",
+}
 
 
 class BuildError(RuntimeError):
@@ -220,6 +224,15 @@ def inspect_source(
             )
         else:
             explanations["de"].append((question_id, german_explanation.strip()))
+            if german.get("explanationStatus") not in ALLOWED_EXPLANATION_STATUSES:
+                quality.append(
+                    issue(
+                        "UNVERIFIED_EXPLANATION_PROVENANCE",
+                        "German explanation provenance is not verified.",
+                        language_code="de",
+                        question_id=question_id,
+                    )
+                )
 
         localizations = question.get("localizations")
         if not isinstance(localizations, dict):
@@ -285,6 +298,18 @@ def inspect_source(
                 explanations[language_code].append(
                     (question_id, explanation.strip())
                 )
+                if (
+                    localized.get("explanationStatus")
+                    not in ALLOWED_EXPLANATION_STATUSES
+                ):
+                    quality.append(
+                        issue(
+                            "UNVERIFIED_EXPLANATION_PROVENANCE",
+                            "Localized explanation provenance is not verified.",
+                            language_code=language_code,
+                            question_id=question_id,
+                        )
+                    )
 
     for language_code, values in explanations.items():
         counts = Counter(text for _, text in values)
@@ -334,7 +359,7 @@ def study_content(
                 for answer in german.get("answers", [])
             ],
             "textStatus": "SOURCE",
-            "explanationStatus": "AI_GENERATED_NEEDS_REVIEW",
+            "explanationStatus": german.get("explanationStatus"),
             "reviewed": False,
         }
 
@@ -345,6 +370,7 @@ def study_content(
         "explanation": localized.get("explanation"),
         "answers": copy.deepcopy(localized.get("answers")),
         "translationStatus": localized.get("translationStatus"),
+        "explanationStatus": localized.get("explanationStatus"),
         "reviewed": bool(localized.get("reviewed", False)),
     }
     if "audit" in localized:

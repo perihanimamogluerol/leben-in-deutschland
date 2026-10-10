@@ -142,6 +142,54 @@ class ExplanationPipelineTest(unittest.TestCase):
         self.assertEqual(manifest["stage"], TRANSLATION_STAGE)
         self.assertEqual(manifest["targets"][0]["languageCode"], "tr")
 
+    def test_prepares_translation_when_explanation_provenance_is_unverified(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        del catalog["questions"][0]["localizations"]["tr"]["explanationStatus"]
+        requests = self.root / "translations.jsonl"
+        manifest_path = default_manifest_path(requests)
+
+        result = prepare_translations(catalog, requests, manifest_path)
+
+        self.assertEqual(result["requestCount"], 1)
+        manifest = read_manifest(manifest_path)
+        self.assertEqual(manifest["targets"][0]["questionId"], "general_001")
+        line = json.loads(requests.read_text().splitlines()[0])
+        payload = json.loads(line["body"]["input"])
+        self.assertEqual(
+            payload["germanExplanation"],
+            "Die Meinungsfreiheit ist ein geschütztes Grundrecht.",
+        )
+
+    def test_applies_translation_and_records_explanation_provenance(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        del catalog["questions"][0]["localizations"]["tr"]["explanationStatus"]
+        requests = self.root / "translations.jsonl"
+        manifest_path = default_manifest_path(requests)
+        prepare_translations(catalog, requests, manifest_path)
+        manifest = read_manifest(manifest_path)
+        batch_output = self.root / "translation-output.jsonl"
+        batch_output.write_text(
+            fake_batch_line(
+                "translation--tr--general_001",
+                {
+                    "questionId": "general_001",
+                    "languageCode": "tr",
+                    "explanation": "İfade özgürlüğü, korunan temel bir haktır.",
+                },
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        updated, summary = apply_results(catalog, manifest, batch_output)
+        localized = updated["questions"][0]["localizations"]["tr"]
+
+        self.assertEqual(summary["appliedCount"], 1)
+        self.assertEqual(
+            localized["explanationStatus"],
+            "AI_GENERATED_NEEDS_REVIEW",
+        )
+
     def test_rejects_incomplete_batch_output(self) -> None:
         catalog = copy.deepcopy(self.catalog)
         for question in catalog["questions"]:

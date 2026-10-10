@@ -19,6 +19,7 @@
       "german": {
         "questionText": "Warum dürfen Menschen ihre Meinung frei äußern?",
         "explanation": "Die Meinungsfreiheit ist ein geschütztes Grundrecht.",
+        "explanationStatus": "AI_GENERATED_NEEDS_REVIEW",
         "questionImage": null,
         "answers": [
           {
@@ -48,6 +49,7 @@
           "languageCode": "tr",
           "questionText": "İnsanlar neden düşüncelerini özgürce açıklayabilir?",
           "explanation": "Çünkü ifade özgürlüğü anayasal olarak korunan temel bir haktır.",
+          "explanationStatus": "AI_GENERATED_NEEDS_REVIEW",
           "answers": [
             {
               "id": "A",
@@ -81,6 +83,7 @@
       "german": {
         "questionText": "Welche Stadt ist die Hauptstadt von Hessen?",
         "explanation": "Wiesbaden ist die Landeshauptstadt des Bundeslandes Hessen.",
+        "explanationStatus": "AI_GENERATED_NEEDS_REVIEW",
         "questionImage": null,
         "answers": [
           {
@@ -110,6 +113,7 @@
           "languageCode": "tr",
           "questionText": "Hessen eyaletinin başkenti hangi şehirdir?",
           "explanation": "Wiesbaden, Hessen federal eyaletinin resmî başkentidir.",
+          "explanationStatus": "AI_GENERATED_NEEDS_REVIEW",
           "answers": [
             {
               "id": "A",

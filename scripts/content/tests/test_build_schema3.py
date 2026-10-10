@@ -47,6 +47,10 @@ class Schema3PipelineTest(unittest.TestCase):
         self.assertNotIn("localizations", question)
         self.assertEqual(question["study"]["languageCode"], "tr")
         self.assertEqual(
+            question["study"]["explanationStatus"],
+            "AI_GENERATED_NEEDS_REVIEW",
+        )
+        self.assertEqual(
             question["german"]["questionText"],
             "Warum dürfen Menschen ihre Meinung frei äußern?",
         )
@@ -76,6 +80,19 @@ class Schema3PipelineTest(unittest.TestCase):
             expected_question_count=2,
         )
         self.assertFalse(validation["readyForUpload"])
+
+    def test_unverified_explanation_provenance_requires_draft_flag(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        del catalog["questions"][0]["localizations"]["tr"]["explanationStatus"]
+        output = self.root / "release"
+
+        with self.assertRaises(BuildError):
+            build_release(catalog, output)
+
+        result = build_release(catalog, output, allow_incomplete=True)
+
+        self.assertEqual(result["status"], "DRAFT")
+        self.assertEqual(result["qualityIssueCount"], 1)
 
     def test_validator_rejects_tampered_chunk(self) -> None:
         output = self.root / "release"
