@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Επιλέξτε γλώσσα</string>
+    <string name="language_selection_description">Επιλέξτε τη γλώσσα της εφαρμογής και των επεξηγήσεων των ερωτήσεων.</string>
+    <string name="language_selection_search_label">Αναζήτηση</string>
+    <string name="language_selection_search_placeholder">Όνομα γλώσσας</string>
+    <string name="language_selection_no_results_title">Δεν βρέθηκε γλώσσα</string>
+    <string name="language_selection_no_results_message">Δοκιμάστε άλλο όνομα ή κωδικό γλώσσας.</string>
+    <string name="language_selection_change_later">Μπορείτε να το αλλάξετε αργότερα στις Ρυθμίσεις.</string>
+    <string name="language_selection_continue">Συνέχεια</string>
+    <string name="language_selection_temporary_confirmation">Επιλέχθηκε: %1$s. Στη συνέχεια επιλέξτε ομόσπονδο κρατίδιο.</string>
+</resources>

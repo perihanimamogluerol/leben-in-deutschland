@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">ژبه وټاکئ</string>
+    <string name="language_selection_description">هغه ژبه وټاکئ چې په اپ او د زده کړې د پوښتنو په تشریحاتو کې کارول کېږي.</string>
+    <string name="language_selection_search_label">لټون</string>
+    <string name="language_selection_search_placeholder">د ژبې نوم</string>
+    <string name="language_selection_no_results_title">ژبه ونه موندل شوه</string>
+    <string name="language_selection_no_results_message">د بلې ژبې نوم یا کوډ وازمویئ.</string>
+    <string name="language_selection_change_later">تاسو کولی شئ دا وروسته په امستنو کې بدل کړئ.</string>
+    <string name="language_selection_continue">دوام</string>
+    <string name="language_selection_temporary_confirmation">%1$s وټاکل شوه. بل ګام د ایالت ټاکل دي.</string>
+</resources>

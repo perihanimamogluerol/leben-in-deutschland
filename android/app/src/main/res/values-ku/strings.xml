@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Ziman hilbijêrin</string>
+    <string name="language_selection_description">Zimanê sepanê û ravekirinên pirsên xwendinê hilbijêrin.</string>
+    <string name="language_selection_search_label">Lêgerîn</string>
+    <string name="language_selection_search_placeholder">Navê zimanî</string>
+    <string name="language_selection_no_results_title">Ziman nehat dîtin</string>
+    <string name="language_selection_no_results_message">Navekî din an koda zimanî biceribînin.</string>
+    <string name="language_selection_change_later">Hûn dikarin vê yekê paşê di Mîhengan de biguherînin.</string>
+    <string name="language_selection_continue">Berdewam bikin</string>
+    <string name="language_selection_temporary_confirmation">%1$s hate hilbijartin. Piştre eyaletê hilbijêrin.</string>
+</resources>

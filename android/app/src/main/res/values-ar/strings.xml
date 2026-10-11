@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">اختر اللغة</string>
+    <string name="language_selection_description">اختر اللغة المستخدمة في التطبيق وشروحات أسئلة الدراسة.</string>
+    <string name="language_selection_search_label">بحث</string>
+    <string name="language_selection_search_placeholder">اسم اللغة</string>
+    <string name="language_selection_no_results_title">لم يتم العثور على لغة</string>
+    <string name="language_selection_no_results_message">جرّب اسم لغة أو رمز لغة آخر.</string>
+    <string name="language_selection_change_later">يمكنك تغيير ذلك لاحقًا في الإعدادات.</string>
+    <string name="language_selection_continue">متابعة</string>
+    <string name="language_selection_temporary_confirmation">تم اختيار %1$s. الخطوة التالية هي اختيار الولاية.</string>
+</resources>

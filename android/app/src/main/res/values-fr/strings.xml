@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Choisissez la langue</string>
+    <string name="language_selection_description">Choisissez la langue de l’application et des explications des questions.</string>
+    <string name="language_selection_search_label">Rechercher</string>
+    <string name="language_selection_search_placeholder">Nom de la langue</string>
+    <string name="language_selection_no_results_title">Aucune langue trouvée</string>
+    <string name="language_selection_no_results_message">Essayez un autre nom ou code de langue.</string>
+    <string name="language_selection_change_later">Vous pourrez modifier ce choix plus tard dans les paramètres.</string>
+    <string name="language_selection_continue">Continuer</string>
+    <string name="language_selection_temporary_confirmation">%1$s a été sélectionné. Choisissez ensuite le Land.</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Выберите язык</string>
+    <string name="language_selection_description">Выберите язык приложения и пояснений к учебным вопросам.</string>
+    <string name="language_selection_search_label">Поиск</string>
+    <string name="language_selection_search_placeholder">Название языка</string>
+    <string name="language_selection_no_results_title">Язык не найден</string>
+    <string name="language_selection_no_results_message">Попробуйте другое название или код языка.</string>
+    <string name="language_selection_change_later">Это можно изменить позже в настройках.</string>
+    <string name="language_selection_continue">Продолжить</string>
+    <string name="language_selection_temporary_confirmation">Выбран язык: %1$s. Далее выберите федеральную землю.</string>
+</resources>

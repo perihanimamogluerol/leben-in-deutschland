@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Виберіть мову</string>
+    <string name="language_selection_description">Виберіть мову для застосунку та пояснень до навчальних запитань.</string>
+    <string name="language_selection_search_label">Пошук</string>
+    <string name="language_selection_search_placeholder">Назва мови</string>
+    <string name="language_selection_no_results_title">Мову не знайдено</string>
+    <string name="language_selection_no_results_message">Спробуйте іншу назву або код мови.</string>
+    <string name="language_selection_change_later">Ви зможете змінити це пізніше в налаштуваннях.</string>
+    <string name="language_selection_continue">Продовжити</string>
+    <string name="language_selection_temporary_confirmation">Вибрано: %1$s. Далі виберіть федеральну землю.</string>
+</resources>

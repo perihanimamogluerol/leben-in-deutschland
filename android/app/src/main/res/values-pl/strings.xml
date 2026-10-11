@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Wybierz język</string>
+    <string name="language_selection_description">Wybierz język aplikacji i objaśnień do pytań.</string>
+    <string name="language_selection_search_label">Szukaj</string>
+    <string name="language_selection_search_placeholder">Nazwa języka</string>
+    <string name="language_selection_no_results_title">Nie znaleziono języka</string>
+    <string name="language_selection_no_results_message">Spróbuj innej nazwy lub kodu języka.</string>
+    <string name="language_selection_change_later">Możesz to później zmienić w Ustawieniach.</string>
+    <string name="language_selection_continue">Dalej</string>
+    <string name="language_selection_temporary_confirmation">Wybrano %1$s. Następnie wybierz kraj związkowy.</string>
+</resources>

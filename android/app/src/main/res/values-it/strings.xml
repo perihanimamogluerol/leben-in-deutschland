@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Seleziona la lingua</string>
+    <string name="language_selection_description">Scegli la lingua dell’app e delle spiegazioni delle domande.</string>
+    <string name="language_selection_search_label">Cerca</string>
+    <string name="language_selection_search_placeholder">Nome della lingua</string>
+    <string name="language_selection_no_results_title">Nessuna lingua trovata</string>
+    <string name="language_selection_no_results_message">Prova un altro nome o codice lingua.</string>
+    <string name="language_selection_change_later">Puoi modificare questa scelta in seguito nelle Impostazioni.</string>
+    <string name="language_selection_continue">Continua</string>
+    <string name="language_selection_temporary_confirmation">Hai selezionato %1$s. Ora scegli lo stato federato.</string>
+</resources>

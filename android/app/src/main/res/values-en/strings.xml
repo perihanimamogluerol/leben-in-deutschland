@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Select language</string>
+    <string name="language_selection_description">Choose the language used for the app and study explanations.</string>
+    <string name="language_selection_search_label">Search</string>
+    <string name="language_selection_search_placeholder">Language name</string>
+    <string name="language_selection_no_results_title">No language found</string>
+    <string name="language_selection_no_results_message">Try another language name or language code.</string>
+    <string name="language_selection_change_later">You can change this later in Settings.</string>
+    <string name="language_selection_continue">Continue</string>
+    <string name="language_selection_temporary_confirmation">%1$s selected. State selection comes next.</string>
+</resources>

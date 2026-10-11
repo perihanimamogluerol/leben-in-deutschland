@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Zgjidhni gjuhën</string>
+    <string name="language_selection_description">Zgjidhni gjuhën e aplikacionit dhe të shpjegimeve të pyetjeve.</string>
+    <string name="language_selection_search_label">Kërko</string>
+    <string name="language_selection_search_placeholder">Emri i gjuhës</string>
+    <string name="language_selection_no_results_title">Nuk u gjet asnjë gjuhë</string>
+    <string name="language_selection_no_results_message">Provoni një emër ose kod tjetër gjuhe.</string>
+    <string name="language_selection_change_later">Mund ta ndryshoni më vonë te Cilësimet.</string>
+    <string name="language_selection_continue">Vazhdo</string>
+    <string name="language_selection_temporary_confirmation">U zgjodh %1$s. Më pas zgjidhni landin federal.</string>
+</resources>

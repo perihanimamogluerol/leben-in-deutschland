@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">انتخاب زبان</string>
+    <string name="language_selection_description">زبانی را برای برنامه و توضیحات پرسش‌های آموزشی انتخاب کنید.</string>
+    <string name="language_selection_search_label">جستجو</string>
+    <string name="language_selection_search_placeholder">نام زبان</string>
+    <string name="language_selection_no_results_title">زبانی پیدا نشد</string>
+    <string name="language_selection_no_results_message">نام یا کد زبان دیگری را امتحان کنید.</string>
+    <string name="language_selection_change_later">بعداً می‌توانید این مورد را در تنظیمات تغییر دهید.</string>
+    <string name="language_selection_continue">ادامه</string>
+    <string name="language_selection_temporary_confirmation">%1$s انتخاب شد. مرحله بعد انتخاب ایالت است.</string>
+</resources>

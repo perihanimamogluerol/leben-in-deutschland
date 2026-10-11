@@ -2,10 +2,15 @@ package com.nextdaymobilestudio.lebenindeutschland.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+internal val Midnight950 = Color(0xFF0D1822)
+internal val Midnight900 = Color(0xFF172735)
+internal val Midnight800 = Color(0xFF263D4D)
+internal val Midnight700 = Color(0xFF345266)
+internal val WarmWhite = Color(0xFFF4F2EA)
+internal val SoftGray = Color(0xFFC4CDD4)
+internal val OutlineGray = Color(0xFF71808C)
+internal val OutlineDark = Color(0xFF40515E)
+internal val CivicGold = Color(0xFFF2C14E)
+internal val CivicGoldContainer = Color(0xFF3C3420)
+internal val AccessibleError = Color(0xFFFF8A80)
+internal val AccessibleSuccess = Color(0xFF79D6A3)
