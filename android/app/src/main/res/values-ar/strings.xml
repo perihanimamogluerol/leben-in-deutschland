@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">يمكنك تغيير ذلك لاحقًا في الإعدادات.</string>
     <string name="language_selection_continue">متابعة</string>
     <string name="language_selection_temporary_confirmation">تم اختيار %1$s. الخطوة التالية هي اختيار الولاية.</string>
+    <string name="state_selection_back">رجوع</string>
+    <string name="state_selection_title">اختر الولاية الألمانية</string>
+    <string name="state_selection_description">اختر الولاية الألمانية التي تعيش فيها أو تريد دراسة أسئلتها.</string>
+    <string name="state_selection_help">يحدد اختيارك الأسئلة العشرة الخاصة بالولاية.</string>
+    <string name="state_selection_continue">متابعة</string>
+    <string name="state_selection_temporary_confirmation">تم اختيار %1$s. سيتم بعد ذلك إعداد محتوى الدراسة.</string>
 </resources>

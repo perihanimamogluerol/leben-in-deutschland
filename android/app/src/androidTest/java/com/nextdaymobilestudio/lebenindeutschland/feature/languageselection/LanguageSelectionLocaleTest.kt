@@ -14,6 +14,7 @@ import androidx.core.os.LocaleListCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.MainActivity
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionTestTags
+import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionTestTags
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -37,7 +38,7 @@ class LanguageSelectionLocaleTest {
     }
 
     @Test
-    fun continueAppliesLocaleAndSelectionSurvivesActivityRecreation() {
+    fun continueAppliesLocaleAndNavigationSurvivesActivityRecreation() {
         composeRule
             .onNodeWithTag(LanguageSelectionTestTags.option("en"))
             .performClick()
@@ -46,12 +47,18 @@ class LanguageSelectionLocaleTest {
             .performClick()
 
         waitForApplicationLocale("en")
-        waitForText("Select language")
-        composeRule.onNodeWithText("Select language").assertIsDisplayed()
+        waitForText("Select federal state")
+        composeRule.onNodeWithText("Select federal state").assertIsDisplayed()
 
         composeRule.activityRule.scenario.recreate()
 
         waitForApplicationLocale("en")
+        waitForText("Select federal state")
+        composeRule.onNodeWithText("Select federal state").assertIsDisplayed()
+
+        composeRule
+            .onNodeWithTag(StateSelectionTestTags.BACK)
+            .performClick()
         waitForText("Select language")
         composeRule
             .onNodeWithTag(LanguageSelectionTestTags.option("en"))
@@ -71,8 +78,8 @@ class LanguageSelectionLocaleTest {
             .performClick()
 
         waitForApplicationLocale("ar")
-        waitForText("اختر اللغة")
-        composeRule.onNodeWithText("اختر اللغة").assertIsDisplayed()
+        waitForText("اختر الولاية الألمانية")
+        composeRule.onNodeWithText("اختر الولاية الألمانية").assertIsDisplayed()
         composeRule.runOnIdle {
             assertEquals(
                 View.LAYOUT_DIRECTION_RTL,

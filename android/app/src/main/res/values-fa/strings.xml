@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">بعداً می‌توانید این مورد را در تنظیمات تغییر دهید.</string>
     <string name="language_selection_continue">ادامه</string>
     <string name="language_selection_temporary_confirmation">%1$s انتخاب شد. مرحله بعد انتخاب ایالت است.</string>
+    <string name="state_selection_back">بازگشت</string>
+    <string name="state_selection_title">ایالت فدرال را انتخاب کنید</string>
+    <string name="state_selection_description">ایالت آلمانی محل زندگی خود یا ایالتی را که می‌خواهید پرسش‌هایش را مطالعه کنید انتخاب کنید.</string>
+    <string name="state_selection_help">انتخاب شما ۱۰ پرسش ویژه آن ایالت را تعیین می‌کند.</string>
+    <string name="state_selection_continue">ادامه</string>
+    <string name="state_selection_temporary_confirmation">%1$s انتخاب شد. در مرحله بعد محتوای مطالعه آماده می‌شود.</string>
 </resources>

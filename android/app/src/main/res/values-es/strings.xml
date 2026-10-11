@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Puedes cambiarlo más tarde en Ajustes.</string>
     <string name="language_selection_continue">Continuar</string>
     <string name="language_selection_temporary_confirmation">Has seleccionado %1$s. A continuación, elige el estado federado.</string>
+    <string name="state_selection_back">Atrás</string>
+    <string name="state_selection_title">Selecciona el estado federado</string>
+    <string name="state_selection_description">Elige el estado federado alemán donde vives o cuyas preguntas quieres estudiar.</string>
+    <string name="state_selection_help">Tu selección determina las 10 preguntas específicas del estado.</string>
+    <string name="state_selection_continue">Continuar</string>
+    <string name="state_selection_temporary_confirmation">Has seleccionado %1$s. A continuación se preparará el contenido de estudio.</string>
 </resources>

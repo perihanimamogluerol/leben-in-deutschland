@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">To kasnije možete promijeniti u Postavkama.</string>
     <string name="language_selection_continue">Nastavi</string>
     <string name="language_selection_temporary_confirmation">Odabran je %1$s. Slijedi odabir savezne pokrajine.</string>
+    <string name="state_selection_back">Natrag</string>
+    <string name="state_selection_title">Odaberite saveznu zemlju</string>
+    <string name="state_selection_description">Odaberite njemačku saveznu zemlju u kojoj živite ili čija pitanja želite učiti.</string>
+    <string name="state_selection_help">Vaš odabir određuje 10 pitanja specifičnih za saveznu zemlju.</string>
+    <string name="state_selection_continue">Nastavi</string>
+    <string name="state_selection_temporary_confirmation">Odabrano: %1$s. Slijedi priprema sadržaja za učenje.</string>
 </resources>

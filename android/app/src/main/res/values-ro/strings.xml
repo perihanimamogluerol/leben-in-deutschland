@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Puteți schimba această opțiune mai târziu în Setări.</string>
     <string name="language_selection_continue">Continuați</string>
     <string name="language_selection_temporary_confirmation">Ați selectat %1$s. Urmează selectarea landului federal.</string>
+    <string name="state_selection_back">Înapoi</string>
+    <string name="state_selection_title">Alegeți landul federal</string>
+    <string name="state_selection_description">Alegeți landul german în care locuiți sau ale cărui întrebări doriți să le studiați.</string>
+    <string name="state_selection_help">Alegerea stabilește cele 10 întrebări specifice landului.</string>
+    <string name="state_selection_continue">Continuați</string>
+    <string name="state_selection_temporary_confirmation">Ați selectat %1$s. Urmează pregătirea conținutului de studiu.</string>
 </resources>

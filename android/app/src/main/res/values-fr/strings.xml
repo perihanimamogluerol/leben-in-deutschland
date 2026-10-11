@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Vous pourrez modifier ce choix plus tard dans les paramètres.</string>
     <string name="language_selection_continue">Continuer</string>
     <string name="language_selection_temporary_confirmation">%1$s a été sélectionné. Choisissez ensuite le Land.</string>
+    <string name="state_selection_back">Retour</string>
+    <string name="state_selection_title">Sélectionnez le Land</string>
+    <string name="state_selection_description">Choisissez le Land allemand où vous vivez ou dont vous souhaitez étudier les questions.</string>
+    <string name="state_selection_help">Votre choix détermine les 10 questions propres au Land.</string>
+    <string name="state_selection_continue">Continuer</string>
+    <string name="state_selection_temporary_confirmation">%1$s sélectionné. Le contenu d’étude sera ensuite préparé.</string>
 </resources>
