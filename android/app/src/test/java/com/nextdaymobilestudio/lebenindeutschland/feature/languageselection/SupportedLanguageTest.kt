@@ -2,6 +2,7 @@ package com.nextdaymobilestudio.lebenindeutschland.feature.languageselection
 
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class SupportedLanguageTest {
@@ -60,5 +61,15 @@ class SupportedLanguageTest {
             SupportedLanguage.TURKISH,
             SupportedLanguage.fromLanguageTags("ja-JP,tr-TR,en-GB"),
         )
+    }
+
+    @Test
+    fun `stored language code resolves only supported languages`() {
+        assertEquals(
+            SupportedLanguage.SERBIAN_LATIN,
+            SupportedLanguage.fromCode("sr-Latn"),
+        )
+        assertNull(SupportedLanguage.fromCode("ja"))
+        assertNull(SupportedLanguage.fromCode(null))
     }
 }

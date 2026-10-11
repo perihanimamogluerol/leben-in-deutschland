@@ -36,4 +36,14 @@ class StateSelectionViewModelTest {
 
         assertEquals(GermanState.HAMBURG, viewModel.uiState.value.selectedState)
     }
+
+    @Test
+    fun `persisted state is selected initially`() {
+        val state = StateSelectionViewModel(
+            initialState = GermanState.HESSE,
+        ).uiState.value
+
+        assertEquals(GermanState.HESSE, state.selectedState)
+        assertTrue(state.canContinue)
+    }
 }

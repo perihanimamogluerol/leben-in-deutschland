@@ -20,4 +20,10 @@ enum class GermanState(
     SAXONY_ANHALT(code = "st", germanName = "Sachsen-Anhalt"),
     SCHLESWIG_HOLSTEIN(code = "sh", germanName = "Schleswig-Holstein"),
     THURINGIA(code = "th", germanName = "Thüringen"),
+    ;
+
+    companion object {
+        fun fromCode(code: String?): GermanState? =
+            entries.firstOrNull { state -> state.code == code }
+    }
 }
