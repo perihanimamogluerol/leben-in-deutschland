@@ -157,3 +157,67 @@ Use the same submit, status, download, and apply commands for the translation
 manifest. After applying translations, rebuild schema 3 without
 `--allow-incomplete` and run production validation. AI-generated explanations
 remain marked as needing human review even when structural validation passes.
+
+## Publish Schema 3 to Firestore
+
+`firestore_upload_schema3.py` keeps validation, upload, verification, and
+activation separate. It never deletes an older release. The active manifest is
+changed only by the explicit `activate` command after a complete remote
+comparison succeeds.
+
+Install the pinned Firebase Admin dependency inside the ignored local virtual
+environment:
+
+```bash
+source .local/venv/bin/activate
+python -m pip install -r scripts/content/requirements-firebase.txt
+```
+
+First run the local-only plan. This command does not require credentials and
+performs no network calls or writes:
+
+```bash
+python scripts/content/firestore_upload_schema3.py plan \
+  --input .local/generated/schema-3-production
+```
+
+For remote commands, point Application Default Credentials to a Firebase
+service-account file outside the repository:
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS="/absolute/path/to/service-account.json"
+```
+
+Upload the immutable release without activating it. Both confirmation values
+must exactly match the intended target:
+
+```bash
+python scripts/content/firestore_upload_schema3.py upload \
+  --input .local/generated/schema-3-production \
+  --project-id leben-in-deutschland-38a07 \
+  --confirm-project leben-in-deutschland-38a07 \
+  --confirm-release lid-2026-10-05-103327-schema-3
+```
+
+Read every remote release document back and compare it with the local bundle:
+
+```bash
+python scripts/content/firestore_upload_schema3.py verify \
+  --input .local/generated/schema-3-production \
+  --project-id leben-in-deutschland-38a07
+```
+
+Activation is a separate final operation. It atomically updates only
+`contentManifest/current` and records the previous release ID for rollback:
+
+```bash
+python scripts/content/firestore_upload_schema3.py activate \
+  --input .local/generated/schema-3-production \
+  --project-id leben-in-deutschland-38a07 \
+  --confirm-project leben-in-deutschland-38a07 \
+  --confirm-release lid-2026-10-05-103327-schema-3 \
+  --confirm-activate ACTIVATE
+```
+
+The service-account file, `.local/` content, generated releases, and batch
+outputs must never be committed to Git.
