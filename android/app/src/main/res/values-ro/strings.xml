@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Selectați limba</string>
+    <string name="language_selection_description">Alegeți limba folosită în aplicație și pentru explicațiile întrebărilor de studiu.</string>
+    <string name="language_selection_search_label">Căutare</string>
+    <string name="language_selection_search_placeholder">Numele limbii</string>
+    <string name="language_selection_no_results_title">Nu a fost găsită nicio limbă</string>
+    <string name="language_selection_no_results_message">Încercați alt nume sau cod de limbă.</string>
+    <string name="language_selection_change_later">Puteți schimba această opțiune mai târziu în Setări.</string>
+    <string name="language_selection_continue">Continuați</string>
+    <string name="language_selection_temporary_confirmation">Ați selectat %1$s. Urmează selectarea landului federal.</string>
+</resources>

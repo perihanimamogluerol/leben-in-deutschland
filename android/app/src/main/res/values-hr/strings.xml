@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Odaberite jezik</string>
+    <string name="language_selection_description">Odaberite jezik aplikacije i objašnjenja uz pitanja za učenje.</string>
+    <string name="language_selection_search_label">Pretraži</string>
+    <string name="language_selection_search_placeholder">Naziv jezika</string>
+    <string name="language_selection_no_results_title">Jezik nije pronađen</string>
+    <string name="language_selection_no_results_message">Pokušajte s drugim nazivom ili kodom jezika.</string>
+    <string name="language_selection_change_later">To kasnije možete promijeniti u Postavkama.</string>
+    <string name="language_selection_continue">Nastavi</string>
+    <string name="language_selection_temporary_confirmation">Odabran je %1$s. Slijedi odabir savezne pokrajine.</string>
+</resources>

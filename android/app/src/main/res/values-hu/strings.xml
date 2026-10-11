@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Válasszon nyelvet</string>
+    <string name="language_selection_description">Válassza ki az alkalmazás és a tanulási kérdések magyarázatainak nyelvét.</string>
+    <string name="language_selection_search_label">Keresés</string>
+    <string name="language_selection_search_placeholder">Nyelv neve</string>
+    <string name="language_selection_no_results_title">Nem található nyelv</string>
+    <string name="language_selection_no_results_message">Próbáljon másik nyelvnevet vagy nyelvi kódot.</string>
+    <string name="language_selection_change_later">Ezt később a Beállításokban módosíthatja.</string>
+    <string name="language_selection_continue">Tovább</string>
+    <string name="language_selection_temporary_confirmation">A kiválasztott nyelv: %1$s. Következő lépésként válassza ki a szövetségi tartományt.</string>
+</resources>

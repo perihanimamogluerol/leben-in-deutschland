@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Dil seçin</string>
+    <string name="language_selection_description">Uygulamada ve çalışma açıklamalarında kullanılacak dili seçin.</string>
+    <string name="language_selection_search_label">Ara</string>
+    <string name="language_selection_search_placeholder">Dil adı</string>
+    <string name="language_selection_no_results_title">Dil bulunamadı</string>
+    <string name="language_selection_no_results_message">Başka bir dil adı veya dil kodu deneyin.</string>
+    <string name="language_selection_change_later">Bunu daha sonra Ayarlar bölümünden değiştirebilirsiniz.</string>
+    <string name="language_selection_continue">Devam</string>
+    <string name="language_selection_temporary_confirmation">%1$s seçildi. Sırada eyalet seçimi var.</string>
+</resources>

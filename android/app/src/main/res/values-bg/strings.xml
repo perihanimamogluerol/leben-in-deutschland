@@ -1,0 +1,11 @@
+<resources>
+    <string name="language_selection_title">Изберете език</string>
+    <string name="language_selection_description">Изберете езика за приложението и обясненията към учебните въпроси.</string>
+    <string name="language_selection_search_label">Търсене</string>
+    <string name="language_selection_search_placeholder">Име на езика</string>
+    <string name="language_selection_no_results_title">Не е намерен език</string>
+    <string name="language_selection_no_results_message">Опитайте с друго име или код на език.</string>
+    <string name="language_selection_change_later">Можете да промените това по-късно в Настройки.</string>
+    <string name="language_selection_continue">Продължи</string>
+    <string name="language_selection_temporary_confirmation">Избран е %1$s. Следва избор на федерална провинция.</string>
+</resources>

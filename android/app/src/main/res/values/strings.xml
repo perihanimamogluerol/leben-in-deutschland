@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">LebenInDeutschland</string>
+    <string name="app_name" translatable="false">Leben in Deutschland</string>
+    <string name="language_selection_title">Sprache auswählen</string>
+    <string name="language_selection_description">Wählen Sie die Sprache für die App und die Erklärungen zu den Lernfragen.</string>
+    <string name="language_selection_search_label">Suchen</string>
+    <string name="language_selection_search_placeholder">Sprachname</string>
+    <string name="language_selection_no_results_title">Keine Sprache gefunden</string>
+    <string name="language_selection_no_results_message">Versuchen Sie einen anderen Sprachnamen oder Sprachcode.</string>
+    <string name="language_selection_change_later">Sie können dies später in den Einstellungen ändern.</string>
+    <string name="language_selection_continue">Weiter</string>
+    <string name="language_selection_selected_symbol" translatable="false">✓</string>
+    <string name="language_selection_temporary_confirmation">%1$s ausgewählt. Als Nächstes folgt die Auswahl des Bundeslandes.</string>
 </resources>
