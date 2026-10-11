@@ -11,13 +11,14 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.mode
 
 @Composable
 fun LanguageSelectionRoute(
+    persistedLanguage: SupportedLanguage? = null,
     onContinue: (SupportedLanguage) -> Unit,
     viewModel: LanguageSelectionViewModel? = null,
 ) {
     val configuration = LocalConfiguration.current
     val currentLocaleTags = configuration.locales.toLanguageTags()
-    val initialLanguage = remember(currentLocaleTags) {
-        SupportedLanguage.fromLanguageTags(currentLocaleTags)
+    val initialLanguage = remember(currentLocaleTags, persistedLanguage) {
+        persistedLanguage ?: SupportedLanguage.fromLanguageTags(currentLocaleTags)
     }
     val actualViewModel = viewModel ?: composeViewModel<LanguageSelectionViewModel>(
         factory = LanguageSelectionViewModel.factory(initialLanguage),

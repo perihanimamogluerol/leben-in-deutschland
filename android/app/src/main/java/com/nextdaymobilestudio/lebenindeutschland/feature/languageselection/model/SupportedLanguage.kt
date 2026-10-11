@@ -119,6 +119,9 @@ enum class SupportedLanguage(
     ;
 
     companion object {
+        fun fromCode(code: String?): SupportedLanguage? =
+            entries.firstOrNull { language -> language.code == code }
+
         fun fromLanguageTag(languageTag: String): SupportedLanguage =
             findByLanguageTag(languageTag) ?: GERMAN
 

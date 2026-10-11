@@ -9,11 +9,14 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.G
 
 @Composable
 fun StateSelectionRoute(
+    initialState: GermanState? = null,
     onBack: () -> Unit,
     onContinue: (GermanState) -> Unit,
     viewModel: StateSelectionViewModel? = null,
 ) {
-    val actualViewModel = viewModel ?: composeViewModel<StateSelectionViewModel>()
+    val actualViewModel = viewModel ?: composeViewModel<StateSelectionViewModel>(
+        factory = StateSelectionViewModel.factory(initialState),
+    )
     val uiState by actualViewModel.uiState.collectAsStateWithLifecycle()
 
     StateSelectionScreen(

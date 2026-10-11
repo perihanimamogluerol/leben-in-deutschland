@@ -2,6 +2,7 @@ package com.nextdaymobilestudio.lebenindeutschland.feature.stateselection
 
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class GermanStateTest {
@@ -31,5 +32,12 @@ class GermanStateTest {
             ),
             GermanState.entries.map(GermanState::code).toSet(),
         )
+    }
+
+    @Test
+    fun `stored state code resolves only catalog states`() {
+        assertEquals(GermanState.HESSE, GermanState.fromCode("he"))
+        assertNull(GermanState.fromCode("xx"))
+        assertNull(GermanState.fromCode(null))
     }
 }

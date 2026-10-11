@@ -13,8 +13,12 @@ import androidx.compose.ui.test.performTextReplacement
 import androidx.core.os.LocaleListCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.MainActivity
+import com.nextdaymobilestudio.lebenindeutschland.core.preferences.DataStoreOnboardingPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.core.preferences.onboardingPreferencesDataStore
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionTestTags
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionTestTags
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -29,11 +33,15 @@ class LanguageSelectionLocaleTest {
 
     @Before
     fun startFromGerman() {
+        clearOnboardingSelections()
         setApplicationLocale("de")
+        composeRule.activityRule.scenario.recreate()
+        waitForText("Sprache auswählen")
     }
 
     @After
     fun returnToSystemLocale() {
+        clearOnboardingSelections()
         setApplicationLocale("")
     }
 
@@ -85,6 +93,53 @@ class LanguageSelectionLocaleTest {
                 View.LAYOUT_DIRECTION_RTL,
                 composeRule.activity.resources.configuration.layoutDirection,
             )
+        }
+    }
+
+    @Test
+    fun languageAndStateSelectionsSurviveActivityRecreation() {
+        composeRule
+            .onNodeWithTag(LanguageSelectionTestTags.CONTINUE)
+            .performClick()
+        waitForText("Bundesland auswählen")
+
+        composeRule
+            .onNodeWithTag(StateSelectionTestTags.option("bw"))
+            .performClick()
+        composeRule
+            .onNodeWithTag(StateSelectionTestTags.CONTINUE)
+            .performClick()
+
+        waitForPersistedSelections(languageCode = "de", stateCode = "bw")
+        composeRule.activityRule.scenario.recreate()
+
+        waitForText("Bundesland auswählen")
+        composeRule
+            .onNodeWithTag(StateSelectionTestTags.option("bw"))
+            .assertIsSelected()
+    }
+
+    private fun clearOnboardingSelections() {
+        val repository = DataStoreOnboardingPreferencesRepository(
+            composeRule.activity.applicationContext.onboardingPreferencesDataStore,
+        )
+        runBlocking { repository.clear() }
+    }
+
+    private fun waitForPersistedSelections(
+        languageCode: String,
+        stateCode: String,
+    ) {
+        val repository = DataStoreOnboardingPreferencesRepository(
+            composeRule.activity.applicationContext.onboardingPreferencesDataStore,
+        )
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            runBlocking {
+                repository.preferences.first().let { preferences ->
+                    preferences.languageCode == languageCode &&
+                        preferences.stateCode == stateCode
+                }
+            }
         }
     }
 
