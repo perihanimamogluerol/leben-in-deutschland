@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">تاسو کولی شئ دا وروسته په امستنو کې بدل کړئ.</string>
     <string name="language_selection_continue">دوام</string>
     <string name="language_selection_temporary_confirmation">%1$s وټاکل شوه. بل ګام د ایالت ټاکل دي.</string>
+    <string name="state_selection_back">شاته</string>
+    <string name="state_selection_title">فدرالي ایالت وټاکئ</string>
+    <string name="state_selection_description">هغه آلماني فدرالي ایالت وټاکئ چې پکې اوسېږئ یا غواړئ پوښتنې یې زده کړئ.</string>
+    <string name="state_selection_help">ستاسو ټاکنه د ایالت ۱۰ ځانګړې پوښتنې ټاکي.</string>
+    <string name="state_selection_continue">دوام</string>
+    <string name="state_selection_temporary_confirmation">%1$s وټاکل شو. وروسته به د زده کړې منځپانګه چمتو شي.</string>
 </resources>

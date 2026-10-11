@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Можете да промените това по-късно в Настройки.</string>
     <string name="language_selection_continue">Продължи</string>
     <string name="language_selection_temporary_confirmation">Избран е %1$s. Следва избор на федерална провинция.</string>
+    <string name="state_selection_back">Назад</string>
+    <string name="state_selection_title">Изберете федерална провинция</string>
+    <string name="state_selection_description">Изберете германската федерална провинция, в която живеете или чиито въпроси искате да изучавате.</string>
+    <string name="state_selection_help">Изборът определя 10-те въпроса за провинцията.</string>
+    <string name="state_selection_continue">Продължи</string>
+    <string name="state_selection_temporary_confirmation">Избрано: %1$s. Следва подготовка на учебното съдържание.</string>
 </resources>

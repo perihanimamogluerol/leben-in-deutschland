@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Ви зможете змінити це пізніше в налаштуваннях.</string>
     <string name="language_selection_continue">Продовжити</string>
     <string name="language_selection_temporary_confirmation">Вибрано: %1$s. Далі виберіть федеральну землю.</string>
+    <string name="state_selection_back">Назад</string>
+    <string name="state_selection_title">Виберіть федеральну землю</string>
+    <string name="state_selection_description">Виберіть федеральну землю Німеччини, де ви живете або запитання якої хочете вивчати.</string>
+    <string name="state_selection_help">Ваш вибір визначає 10 запитань для цієї землі.</string>
+    <string name="state_selection_continue">Продовжити</string>
+    <string name="state_selection_temporary_confirmation">Вибрано: %1$s. Далі буде підготовлено навчальний матеріал.</string>
 </resources>

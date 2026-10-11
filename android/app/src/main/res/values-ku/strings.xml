@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Hûn dikarin vê yekê paşê di Mîhengan de biguherînin.</string>
     <string name="language_selection_continue">Berdewam bikin</string>
     <string name="language_selection_temporary_confirmation">%1$s hate hilbijartin. Piştre eyaletê hilbijêrin.</string>
+    <string name="state_selection_back">Paşve</string>
+    <string name="state_selection_title">Eyaleta federal hilbijêre</string>
+    <string name="state_selection_description">Eyaleta federal a Almanyayê ya ku lê dijî an jî dixwazî pirsên wê bixwînî hilbijêre.</string>
+    <string name="state_selection_help">Hilbijartina te 10 pirsên taybet ên eyaletê diyar dike.</string>
+    <string name="state_selection_continue">Bidomîne</string>
+    <string name="state_selection_temporary_confirmation">%1$s hate hilbijartin. Piştre naveroka xwendinê dê were amadekirin.</string>
 </resources>

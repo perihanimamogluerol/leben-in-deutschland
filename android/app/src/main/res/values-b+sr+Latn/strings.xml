@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Ovo kasnije možete promeniti u Podešavanjima.</string>
     <string name="language_selection_continue">Nastavi</string>
     <string name="language_selection_temporary_confirmation">Izabran je %1$s. Sledi izbor savezne pokrajine.</string>
+    <string name="state_selection_back">Nazad</string>
+    <string name="state_selection_title">Izaberite saveznu pokrajinu</string>
+    <string name="state_selection_description">Izaberite nemačku saveznu pokrajinu u kojoj živite ili čija pitanja želite da učite.</string>
+    <string name="state_selection_help">Vaš izbor određuje 10 pitanja specifičnih za pokrajinu.</string>
+    <string name="state_selection_continue">Nastavi</string>
+    <string name="state_selection_temporary_confirmation">Izabrano: %1$s. Sledeće se priprema sadržaj za učenje.</string>
 </resources>

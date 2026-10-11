@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Μπορείτε να το αλλάξετε αργότερα στις Ρυθμίσεις.</string>
     <string name="language_selection_continue">Συνέχεια</string>
     <string name="language_selection_temporary_confirmation">Επιλέχθηκε: %1$s. Στη συνέχεια επιλέξτε ομόσπονδο κρατίδιο.</string>
+    <string name="state_selection_back">Πίσω</string>
+    <string name="state_selection_title">Επιλέξτε ομόσπονδο κρατίδιο</string>
+    <string name="state_selection_description">Επιλέξτε το γερμανικό ομόσπονδο κρατίδιο όπου ζείτε ή τις ερωτήσεις του οποίου θέλετε να μελετήσετε.</string>
+    <string name="state_selection_help">Η επιλογή σας καθορίζει τις 10 ερωτήσεις του κρατιδίου.</string>
+    <string name="state_selection_continue">Συνέχεια</string>
+    <string name="state_selection_temporary_confirmation">Επιλέχθηκε: %1$s. Στη συνέχεια θα προετοιμαστεί το υλικό μελέτης.</string>
 </resources>

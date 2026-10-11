@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Mund ta ndryshoni më vonë te Cilësimet.</string>
     <string name="language_selection_continue">Vazhdo</string>
     <string name="language_selection_temporary_confirmation">U zgjodh %1$s. Më pas zgjidhni landin federal.</string>
+    <string name="state_selection_back">Prapa</string>
+    <string name="state_selection_title">Zgjidhni landin federal</string>
+    <string name="state_selection_description">Zgjidhni landin gjerman ku jetoni ose pyetjet e të cilit dëshironi të studioni.</string>
+    <string name="state_selection_help">Zgjedhja juaj përcakton 10 pyetjet specifike të landit.</string>
+    <string name="state_selection_continue">Vazhdo</string>
+    <string name="state_selection_temporary_confirmation">U zgjodh %1$s. Më pas do të përgatitet përmbajtja e studimit.</string>
 </resources>

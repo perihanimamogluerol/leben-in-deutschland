@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Puoi modificare questa scelta in seguito nelle Impostazioni.</string>
     <string name="language_selection_continue">Continua</string>
     <string name="language_selection_temporary_confirmation">Hai selezionato %1$s. Ora scegli lo stato federato.</string>
+    <string name="state_selection_back">Indietro</string>
+    <string name="state_selection_title">Seleziona lo stato federato</string>
+    <string name="state_selection_description">Scegli lo stato federato tedesco in cui vivi o di cui vuoi studiare le domande.</string>
+    <string name="state_selection_help">La selezione determina le 10 domande specifiche dello stato.</string>
+    <string name="state_selection_continue">Continua</string>
+    <string name="state_selection_temporary_confirmation">Hai selezionato %1$s. Ora verrà preparato il contenuto di studio.</string>
 </resources>

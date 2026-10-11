@@ -10,4 +10,10 @@
     <string name="language_selection_continue">Weiter</string>
     <string name="language_selection_selected_symbol" translatable="false">✓</string>
     <string name="language_selection_temporary_confirmation">%1$s ausgewählt. Als Nächstes folgt die Auswahl des Bundeslandes.</string>
+    <string name="state_selection_back">Zurück</string>
+    <string name="state_selection_title">Bundesland auswählen</string>
+    <string name="state_selection_description">Wählen Sie das Bundesland, in dem Sie leben oder für das Sie lernen möchten.</string>
+    <string name="state_selection_help">Ihr Bundesland bestimmt die 10 landesspezifischen Fragen.</string>
+    <string name="state_selection_continue">Weiter</string>
+    <string name="state_selection_temporary_confirmation">%1$s ausgewählt. Als Nächstes wird der Lerninhalt vorbereitet.</string>
 </resources>

@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Bunu daha sonra Ayarlar bölümünden değiştirebilirsiniz.</string>
     <string name="language_selection_continue">Devam</string>
     <string name="language_selection_temporary_confirmation">%1$s seçildi. Sırada eyalet seçimi var.</string>
+    <string name="state_selection_back">Geri</string>
+    <string name="state_selection_title">Eyalet seçin</string>
+    <string name="state_selection_description">Yaşadığınız veya sorularına çalışmak istediğiniz Alman eyaletini seçin.</string>
+    <string name="state_selection_help">Seçiminiz eyalete özel 10 soruyu belirler.</string>
+    <string name="state_selection_continue">Devam</string>
+    <string name="state_selection_temporary_confirmation">%1$s seçildi. Sırada çalışma içeriğinin hazırlanması var.</string>
 </resources>

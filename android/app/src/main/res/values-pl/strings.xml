@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Możesz to później zmienić w Ustawieniach.</string>
     <string name="language_selection_continue">Dalej</string>
     <string name="language_selection_temporary_confirmation">Wybrano %1$s. Następnie wybierz kraj związkowy.</string>
+    <string name="state_selection_back">Wstecz</string>
+    <string name="state_selection_title">Wybierz kraj związkowy</string>
+    <string name="state_selection_description">Wybierz niemiecki kraj związkowy, w którym mieszkasz lub którego pytania chcesz przećwiczyć.</string>
+    <string name="state_selection_help">Wybór określa 10 pytań dotyczących tego kraju związkowego.</string>
+    <string name="state_selection_continue">Dalej</string>
+    <string name="state_selection_temporary_confirmation">Wybrano %1$s. Następnie przygotujemy materiały do nauki.</string>
 </resources>

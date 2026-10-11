@@ -8,4 +8,10 @@
     <string name="language_selection_change_later">Это можно изменить позже в настройках.</string>
     <string name="language_selection_continue">Продолжить</string>
     <string name="language_selection_temporary_confirmation">Выбран язык: %1$s. Далее выберите федеральную землю.</string>
+    <string name="state_selection_back">Назад</string>
+    <string name="state_selection_title">Выберите федеральную землю</string>
+    <string name="state_selection_description">Выберите федеральную землю Германии, в которой вы живете или вопросы которой хотите изучать.</string>
+    <string name="state_selection_help">Ваш выбор определяет 10 вопросов для этой земли.</string>
+    <string name="state_selection_continue">Продолжить</string>
+    <string name="state_selection_temporary_confirmation">Выбрано: %1$s. Далее будет подготовлен учебный материал.</string>
 </resources>
