@@ -20,6 +20,14 @@ class RoomLocalContentRepository(
     override fun observeInstalledPackages(releaseId: String): Flow<List<ContentPackageEntity>> =
         contentDao.observePackages(releaseId)
 
+    override suspend fun getActiveRelease(): ContentReleaseEntity? =
+        contentDao.getActiveRelease()
+
+    override suspend fun getPackage(
+        releaseId: String,
+        languageCode: String,
+    ): ContentPackageEntity? = contentDao.getPackage(releaseId, languageCode)
+
     override suspend fun replacePackage(snapshot: ContentPackageSnapshot) {
         snapshot.requireValid()
         database.withTransaction {

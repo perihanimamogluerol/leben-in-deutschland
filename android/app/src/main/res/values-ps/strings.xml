@@ -14,4 +14,13 @@
     <string name="state_selection_help">ستاسو ټاکنه د ایالت ۱۰ ځانګړې پوښتنې ټاکي.</string>
     <string name="state_selection_continue">دوام</string>
     <string name="state_selection_temporary_confirmation">%1$s وټاکل شو. وروسته به د زده کړې منځپانګه چمتو شي.</string>
+    <string name="content_bootstrap_loading_title">د زده کړې منځپانګه چمتو کېږي</string>
+    <string name="content_bootstrap_loading_description">پوښتنې ډاونلوډ او په خوندي ډول تاییدېږي. مهرباني وکړئ اپ پرانیستی وساتئ.</string>
+    <string name="content_bootstrap_ready_title">د زده کړې منځپانګه چمتو ده</string>
+    <string name="content_bootstrap_ready_description">%1$d پوښتنې له انټرنېټ پرته شته.</string>
+    <string name="content_bootstrap_refreshing">د منځپانګې تازه معلومات کتل کېږي…</string>
+    <string name="content_bootstrap_refresh_failed">تازه معلومات ونه کتل شول. ډاونلوډ شوې منځپانګه لا هم شته.</string>
+    <string name="content_bootstrap_error_title">د زده کړې منځپانګه چمتو نه شوه</string>
+    <string name="content_bootstrap_error_description">خپل انټرنېټ اتصال وګورئ او بیا هڅه وکړئ.</string>
+    <string name="content_bootstrap_retry">بیا هڅه وکړئ</string>
 </resources>

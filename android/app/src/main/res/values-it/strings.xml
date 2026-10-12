@@ -14,4 +14,13 @@
     <string name="state_selection_help">La selezione determina le 10 domande specifiche dello stato.</string>
     <string name="state_selection_continue">Continua</string>
     <string name="state_selection_temporary_confirmation">Hai selezionato %1$s. Ora verrà preparato il contenuto di studio.</string>
+    <string name="content_bootstrap_loading_title">Preparazione dei contenuti di studio</string>
+    <string name="content_bootstrap_loading_description">Le domande vengono scaricate e verificate in modo sicuro. Mantieni aperta l’app.</string>
+    <string name="content_bootstrap_ready_title">I contenuti di studio sono pronti</string>
+    <string name="content_bootstrap_ready_description">%1$d domande sono disponibili offline.</string>
+    <string name="content_bootstrap_refreshing">Verifica degli aggiornamenti dei contenuti…</string>
+    <string name="content_bootstrap_refresh_failed">Impossibile verificare gli aggiornamenti. I contenuti scaricati restano disponibili.</string>
+    <string name="content_bootstrap_error_title">Impossibile preparare i contenuti di studio</string>
+    <string name="content_bootstrap_error_description">Controlla la connessione a Internet e riprova.</string>
+    <string name="content_bootstrap_retry">Riprova</string>
 </resources>

@@ -14,4 +14,13 @@
     <string name="state_selection_help">Your selection determines the 10 state-specific questions.</string>
     <string name="state_selection_continue">Continue</string>
     <string name="state_selection_temporary_confirmation">%1$s selected. Your study content will be prepared next.</string>
+    <string name="content_bootstrap_loading_title">Preparing study content</string>
+    <string name="content_bootstrap_loading_description">Questions are being downloaded and securely verified. Please keep the app open.</string>
+    <string name="content_bootstrap_ready_title">Study content is ready</string>
+    <string name="content_bootstrap_ready_description">%1$d questions are available offline.</string>
+    <string name="content_bootstrap_refreshing">Checking for content updates…</string>
+    <string name="content_bootstrap_refresh_failed">Updates could not be checked. Your downloaded content is still available.</string>
+    <string name="content_bootstrap_error_title">Study content could not be prepared</string>
+    <string name="content_bootstrap_error_description">Check your internet connection and try again.</string>
+    <string name="content_bootstrap_retry">Try again</string>
 </resources>

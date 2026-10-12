@@ -16,4 +16,13 @@
     <string name="state_selection_help">Ihr Bundesland bestimmt die 10 landesspezifischen Fragen.</string>
     <string name="state_selection_continue">Weiter</string>
     <string name="state_selection_temporary_confirmation">%1$s ausgewählt. Als Nächstes wird der Lerninhalt vorbereitet.</string>
+    <string name="content_bootstrap_loading_title">Lerninhalte werden vorbereitet</string>
+    <string name="content_bootstrap_loading_description">Die Fragen werden heruntergeladen und sicher überprüft. Bitte lassen Sie die App geöffnet.</string>
+    <string name="content_bootstrap_ready_title">Lerninhalte sind bereit</string>
+    <string name="content_bootstrap_ready_description">%1$d Fragen sind offline verfügbar.</string>
+    <string name="content_bootstrap_refreshing">Inhaltsaktualisierungen werden geprüft…</string>
+    <string name="content_bootstrap_refresh_failed">Aktualisierungen konnten nicht geprüft werden. Ihre heruntergeladenen Inhalte sind weiterhin verfügbar.</string>
+    <string name="content_bootstrap_error_title">Lerninhalte konnten nicht vorbereitet werden</string>
+    <string name="content_bootstrap_error_description">Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</string>
+    <string name="content_bootstrap_retry">Erneut versuchen</string>
 </resources>

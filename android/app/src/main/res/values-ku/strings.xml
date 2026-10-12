@@ -14,4 +14,13 @@
     <string name="state_selection_help">Hilbijartina te 10 pirsên taybet ên eyaletê diyar dike.</string>
     <string name="state_selection_continue">Bidomîne</string>
     <string name="state_selection_temporary_confirmation">%1$s hate hilbijartin. Piştre naveroka xwendinê dê were amadekirin.</string>
+    <string name="content_bootstrap_loading_title">Naveroka xwendinê tê amadekirin</string>
+    <string name="content_bootstrap_loading_description">Pirs tên daxistin û bi ewlehî tên piştrastkirin. Ji kerema xwe sepanê vekirî bihêlin.</string>
+    <string name="content_bootstrap_ready_title">Naveroka xwendinê amade ye</string>
+    <string name="content_bootstrap_ready_description">%1$d pirs bê înternetê hene.</string>
+    <string name="content_bootstrap_refreshing">Rojanekirinên naverokê tên kontrolkirin…</string>
+    <string name="content_bootstrap_refresh_failed">Rojanekirin nehatin kontrolkirin. Naveroka daxistî hîn jî heye.</string>
+    <string name="content_bootstrap_error_title">Naveroka xwendinê nehat amadekirin</string>
+    <string name="content_bootstrap_error_description">Girêdana xwe ya înternetê kontrol bikin û dîsa biceribînin.</string>
+    <string name="content_bootstrap_retry">Dîsa biceribîne</string>
 </resources>

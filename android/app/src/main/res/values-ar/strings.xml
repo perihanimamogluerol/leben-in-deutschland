@@ -14,4 +14,13 @@
     <string name="state_selection_help">يحدد اختيارك الأسئلة العشرة الخاصة بالولاية.</string>
     <string name="state_selection_continue">متابعة</string>
     <string name="state_selection_temporary_confirmation">تم اختيار %1$s. سيتم بعد ذلك إعداد محتوى الدراسة.</string>
+    <string name="content_bootstrap_loading_title">جارٍ إعداد محتوى الدراسة</string>
+    <string name="content_bootstrap_loading_description">يتم تنزيل الأسئلة والتحقق منها بأمان. يُرجى إبقاء التطبيق مفتوحًا.</string>
+    <string name="content_bootstrap_ready_title">محتوى الدراسة جاهز</string>
+    <string name="content_bootstrap_ready_description">يتوفر %1$d سؤالًا بلا اتصال بالإنترنت.</string>
+    <string name="content_bootstrap_refreshing">جارٍ البحث عن تحديثات المحتوى…</string>
+    <string name="content_bootstrap_refresh_failed">تعذر التحقق من التحديثات. لا يزال المحتوى الذي نزّلته متاحًا.</string>
+    <string name="content_bootstrap_error_title">تعذر إعداد محتوى الدراسة</string>
+    <string name="content_bootstrap_error_description">تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="content_bootstrap_retry">إعادة المحاولة</string>
 </resources>

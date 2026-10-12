@@ -14,4 +14,13 @@
     <string name="state_selection_help">Alegerea stabilește cele 10 întrebări specifice landului.</string>
     <string name="state_selection_continue">Continuați</string>
     <string name="state_selection_temporary_confirmation">Ați selectat %1$s. Urmează pregătirea conținutului de studiu.</string>
+    <string name="content_bootstrap_loading_title">Se pregătește conținutul de studiu</string>
+    <string name="content_bootstrap_loading_description">Întrebările sunt descărcate și verificate în siguranță. Păstrați aplicația deschisă.</string>
+    <string name="content_bootstrap_ready_title">Conținutul de studiu este pregătit</string>
+    <string name="content_bootstrap_ready_description">%1$d întrebări sunt disponibile offline.</string>
+    <string name="content_bootstrap_refreshing">Se caută actualizări ale conținutului…</string>
+    <string name="content_bootstrap_refresh_failed">Actualizările nu au putut fi verificate. Conținutul descărcat rămâne disponibil.</string>
+    <string name="content_bootstrap_error_title">Conținutul de studiu nu a putut fi pregătit</string>
+    <string name="content_bootstrap_error_description">Verificați conexiunea la internet și încercați din nou.</string>
+    <string name="content_bootstrap_retry">Încercați din nou</string>
 </resources>

@@ -14,4 +14,13 @@
     <string name="state_selection_help">Ваш выбор определяет 10 вопросов для этой земли.</string>
     <string name="state_selection_continue">Продолжить</string>
     <string name="state_selection_temporary_confirmation">Выбрано: %1$s. Далее будет подготовлен учебный материал.</string>
+    <string name="content_bootstrap_loading_title">Подготовка учебных материалов</string>
+    <string name="content_bootstrap_loading_description">Вопросы загружаются и безопасно проверяются. Не закрывайте приложение.</string>
+    <string name="content_bootstrap_ready_title">Учебные материалы готовы</string>
+    <string name="content_bootstrap_ready_description">%1$d вопросов доступны офлайн.</string>
+    <string name="content_bootstrap_refreshing">Проверяем обновления материалов…</string>
+    <string name="content_bootstrap_refresh_failed">Не удалось проверить обновления. Загруженные материалы остаются доступными.</string>
+    <string name="content_bootstrap_error_title">Не удалось подготовить учебные материалы</string>
+    <string name="content_bootstrap_error_description">Проверьте подключение к интернету и попробуйте ещё раз.</string>
+    <string name="content_bootstrap_retry">Повторить</string>
 </resources>

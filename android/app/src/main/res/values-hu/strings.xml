@@ -14,4 +14,13 @@
     <string name="state_selection_help">A választás határozza meg a tartományhoz tartozó 10 kérdést.</string>
     <string name="state_selection_continue">Tovább</string>
     <string name="state_selection_temporary_confirmation">Kiválasztva: %1$s. Ezután elkészül a tanulási tartalom.</string>
+    <string name="content_bootstrap_loading_title">Tananyag előkészítése</string>
+    <string name="content_bootstrap_loading_description">A kérdések letöltése és biztonságos ellenőrzése folyamatban van. Tartsa nyitva az alkalmazást.</string>
+    <string name="content_bootstrap_ready_title">A tananyag elkészült</string>
+    <string name="content_bootstrap_ready_description">%1$d kérdés offline is elérhető.</string>
+    <string name="content_bootstrap_refreshing">Tartalomfrissítések keresése…</string>
+    <string name="content_bootstrap_refresh_failed">A frissítéseket nem sikerült ellenőrizni. A letöltött tartalom továbbra is elérhető.</string>
+    <string name="content_bootstrap_error_title">A tananyagot nem sikerült előkészíteni</string>
+    <string name="content_bootstrap_error_description">Ellenőrizze az internetkapcsolatot, majd próbálja újra.</string>
+    <string name="content_bootstrap_retry">Próbálja újra</string>
 </resources>

@@ -62,6 +62,24 @@ class ContentSyncCoordinatorTest {
     }
 
     @Test
+    fun activeImmutableReleaseSkipsPackageDownloadsAndActivation() = runBlocking {
+        val fixture = remoteContentFixture()
+        val remote = FakeRemoteContentDataSource(fixture)
+        val local = RecordingLocalContentRepository().apply {
+            seedActiveRelease(fixture, listOf("de", "en"))
+        }
+
+        val result = ContentSyncCoordinator(remote, local) { 123L }.synchronize("en")
+
+        assertEquals(RELEASE_ID, result.releaseId)
+        assertEquals(1, result.questionCount)
+        assertEquals(false, result.activated)
+        assertEquals(listOf("manifest"), remote.calls)
+        assertTrue(local.snapshots.isEmpty())
+        assertEquals(null, local.activation)
+    }
+
+    @Test
     fun invalidSelectedPackageCausesNoLocalWritesOrActivation() {
         val original = remoteContentFixture()
         val selectedChunk = original.chunks.getValue("en").single()
@@ -154,6 +172,15 @@ private class RecordingLocalContentRepository : LocalContentRepository {
     override fun observeInstalledPackages(releaseId: String): Flow<List<ContentPackageEntity>> =
         installedPackages
 
+    override suspend fun getActiveRelease(): ContentReleaseEntity? = activeRelease.value
+
+    override suspend fun getPackage(
+        releaseId: String,
+        languageCode: String,
+    ): ContentPackageEntity? = installedPackages.value.firstOrNull {
+        it.releaseId == releaseId && it.languageCode == languageCode
+    }
+
     override suspend fun replacePackage(snapshot: ContentPackageSnapshot) {
         snapshots += snapshot
         installedPackages.value = snapshots.map(ContentPackageSnapshot::packageMetadata)
@@ -177,4 +204,45 @@ private class RecordingLocalContentRepository : LocalContentRepository {
         questionId: String,
         languageCode: String,
     ): StudyQuestion? = null
+
+    fun seedActiveRelease(
+        fixture: RemoteContentFixture,
+        languageCodes: List<String>,
+    ) {
+        activeRelease.value = ContentReleaseEntity(
+            releaseId = RELEASE_ID,
+            schemaVersion = 3,
+            datasetVersion = "test-dataset",
+            packageStrategy = "SELF_CONTAINED_LANGUAGE_PACK",
+            status = "READY",
+            createdAt = "2026-10-12T00:00:00Z",
+            sourceCatalogSha256 = "a".repeat(64),
+            catalogSha256 = "b".repeat(64),
+            questionCount = 1,
+            chunkSize = 50,
+            languageCount = 2,
+            qualityIssueCount = 0,
+            installedAtEpochMillis = 123L,
+            isActive = true,
+        )
+        installedPackages.value = languageCodes.map { languageCode ->
+            val fields = fixture.packages.getValue(languageCode).fields
+            ContentPackageEntity(
+                releaseId = RELEASE_ID,
+                languageCode = languageCode,
+                schemaVersion = 3,
+                packageStrategy = "SELF_CONTAINED_LANGUAGE_PACK",
+                status = "READY",
+                createdAt = "2026-10-12T00:00:00Z",
+                packageSha256 = fields.getValue("packageSha256") as String,
+                questionCount = 1,
+                chunkCount = 1,
+                chunkSize = 50,
+                jsonBytes = fields.getValue("jsonBytes") as Long,
+                qualityIssueCount = 0,
+                explanationReady = true,
+                installedAtEpochMillis = 123L,
+            )
+        }
+    }
 }

@@ -11,14 +11,18 @@ data class ContentSyncResult(
     val activated: Boolean,
 )
 
+fun interface ContentSynchronizer {
+    suspend fun synchronize(selectedLanguageCode: String): ContentSyncResult
+}
+
 class ContentSyncCoordinator(
     private val remoteContentDataSource: RemoteContentDataSource,
     private val localContentRepository: LocalContentRepository,
     private val clock: () -> Long = System::currentTimeMillis,
-) {
+) : ContentSynchronizer {
     private val mapper = ContentPackageMapper()
 
-    suspend fun synchronize(selectedLanguageCode: String): ContentSyncResult {
+    override suspend fun synchronize(selectedLanguageCode: String): ContentSyncResult {
         validateLanguageCode(selectedLanguageCode)
 
         val manifest = remoteContentDataSource.getActiveManifest()
@@ -27,6 +31,23 @@ class ContentSyncCoordinator(
         if (!RELEASE_ID.matches(releaseId)) {
             throw ContentSyncException("Invalid active release ID: $releaseId")
         }
+
+        val requiredLanguages = listOf(GERMAN_LANGUAGE_CODE, selectedLanguageCode).distinct()
+        val activeLocalRelease = localContentRepository.getActiveRelease()
+        val hasEveryRequiredPackage = activeLocalRelease?.releaseId == releaseId &&
+            requiredLanguages.all { languageCode ->
+                localContentRepository.getPackage(releaseId, languageCode) != null
+            }
+        if (hasEveryRequiredPackage) {
+            return ContentSyncResult(
+                releaseId = releaseId,
+                selectedLanguageCode = selectedLanguageCode,
+                installedLanguageCodes = requiredLanguages,
+                questionCount = requireNotNull(activeLocalRelease).questionCount,
+                activated = false,
+            )
+        }
+
         val releaseDocument = remoteContentDataSource.getRelease(releaseId)
         val installedAtEpochMillis = clock()
         val release = mapper.validateRelease(
@@ -40,8 +61,6 @@ class ContentSyncCoordinator(
                 "Selected language is not available in release: $selectedLanguageCode",
             )
         }
-
-        val requiredLanguages = listOf(GERMAN_LANGUAGE_CODE, selectedLanguageCode).distinct()
 
         // Validate every required package before the first local write. A failed or
         // incomplete download can therefore never replace currently usable content.

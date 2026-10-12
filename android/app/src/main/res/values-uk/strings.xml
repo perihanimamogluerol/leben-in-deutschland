@@ -14,4 +14,13 @@
     <string name="state_selection_help">Ваш вибір визначає 10 запитань для цієї землі.</string>
     <string name="state_selection_continue">Продовжити</string>
     <string name="state_selection_temporary_confirmation">Вибрано: %1$s. Далі буде підготовлено навчальний матеріал.</string>
+    <string name="content_bootstrap_loading_title">Підготовка навчальних матеріалів</string>
+    <string name="content_bootstrap_loading_description">Запитання завантажуються та безпечно перевіряються. Не закривайте застосунок.</string>
+    <string name="content_bootstrap_ready_title">Навчальні матеріали готові</string>
+    <string name="content_bootstrap_ready_description">%1$d запитань доступні офлайн.</string>
+    <string name="content_bootstrap_refreshing">Перевіряємо оновлення матеріалів…</string>
+    <string name="content_bootstrap_refresh_failed">Не вдалося перевірити оновлення. Завантажені матеріали залишаються доступними.</string>
+    <string name="content_bootstrap_error_title">Не вдалося підготувати навчальні матеріали</string>
+    <string name="content_bootstrap_error_description">Перевірте підключення до інтернету та спробуйте ще раз.</string>
+    <string name="content_bootstrap_retry">Спробувати ще раз</string>
 </resources>

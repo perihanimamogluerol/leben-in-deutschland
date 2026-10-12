@@ -67,6 +67,9 @@ interface ContentDao {
     @Query("SELECT * FROM content_releases WHERE is_active = 1 LIMIT 1")
     fun observeActiveRelease(): Flow<ContentReleaseEntity?>
 
+    @Query("SELECT * FROM content_releases WHERE is_active = 1 LIMIT 1")
+    suspend fun getActiveRelease(): ContentReleaseEntity?
+
     @Query("SELECT * FROM content_packages WHERE release_id = :releaseId ORDER BY language_code")
     fun observePackages(releaseId: String): Flow<List<ContentPackageEntity>>
 

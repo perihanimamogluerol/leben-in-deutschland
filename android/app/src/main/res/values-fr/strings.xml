@@ -14,4 +14,13 @@
     <string name="state_selection_help">Votre choix détermine les 10 questions propres au Land.</string>
     <string name="state_selection_continue">Continuer</string>
     <string name="state_selection_temporary_confirmation">%1$s sélectionné. Le contenu d’étude sera ensuite préparé.</string>
+    <string name="content_bootstrap_loading_title">Préparation du contenu d’étude</string>
+    <string name="content_bootstrap_loading_description">Les questions sont téléchargées et vérifiées de manière sécurisée. Gardez l’application ouverte.</string>
+    <string name="content_bootstrap_ready_title">Le contenu d’étude est prêt</string>
+    <string name="content_bootstrap_ready_description">%1$d questions sont disponibles hors connexion.</string>
+    <string name="content_bootstrap_refreshing">Recherche de mises à jour du contenu…</string>
+    <string name="content_bootstrap_refresh_failed">Impossible de vérifier les mises à jour. Le contenu téléchargé reste disponible.</string>
+    <string name="content_bootstrap_error_title">Impossible de préparer le contenu d’étude</string>
+    <string name="content_bootstrap_error_description">Vérifiez votre connexion Internet et réessayez.</string>
+    <string name="content_bootstrap_retry">Réessayer</string>
 </resources>

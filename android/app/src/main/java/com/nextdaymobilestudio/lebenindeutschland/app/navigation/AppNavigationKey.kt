@@ -11,3 +11,6 @@ data object LanguageSelectionKey : AppNavigationKey
 
 @Serializable
 data object StateSelectionKey : AppNavigationKey
+
+@Serializable
+data object ContentBootstrapKey : AppNavigationKey

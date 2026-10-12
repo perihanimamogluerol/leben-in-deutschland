@@ -14,4 +14,13 @@
     <string name="state_selection_help">انتخاب شما ۱۰ پرسش ویژه آن ایالت را تعیین می‌کند.</string>
     <string name="state_selection_continue">ادامه</string>
     <string name="state_selection_temporary_confirmation">%1$s انتخاب شد. در مرحله بعد محتوای مطالعه آماده می‌شود.</string>
+    <string name="content_bootstrap_loading_title">در حال آماده‌سازی محتوای آموزشی</string>
+    <string name="content_bootstrap_loading_description">پرسش‌ها در حال دانلود و بررسی امن هستند. لطفاً برنامه را باز نگه دارید.</string>
+    <string name="content_bootstrap_ready_title">محتوای آموزشی آماده است</string>
+    <string name="content_bootstrap_ready_description">%1$d پرسش به‌صورت آفلاین در دسترس است.</string>
+    <string name="content_bootstrap_refreshing">در حال بررسی به‌روزرسانی محتوا…</string>
+    <string name="content_bootstrap_refresh_failed">بررسی به‌روزرسانی ممکن نشد. محتوای دانلودشده همچنان در دسترس است.</string>
+    <string name="content_bootstrap_error_title">محتوای آموزشی آماده نشد</string>
+    <string name="content_bootstrap_error_description">اتصال اینترنت را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="content_bootstrap_retry">تلاش دوباره</string>
 </resources>
