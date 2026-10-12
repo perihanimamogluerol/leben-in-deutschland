@@ -1,0 +1,943 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7b1f79da5a76ca7a2fc3ee1426f30eca",
+    "entities": [
+      {
+        "tableName": "content_releases",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `schema_version` INTEGER NOT NULL, `dataset_version` TEXT NOT NULL, `package_strategy` TEXT NOT NULL, `status` TEXT NOT NULL, `created_at` TEXT NOT NULL, `source_catalog_sha256` TEXT NOT NULL, `catalog_sha256` TEXT NOT NULL, `question_count` INTEGER NOT NULL, `chunk_size` INTEGER NOT NULL, `language_count` INTEGER NOT NULL, `quality_issue_count` INTEGER NOT NULL, `installed_at_epoch_millis` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, PRIMARY KEY(`release_id`))",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schemaVersion",
+            "columnName": "schema_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "datasetVersion",
+            "columnName": "dataset_version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageStrategy",
+            "columnName": "package_strategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceCatalogSha256",
+            "columnName": "source_catalog_sha256",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "catalogSha256",
+            "columnName": "catalog_sha256",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionCount",
+            "columnName": "question_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chunkSize",
+            "columnName": "chunk_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCount",
+            "columnName": "language_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qualityIssueCount",
+            "columnName": "quality_issue_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "installedAtEpochMillis",
+            "columnName": "installed_at_epoch_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id"
+          ]
+        }
+      },
+      {
+        "tableName": "content_release_languages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `display_order` INTEGER NOT NULL, `package_sha256` TEXT NOT NULL, PRIMARY KEY(`release_id`, `language_code`), FOREIGN KEY(`release_id`) REFERENCES `content_releases`(`release_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayOrder",
+            "columnName": "display_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageSha256",
+            "columnName": "package_sha256",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "language_code"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_content_release_languages_release_id",
+            "unique": false,
+            "columnNames": [
+              "release_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_content_release_languages_release_id` ON `${TABLE_NAME}` (`release_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "content_releases",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id"
+            ],
+            "referencedColumns": [
+              "release_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "content_packages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `schema_version` INTEGER NOT NULL, `package_strategy` TEXT NOT NULL, `status` TEXT NOT NULL, `created_at` TEXT NOT NULL, `package_sha256` TEXT NOT NULL, `question_count` INTEGER NOT NULL, `chunk_count` INTEGER NOT NULL, `chunk_size` INTEGER NOT NULL, `json_bytes` INTEGER NOT NULL, `quality_issue_count` INTEGER NOT NULL, `explanation_ready` INTEGER NOT NULL, `installed_at_epoch_millis` INTEGER NOT NULL, PRIMARY KEY(`release_id`, `language_code`), FOREIGN KEY(`release_id`) REFERENCES `content_releases`(`release_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schemaVersion",
+            "columnName": "schema_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageStrategy",
+            "columnName": "package_strategy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageSha256",
+            "columnName": "package_sha256",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionCount",
+            "columnName": "question_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chunkCount",
+            "columnName": "chunk_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chunkSize",
+            "columnName": "chunk_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jsonBytes",
+            "columnName": "json_bytes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qualityIssueCount",
+            "columnName": "quality_issue_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "explanationReady",
+            "columnName": "explanation_ready",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "installedAtEpochMillis",
+            "columnName": "installed_at_epoch_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "language_code"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_content_packages_release_id",
+            "unique": false,
+            "columnNames": [
+              "release_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_content_packages_release_id` ON `${TABLE_NAME}` (`release_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "content_releases",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id"
+            ],
+            "referencedColumns": [
+              "release_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "questions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `source_id` TEXT NOT NULL, `official_number` INTEGER NOT NULL, `scope` TEXT NOT NULL, `state_code` TEXT, `category` TEXT, `category_status` TEXT NOT NULL, `source_version` TEXT NOT NULL, `source_pdf_sha256` TEXT NOT NULL, `source_page` INTEGER NOT NULL, `bamf_internal_id` TEXT NOT NULL, `correct_answer_id` TEXT NOT NULL, `german_question_text` TEXT NOT NULL, `question_image_source_path` TEXT, `question_image_source_url` TEXT, `question_image_storage_path` TEXT, `question_image_sha256` TEXT, `question_image_width` INTEGER, `question_image_height` INTEGER, `question_image_mime_type` TEXT, PRIMARY KEY(`release_id`, `question_id`), FOREIGN KEY(`release_id`) REFERENCES `content_releases`(`release_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceId",
+            "columnName": "source_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "officialNumber",
+            "columnName": "official_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scope",
+            "columnName": "scope",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stateCode",
+            "columnName": "state_code",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "categoryStatus",
+            "columnName": "category_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceVersion",
+            "columnName": "source_version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourcePdfSha256",
+            "columnName": "source_pdf_sha256",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourcePage",
+            "columnName": "source_page",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bamfInternalId",
+            "columnName": "bamf_internal_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "correctAnswerId",
+            "columnName": "correct_answer_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "germanQuestionText",
+            "columnName": "german_question_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionImageSourcePath",
+            "columnName": "question_image_source_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionImageSourceUrl",
+            "columnName": "question_image_source_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionImageStoragePath",
+            "columnName": "question_image_storage_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionImageSha256",
+            "columnName": "question_image_sha256",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionImageWidth",
+            "columnName": "question_image_width",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "questionImageHeight",
+            "columnName": "question_image_height",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "questionImageMimeType",
+            "columnName": "question_image_mime_type",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_questions_release_id",
+            "unique": false,
+            "columnNames": [
+              "release_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_questions_release_id` ON `${TABLE_NAME}` (`release_id`)"
+          },
+          {
+            "name": "index_questions_release_id_scope_state_code",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "scope",
+              "state_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_questions_release_id_scope_state_code` ON `${TABLE_NAME}` (`release_id`, `scope`, `state_code`)"
+          },
+          {
+            "name": "index_questions_release_id_official_number",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "official_number"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_questions_release_id_official_number` ON `${TABLE_NAME}` (`release_id`, `official_number`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "content_releases",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id"
+            ],
+            "referencedColumns": [
+              "release_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "answers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `answer_id` TEXT NOT NULL, `display_order` INTEGER NOT NULL, `german_text` TEXT NOT NULL, `image_source_path` TEXT, `image_source_url` TEXT, `image_storage_path` TEXT, `image_sha256` TEXT, `image_width` INTEGER, `image_height` INTEGER, `image_mime_type` TEXT, PRIMARY KEY(`release_id`, `question_id`, `answer_id`), FOREIGN KEY(`release_id`, `question_id`) REFERENCES `questions`(`release_id`, `question_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerId",
+            "columnName": "answer_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayOrder",
+            "columnName": "display_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "germanText",
+            "columnName": "german_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageSourcePath",
+            "columnName": "image_source_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageSourceUrl",
+            "columnName": "image_source_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageStoragePath",
+            "columnName": "image_storage_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageSha256",
+            "columnName": "image_sha256",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageWidth",
+            "columnName": "image_width",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "imageHeight",
+            "columnName": "image_height",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "imageMimeType",
+            "columnName": "image_mime_type",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id",
+            "answer_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_answers_release_id_question_id",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "question_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_answers_release_id_question_id` ON `${TABLE_NAME}` (`release_id`, `question_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "questions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id",
+              "question_id"
+            ],
+            "referencedColumns": [
+              "release_id",
+              "question_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "study_content",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `question_text` TEXT NOT NULL, `explanation` TEXT NOT NULL, `text_status` TEXT, `translation_status` TEXT, `explanation_status` TEXT NOT NULL, `reviewed` INTEGER NOT NULL, PRIMARY KEY(`release_id`, `question_id`, `language_code`), FOREIGN KEY(`release_id`, `question_id`) REFERENCES `questions`(`release_id`, `question_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionText",
+            "columnName": "question_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "explanation",
+            "columnName": "explanation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "textStatus",
+            "columnName": "text_status",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "translationStatus",
+            "columnName": "translation_status",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "explanationStatus",
+            "columnName": "explanation_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reviewed",
+            "columnName": "reviewed",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id",
+            "language_code"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_study_content_release_id_question_id",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "question_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_study_content_release_id_question_id` ON `${TABLE_NAME}` (`release_id`, `question_id`)"
+          },
+          {
+            "name": "index_study_content_release_id_language_code",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "language_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_study_content_release_id_language_code` ON `${TABLE_NAME}` (`release_id`, `language_code`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "questions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id",
+              "question_id"
+            ],
+            "referencedColumns": [
+              "release_id",
+              "question_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "study_answers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `answer_id` TEXT NOT NULL, `display_order` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`release_id`, `question_id`, `language_code`, `answer_id`), FOREIGN KEY(`release_id`, `question_id`, `language_code`) REFERENCES `study_content`(`release_id`, `question_id`, `language_code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerId",
+            "columnName": "answer_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayOrder",
+            "columnName": "display_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id",
+            "language_code",
+            "answer_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_study_answers_release_id_question_id_language_code",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_study_answers_release_id_question_id_language_code` ON `${TABLE_NAME}` (`release_id`, `question_id`, `language_code`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "study_content",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "referencedColumns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "translation_audits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `provider` TEXT, `source_record_number` TEXT, `source_record_id` TEXT, `source_commit` TEXT, `custom_id` TEXT, `model` TEXT, `generated_at` TEXT, `question_match_score` REAL, `answer_set_match_score` REAL, PRIMARY KEY(`release_id`, `question_id`, `language_code`), FOREIGN KEY(`release_id`, `question_id`, `language_code`) REFERENCES `study_content`(`release_id`, `question_id`, `language_code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "provider",
+            "columnName": "provider",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceRecordNumber",
+            "columnName": "source_record_number",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceRecordId",
+            "columnName": "source_record_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceCommit",
+            "columnName": "source_commit",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customId",
+            "columnName": "custom_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "model",
+            "columnName": "model",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "generatedAt",
+            "columnName": "generated_at",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionMatchScore",
+            "columnName": "question_match_score",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "answerSetMatchScore",
+            "columnName": "answer_set_match_score",
+            "affinity": "REAL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id",
+            "language_code"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_translation_audits_release_id_question_id_language_code",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_translation_audits_release_id_question_id_language_code` ON `${TABLE_NAME}` (`release_id`, `question_id`, `language_code`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "study_content",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "referencedColumns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "translation_answer_audits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`release_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `language_code` TEXT NOT NULL, `answer_id` TEXT NOT NULL, `match_score` REAL, `used_fallback` INTEGER NOT NULL, PRIMARY KEY(`release_id`, `question_id`, `language_code`, `answer_id`), FOREIGN KEY(`release_id`, `question_id`, `language_code`) REFERENCES `translation_audits`(`release_id`, `question_id`, `language_code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "releaseId",
+            "columnName": "release_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "languageCode",
+            "columnName": "language_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerId",
+            "columnName": "answer_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchScore",
+            "columnName": "match_score",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "usedFallback",
+            "columnName": "used_fallback",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "release_id",
+            "question_id",
+            "language_code",
+            "answer_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_translation_answer_audits_release_id_question_id_language_code",
+            "unique": false,
+            "columnNames": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_translation_answer_audits_release_id_question_id_language_code` ON `${TABLE_NAME}` (`release_id`, `question_id`, `language_code`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "translation_audits",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ],
+            "referencedColumns": [
+              "release_id",
+              "question_id",
+              "language_code"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7b1f79da5a76ca7a2fc3ee1426f30eca')"
+    ]
+  }
+}
