@@ -14,4 +14,13 @@
     <string name="state_selection_help">Zgjedhja juaj përcakton 10 pyetjet specifike të landit.</string>
     <string name="state_selection_continue">Vazhdo</string>
     <string name="state_selection_temporary_confirmation">U zgjodh %1$s. Më pas do të përgatitet përmbajtja e studimit.</string>
+    <string name="content_bootstrap_loading_title">Po përgatitet përmbajtja mësimore</string>
+    <string name="content_bootstrap_loading_description">Pyetjet po shkarkohen dhe verifikohen në mënyrë të sigurt. Mbajeni aplikacionin hapur.</string>
+    <string name="content_bootstrap_ready_title">Përmbajtja mësimore është gati</string>
+    <string name="content_bootstrap_ready_description">%1$d pyetje janë të disponueshme jashtë linje.</string>
+    <string name="content_bootstrap_refreshing">Po kontrollohen përditësimet e përmbajtjes…</string>
+    <string name="content_bootstrap_refresh_failed">Përditësimet nuk mund të kontrolloheshin. Përmbajtja e shkarkuar mbetet e disponueshme.</string>
+    <string name="content_bootstrap_error_title">Përmbajtja mësimore nuk mund të përgatitej</string>
+    <string name="content_bootstrap_error_description">Kontrolloni lidhjen me internetin dhe provoni përsëri.</string>
+    <string name="content_bootstrap_retry">Provo përsëri</string>
 </resources>

@@ -1,32 +1,31 @@
 package com.nextdaymobilestudio.lebenindeutschland.app
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.nextdaymobilestudio.lebenindeutschland.R
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.AppNavigationKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstrapKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateSelectionKey
+import com.nextdaymobilestudio.lebenindeutschland.core.content.sync.ContentSynchronizer
+import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.LocalContentRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferences
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ContentBootstrapCoordinator
+import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
@@ -38,6 +37,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun LebenInDeutschlandApp(
     onboardingPreferencesRepository: OnboardingPreferencesRepository,
+    localContentRepository: LocalContentRepository,
+    contentSynchronizerProvider: () -> ContentSynchronizer,
     onApplicationLanguageSelected: (SupportedLanguage) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -57,6 +58,8 @@ fun LebenInDeutschlandApp(
             OnboardingNavigation(
                 preferences = loadedPreferences,
                 repository = onboardingPreferencesRepository,
+                localContentRepository = localContentRepository,
+                contentSynchronizerProvider = contentSynchronizerProvider,
                 onApplicationLanguageSelected = onApplicationLanguageSelected,
             )
         }
@@ -67,23 +70,33 @@ fun LebenInDeutschlandApp(
 private fun OnboardingNavigation(
     preferences: OnboardingPreferences,
     repository: OnboardingPreferencesRepository,
+    localContentRepository: LocalContentRepository,
+    contentSynchronizerProvider: () -> ContentSynchronizer,
     onApplicationLanguageSelected: (SupportedLanguage) -> Unit,
 ) {
     val persistedLanguage = SupportedLanguage.fromCode(preferences.languageCode)
     val persistedState = GermanState.fromCode(preferences.stateCode)
     val initialDestination: AppNavigationKey = remember {
-        if (persistedLanguage == null) {
-            LanguageSelectionKey
-        } else {
-            StateSelectionKey
+        when {
+            persistedLanguage == null -> LanguageSelectionKey
+            persistedState == null -> StateSelectionKey
+            else -> ContentBootstrapKey
         }
     }
     val backStack = rememberNavBackStack(initialDestination)
-    val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-    val stateConfirmationTemplate = stringResource(
-        R.string.state_selection_temporary_confirmation,
-    )
+    val contentBootstrapCoordinator = remember(
+        localContentRepository,
+        contentSynchronizerProvider,
+    ) {
+        ContentBootstrapCoordinator(
+            localContentRepository = localContentRepository,
+            contentSynchronizerProvider = contentSynchronizerProvider,
+            reportError = { message, throwable ->
+                Log.e(CONTENT_BOOTSTRAP_LOG_TAG, message, throwable)
+            },
+        )
+    }
     val navigateBack: () -> Unit = {
         when {
             backStack.size > 1 -> backStack.removeLastOrNull()
@@ -124,27 +137,26 @@ private fun OnboardingNavigation(
                         onContinue = { state ->
                             coroutineScope.launch {
                                 repository.setStateCode(state.code)
-                                snackbarHostState.showSnackbar(
-                                    message = stateConfirmationTemplate.format(
-                                        state.germanName,
-                                    ),
-                                )
+                                if (backStack.lastOrNull() != ContentBootstrapKey) {
+                                    backStack.add(ContentBootstrapKey)
+                                }
                             }
                         },
                     )
                 }
+                entry<ContentBootstrapKey> {
+                    ContentBootstrapRoute(
+                        selectedLanguageCode = persistedLanguage?.code
+                            ?: SupportedLanguage.GERMAN.code,
+                        coordinator = contentBootstrapCoordinator,
+                    )
+                }
             },
-        )
-
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
-                .padding(start = 20.dp, end = 20.dp, bottom = 112.dp),
         )
     }
 }
 
 private fun Flow<OnboardingPreferences>.asNullable(): Flow<OnboardingPreferences?> =
     map { preferences -> preferences }
+
+private const val CONTENT_BOOTSTRAP_LOG_TAG = "ContentBootstrap"

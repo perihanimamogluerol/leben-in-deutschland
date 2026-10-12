@@ -14,4 +14,13 @@
     <string name="state_selection_help">Vaš odabir određuje 10 pitanja specifičnih za saveznu zemlju.</string>
     <string name="state_selection_continue">Nastavi</string>
     <string name="state_selection_temporary_confirmation">Odabrano: %1$s. Slijedi priprema sadržaja za učenje.</string>
+    <string name="content_bootstrap_loading_title">Priprema sadržaja za učenje</string>
+    <string name="content_bootstrap_loading_description">Pitanja se preuzimaju i sigurno provjeravaju. Ostavite aplikaciju otvorenom.</string>
+    <string name="content_bootstrap_ready_title">Sadržaj za učenje je spreman</string>
+    <string name="content_bootstrap_ready_description">%1$d pitanja dostupno je izvan mreže.</string>
+    <string name="content_bootstrap_refreshing">Provjera ažuriranja sadržaja…</string>
+    <string name="content_bootstrap_refresh_failed">Ažuriranja se nisu mogla provjeriti. Preuzeti sadržaj i dalje je dostupan.</string>
+    <string name="content_bootstrap_error_title">Sadržaj za učenje nije se mogao pripremiti</string>
+    <string name="content_bootstrap_error_description">Provjerite internetsku vezu i pokušajte ponovno.</string>
+    <string name="content_bootstrap_retry">Pokušaj ponovno</string>
 </resources>

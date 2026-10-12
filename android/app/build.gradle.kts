@@ -6,6 +6,13 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+// Local development uses an ignored google-services.json. Keeping application
+// of the plugin conditional lets pull-request CI validate the project without
+// requiring Firebase configuration or exposing it in source control.
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 room {
     schemaDirectory("$projectDir/schemas")
 }

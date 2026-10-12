@@ -11,6 +11,10 @@ interface LocalContentRepository {
 
     fun observeInstalledPackages(releaseId: String): Flow<List<ContentPackageEntity>>
 
+    suspend fun getActiveRelease(): ContentReleaseEntity?
+
+    suspend fun getPackage(releaseId: String, languageCode: String): ContentPackageEntity?
+
     suspend fun replacePackage(snapshot: ContentPackageSnapshot)
 
     suspend fun activateRelease(releaseId: String, requiredLanguageCode: String)

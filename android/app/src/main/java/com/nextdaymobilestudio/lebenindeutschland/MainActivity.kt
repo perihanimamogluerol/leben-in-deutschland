@@ -9,14 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.nextdaymobilestudio.lebenindeutschland.app.LebenInDeutschlandApp
-import com.nextdaymobilestudio.lebenindeutschland.core.preferences.createOnboardingPreferencesRepository
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
 
 class MainActivity : AppCompatActivity() {
-    private val onboardingPreferencesRepository by lazy {
-        applicationContext.createOnboardingPreferencesRepository()
-    }
+    private val appContainer: AppContainer
+        get() = (application as LebenInDeutschlandApplication).appContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContent {
             LebenInDeutschlandTheme {
                 LebenInDeutschlandApp(
-                    onboardingPreferencesRepository = onboardingPreferencesRepository,
+                    onboardingPreferencesRepository =
+                        appContainer.onboardingPreferencesRepository,
+                    localContentRepository = appContainer.localContentRepository,
+                    contentSynchronizerProvider =
+                        appContainer.contentSynchronizerProvider,
                     onApplicationLanguageSelected = ::applyApplicationLanguage,
                 )
             }

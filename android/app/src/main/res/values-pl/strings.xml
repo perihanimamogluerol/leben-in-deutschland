@@ -14,4 +14,13 @@
     <string name="state_selection_help">Wybór określa 10 pytań dotyczących tego kraju związkowego.</string>
     <string name="state_selection_continue">Dalej</string>
     <string name="state_selection_temporary_confirmation">Wybrano %1$s. Następnie przygotujemy materiały do nauki.</string>
+    <string name="content_bootstrap_loading_title">Przygotowywanie materiałów do nauki</string>
+    <string name="content_bootstrap_loading_description">Pytania są pobierane i bezpiecznie weryfikowane. Pozostaw aplikację otwartą.</string>
+    <string name="content_bootstrap_ready_title">Materiały do nauki są gotowe</string>
+    <string name="content_bootstrap_ready_description">%1$d pytań jest dostępnych offline.</string>
+    <string name="content_bootstrap_refreshing">Sprawdzanie aktualizacji treści…</string>
+    <string name="content_bootstrap_refresh_failed">Nie udało się sprawdzić aktualizacji. Pobrane treści są nadal dostępne.</string>
+    <string name="content_bootstrap_error_title">Nie udało się przygotować materiałów do nauki</string>
+    <string name="content_bootstrap_error_description">Sprawdź połączenie z internetem i spróbuj ponownie.</string>
+    <string name="content_bootstrap_retry">Spróbuj ponownie</string>
 </resources>

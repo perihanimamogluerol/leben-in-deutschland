@@ -14,4 +14,13 @@
     <string name="state_selection_help">Изборът определя 10-те въпроса за провинцията.</string>
     <string name="state_selection_continue">Продължи</string>
     <string name="state_selection_temporary_confirmation">Избрано: %1$s. Следва подготовка на учебното съдържание.</string>
+    <string name="content_bootstrap_loading_title">Подготвяне на учебното съдържание</string>
+    <string name="content_bootstrap_loading_description">Въпросите се изтеглят и проверяват сигурно. Оставете приложението отворено.</string>
+    <string name="content_bootstrap_ready_title">Учебното съдържание е готово</string>
+    <string name="content_bootstrap_ready_description">%1$d въпроса са достъпни офлайн.</string>
+    <string name="content_bootstrap_refreshing">Проверка за актуализации на съдържанието…</string>
+    <string name="content_bootstrap_refresh_failed">Актуализациите не можаха да бъдат проверени. Изтегленото съдържание остава достъпно.</string>
+    <string name="content_bootstrap_error_title">Учебното съдържание не можа да бъде подготвено</string>
+    <string name="content_bootstrap_error_description">Проверете интернет връзката си и опитайте отново.</string>
+    <string name="content_bootstrap_retry">Опитайте отново</string>
 </resources>

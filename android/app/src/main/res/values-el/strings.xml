@@ -14,4 +14,13 @@
     <string name="state_selection_help">Η επιλογή σας καθορίζει τις 10 ερωτήσεις του κρατιδίου.</string>
     <string name="state_selection_continue">Συνέχεια</string>
     <string name="state_selection_temporary_confirmation">Επιλέχθηκε: %1$s. Στη συνέχεια θα προετοιμαστεί το υλικό μελέτης.</string>
+    <string name="content_bootstrap_loading_title">Προετοιμασία περιεχομένου μελέτης</string>
+    <string name="content_bootstrap_loading_description">Οι ερωτήσεις λαμβάνονται και επαληθεύονται με ασφάλεια. Διατηρήστε την εφαρμογή ανοιχτή.</string>
+    <string name="content_bootstrap_ready_title">Το περιεχόμενο μελέτης είναι έτοιμο</string>
+    <string name="content_bootstrap_ready_description">%1$d ερωτήσεις είναι διαθέσιμες εκτός σύνδεσης.</string>
+    <string name="content_bootstrap_refreshing">Έλεγχος για ενημερώσεις περιεχομένου…</string>
+    <string name="content_bootstrap_refresh_failed">Δεν ήταν δυνατός ο έλεγχος ενημερώσεων. Το περιεχόμενο που κατεβάσατε παραμένει διαθέσιμο.</string>
+    <string name="content_bootstrap_error_title">Δεν ήταν δυνατή η προετοιμασία του περιεχομένου μελέτης</string>
+    <string name="content_bootstrap_error_description">Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά.</string>
+    <string name="content_bootstrap_retry">Δοκιμάστε ξανά</string>
 </resources>

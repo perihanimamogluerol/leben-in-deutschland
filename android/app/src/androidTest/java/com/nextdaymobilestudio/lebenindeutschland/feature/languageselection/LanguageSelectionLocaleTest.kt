@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -15,6 +16,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.MainActivity
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.DataStoreOnboardingPreferencesRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.onboardingPreferencesDataStore
+import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapTestTags
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionTestTags
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionTestTags
 import kotlinx.coroutines.flow.first
@@ -97,7 +99,7 @@ class LanguageSelectionLocaleTest {
     }
 
     @Test
-    fun languageAndStateSelectionsSurviveActivityRecreation() {
+    fun persistedLanguageAndStateOpenContentBootstrapAfterActivityRecreation() {
         composeRule
             .onNodeWithTag(LanguageSelectionTestTags.CONTINUE)
             .performClick()
@@ -110,13 +112,14 @@ class LanguageSelectionLocaleTest {
             .onNodeWithTag(StateSelectionTestTags.CONTINUE)
             .performClick()
 
+        waitForTag(ContentBootstrapTestTags.SCREEN)
         waitForPersistedSelections(languageCode = "de", stateCode = "bw")
         composeRule.activityRule.scenario.recreate()
 
-        waitForText("Bundesland auswählen")
+        waitForTag(ContentBootstrapTestTags.SCREEN)
         composeRule
-            .onNodeWithTag(StateSelectionTestTags.option("bw"))
-            .assertIsSelected()
+            .onNodeWithTag(ContentBootstrapTestTags.SCREEN)
+            .assertIsDisplayed()
     }
 
     private fun clearOnboardingSelections() {
@@ -163,6 +166,15 @@ class LanguageSelectionLocaleTest {
         composeRule.waitUntil(timeoutMillis = 10_000) {
             composeRule
                 .onAllNodesWithText(text)
+                .fetchSemanticsNodes()
+                .isNotEmpty()
+        }
+    }
+
+    private fun waitForTag(tag: String) {
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule
+                .onAllNodesWithTag(tag)
                 .fetchSemanticsNodes()
                 .isNotEmpty()
         }

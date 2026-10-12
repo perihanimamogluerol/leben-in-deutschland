@@ -14,4 +14,13 @@
     <string name="state_selection_help">Seçiminiz eyalete özel 10 soruyu belirler.</string>
     <string name="state_selection_continue">Devam</string>
     <string name="state_selection_temporary_confirmation">%1$s seçildi. Sırada çalışma içeriğinin hazırlanması var.</string>
+    <string name="content_bootstrap_loading_title">Çalışma içeriği hazırlanıyor</string>
+    <string name="content_bootstrap_loading_description">Sorular indiriliyor ve güvenli biçimde doğrulanıyor. Lütfen uygulamayı açık tutun.</string>
+    <string name="content_bootstrap_ready_title">Çalışma içeriği hazır</string>
+    <string name="content_bootstrap_ready_description">%1$d soru çevrimdışı kullanılabilir.</string>
+    <string name="content_bootstrap_refreshing">İçerik güncellemeleri kontrol ediliyor…</string>
+    <string name="content_bootstrap_refresh_failed">Güncellemeler kontrol edilemedi. İndirdiğiniz içerik kullanılmaya devam edilebilir.</string>
+    <string name="content_bootstrap_error_title">Çalışma içeriği hazırlanamadı</string>
+    <string name="content_bootstrap_error_description">İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="content_bootstrap_retry">Tekrar dene</string>
 </resources>
