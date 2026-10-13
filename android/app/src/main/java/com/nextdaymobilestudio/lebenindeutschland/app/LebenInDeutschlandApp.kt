@@ -18,18 +18,22 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.AppNavigationKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstrapKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.HomeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateSelectionKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StudySessionKey
 import com.nextdaymobilestudio.lebenindeutschland.core.content.sync.ContentSynchronizer
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.LocalContentRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferences
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferencesRepository
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ContentBootstrapCoordinator
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionRoute
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -149,6 +153,32 @@ private fun OnboardingNavigation(
                         selectedLanguageCode = persistedLanguage?.code
                             ?: SupportedLanguage.GERMAN.code,
                         coordinator = contentBootstrapCoordinator,
+                        onContentReady = { questionCount ->
+                            backStack.removeLastOrNull()
+                            backStack.add(HomeKey(questionCount))
+                        },
+                    )
+                }
+                entry<HomeKey> { key ->
+                    HomeRoute(
+                        questionCount = key.questionCount,
+                        languageName = persistedLanguage?.nativeName.orEmpty(),
+                        stateName = persistedState?.germanName.orEmpty(),
+                        onStartStudy = {
+                            if (backStack.lastOrNull() != StudySessionKey) {
+                                backStack.add(StudySessionKey)
+                            }
+                        },
+                    )
+                }
+                entry<StudySessionKey> {
+                    StudySessionRoute(
+                        selectedLanguageCode = persistedLanguage?.code
+                            ?: SupportedLanguage.GERMAN.code,
+                        selectedStateCode = persistedState?.code,
+                        localContentRepository = localContentRepository,
+                        onBack = navigateBack,
+                        onFinished = navigateBack,
                     )
                 }
             },

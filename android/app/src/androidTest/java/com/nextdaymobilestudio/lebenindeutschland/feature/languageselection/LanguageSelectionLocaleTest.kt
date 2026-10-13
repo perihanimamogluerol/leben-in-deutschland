@@ -16,7 +16,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.MainActivity
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.DataStoreOnboardingPreferencesRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.onboardingPreferencesDataStore
-import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapTestTags
+import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeTestTags
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionTestTags
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionTestTags
 import kotlinx.coroutines.flow.first
@@ -99,7 +99,7 @@ class LanguageSelectionLocaleTest {
     }
 
     @Test
-    fun persistedLanguageAndStateOpenContentBootstrapAfterActivityRecreation() {
+    fun persistedLanguageAndStateOpenHomeAfterActivityRecreation() {
         composeRule
             .onNodeWithTag(LanguageSelectionTestTags.CONTINUE)
             .performClick()
@@ -112,13 +112,13 @@ class LanguageSelectionLocaleTest {
             .onNodeWithTag(StateSelectionTestTags.CONTINUE)
             .performClick()
 
-        waitForTag(ContentBootstrapTestTags.SCREEN)
+        waitForTag(HomeTestTags.SCREEN)
         waitForPersistedSelections(languageCode = "de", stateCode = "bw")
         composeRule.activityRule.scenario.recreate()
 
-        waitForTag(ContentBootstrapTestTags.SCREEN)
+        waitForTag(HomeTestTags.SCREEN)
         composeRule
-            .onNodeWithTag(ContentBootstrapTestTags.SCREEN)
+            .onNodeWithTag(HomeTestTags.SCREEN)
             .assertIsDisplayed()
     }
 
