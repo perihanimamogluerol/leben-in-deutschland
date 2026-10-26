@@ -52,4 +52,13 @@
     <string name="study_complete_title">A gyakorlás befejeződött</string>
     <string name="study_complete_description">%2$d kérdésből %1$d kérdésre válaszolt helyesen.</string>
     <string name="study_back_home">Vissza a főoldalra</string>
+    <string name="home_wrong_answers_title">Hibás válaszok</string>
+    <string name="home_wrong_answers_count">%1$d kérdés ismétlésre</string>
+    <string name="home_wrong_answers_empty">Jelenleg nincs ismétlendő hibás válasz.</string>
+    <string name="home_review_wrong_answers">Hibás válaszok ismétlése</string>
+    <string name="study_wrong_answers_title">Hibás válaszok ismétlése</string>
+    <string name="study_wrong_answers_empty_title">Minden helyes</string>
+    <string name="study_wrong_answers_empty_description">Jelenleg nincs ismétlendő hibás válasz.</string>
+    <string name="study_wrong_answers_complete_title">Ismétlés befejezve</string>
+    <string name="study_wrong_answers_complete_description">Még %1$d kérdést kell megismételni.</string>
 </resources>

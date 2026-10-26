@@ -52,4 +52,13 @@
     <string name="study_complete_title">Practice complete</string>
     <string name="study_complete_description">You answered %1$d of %2$d questions correctly.</string>
     <string name="study_back_home">Back to home</string>
+    <string name="home_wrong_answers_title">Wrong answers</string>
+    <string name="home_wrong_answers_count">%1$d questions to review</string>
+    <string name="home_wrong_answers_empty">There are no wrong answers to review right now.</string>
+    <string name="home_review_wrong_answers">Review wrong answers</string>
+    <string name="study_wrong_answers_title">Review wrong answers</string>
+    <string name="study_wrong_answers_empty_title">All correct</string>
+    <string name="study_wrong_answers_empty_description">There are no wrong answers to review right now.</string>
+    <string name="study_wrong_answers_complete_title">Review complete</string>
+    <string name="study_wrong_answers_complete_description">%1$d questions still need review.</string>
 </resources>

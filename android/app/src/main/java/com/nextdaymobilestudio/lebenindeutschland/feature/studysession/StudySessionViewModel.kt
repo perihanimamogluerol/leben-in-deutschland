@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class StudySessionViewModel(
     private val languageCode: String,
     private val stateCode: String?,
+    private val mode: StudySessionMode,
     private val coordinator: StudySessionCoordinator,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<StudySessionUiState>(
@@ -33,14 +34,18 @@ class StudySessionViewModel(
         loadingJob = viewModelScope.launch {
             _uiState.value = StudySessionUiState.Loading
             try {
-                val loadedSession = coordinator.start(languageCode, stateCode)
+                val loadedSession = coordinator.start(languageCode, stateCode, mode)
                 session = loadedSession
-                showQuestion(
-                    loadedSession = loadedSession,
-                    index = loadedSession.startIndex,
-                    answeredCount = loadedSession.answeredCount,
-                    correctCount = loadedSession.correctCount,
-                )
+                if (loadedSession.questionIds.isEmpty()) {
+                    _uiState.value = StudySessionUiState.EmptyWrongAnswers
+                } else {
+                    showQuestion(
+                        loadedSession = loadedSession,
+                        index = loadedSession.startIndex,
+                        answeredCount = loadedSession.answeredCount,
+                        correctCount = loadedSession.correctCount,
+                    )
+                }
             } catch (exception: CancellationException) {
                 throw exception
             } catch (_: Exception) {
@@ -133,12 +138,14 @@ class StudySessionViewModel(
             languageCode: String,
             stateCode: String?,
             localContentRepository: LocalContentRepository,
+            mode: StudySessionMode = StudySessionMode.ALL_QUESTIONS,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
                 StudySessionViewModel(
                     languageCode = languageCode,
                     stateCode = stateCode,
+                    mode = mode,
                     coordinator = StudySessionCoordinator(localContentRepository),
                 ) as T
         }

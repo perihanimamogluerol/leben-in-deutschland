@@ -5,6 +5,8 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuest
 sealed interface StudySessionUiState {
     data object Loading : StudySessionUiState
 
+    data object EmptyWrongAnswers : StudySessionUiState
+
     data class Ready(
         val question: StudyQuestion,
         val currentIndex: Int,

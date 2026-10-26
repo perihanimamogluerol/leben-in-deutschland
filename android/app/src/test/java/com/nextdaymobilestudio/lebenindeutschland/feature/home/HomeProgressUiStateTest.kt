@@ -17,6 +17,8 @@ class HomeProgressUiStateTest {
 
         assertEquals(0.5f, partial.fraction)
         assertFalse(partial.isComplete)
+        assertEquals(35, partial.wrongCount)
+        assertTrue(partial.hasWrongAnswers)
         assertTrue(complete.isComplete)
     }
 
@@ -26,5 +28,7 @@ class HomeProgressUiStateTest {
 
         assertEquals(0f, progress.fraction)
         assertFalse(progress.isComplete)
+        assertEquals(0, progress.wrongCount)
+        assertFalse(progress.hasWrongAnswers)
     }
 }

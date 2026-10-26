@@ -52,6 +52,7 @@ class HomeLocalizationTest {
         R.string.home_questions_available -> getString(stringResource, 460)
         R.string.home_progress_answered -> getString(stringResource, 12, 310)
         R.string.home_progress_correct -> getString(stringResource, 9)
+        R.string.home_wrong_answers_count -> getString(stringResource, 3)
         else -> getString(stringResource)
     }
 
@@ -71,6 +72,10 @@ class HomeLocalizationTest {
             R.string.home_progress_answered,
             R.string.home_progress_correct,
             R.string.home_start_hint,
+            R.string.home_wrong_answers_title,
+            R.string.home_wrong_answers_count,
+            R.string.home_wrong_answers_empty,
+            R.string.home_review_wrong_answers,
         )
     }
 }

@@ -52,4 +52,13 @@
     <string name="study_complete_title">Práctica completada</string>
     <string name="study_complete_description">Has respondido correctamente %1$d de %2$d preguntas.</string>
     <string name="study_back_home">Volver al inicio</string>
+    <string name="home_wrong_answers_title">Respuestas incorrectas</string>
+    <string name="home_wrong_answers_count">%1$d preguntas para repasar</string>
+    <string name="home_wrong_answers_empty">Ahora no hay respuestas incorrectas para repasar.</string>
+    <string name="home_review_wrong_answers">Repasar respuestas incorrectas</string>
+    <string name="study_wrong_answers_title">Repasar respuestas incorrectas</string>
+    <string name="study_wrong_answers_empty_title">Todo correcto</string>
+    <string name="study_wrong_answers_empty_description">Ahora no hay respuestas incorrectas para repasar.</string>
+    <string name="study_wrong_answers_complete_title">Repaso completado</string>
+    <string name="study_wrong_answers_complete_description">Quedan %1$d preguntas para repasar.</string>
 </resources>

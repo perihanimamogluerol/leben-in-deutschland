@@ -52,4 +52,13 @@
     <string name="study_complete_title">Exercițiu finalizat</string>
     <string name="study_complete_description">Ați răspuns corect la %1$d din %2$d întrebări.</string>
     <string name="study_back_home">Înapoi la pagina principală</string>
+    <string name="home_wrong_answers_title">Răspunsuri greșite</string>
+    <string name="home_wrong_answers_count">%1$d întrebări de repetat</string>
+    <string name="home_wrong_answers_empty">Momentan nu există răspunsuri greșite de repetat.</string>
+    <string name="home_review_wrong_answers">Repetă răspunsurile greșite</string>
+    <string name="study_wrong_answers_title">Repetă răspunsurile greșite</string>
+    <string name="study_wrong_answers_empty_title">Totul este corect</string>
+    <string name="study_wrong_answers_empty_description">Momentan nu există răspunsuri greșite de repetat.</string>
+    <string name="study_wrong_answers_complete_title">Repetare finalizată</string>
+    <string name="study_wrong_answers_complete_description">Au mai rămas %1$d întrebări de repetat.</string>
 </resources>

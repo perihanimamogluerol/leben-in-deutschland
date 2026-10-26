@@ -8,6 +8,7 @@ object StudySessionTestTags {
     const val EXPLANATION = "study-session-explanation"
     const val ACTION = "study-session-action"
     const val COMPLETE = "study-session-complete"
+    const val EMPTY_WRONG_ANSWERS = "study-session-empty-wrong-answers"
     const val RETRY = "study-session-retry"
     const val BACK_HOME = "study-session-back-home"
 

@@ -19,8 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -50,6 +52,7 @@ fun HomeScreen(
     stateName: String,
     studyProgress: HomeProgressUiState = HomeProgressUiState(),
     onStartStudy: () -> Unit,
+    onReviewWrongAnswers: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -68,7 +71,8 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .statusBarsPadding(),
+                .statusBarsPadding()
+                .testTag(HomeTestTags.CONTENT_LIST),
             contentPadding = PaddingValues(
                 start = 24.dp,
                 end = 24.dp,
@@ -104,6 +108,15 @@ fun HomeScreen(
                 }
             }
 
+            if (studyProgress.answeredCount > 0) {
+                item {
+                    WrongAnswersSummary(
+                        progress = studyProgress,
+                        onReviewWrongAnswers = onReviewWrongAnswers,
+                    )
+                }
+            }
+
             item {
                 Text(
                     text = stringResource(R.string.home_your_selection),
@@ -128,6 +141,74 @@ fun HomeScreen(
                     value = stateName,
                     testTag = HomeTestTags.STATE,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun WrongAnswersSummary(
+    progress: HomeProgressUiState,
+    onReviewWrongAnswers: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(HomeTestTags.WRONG_ANSWERS),
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.secondaryContainer,
+    ) {
+        Column(
+            modifier = Modifier.padding(22.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = if (progress.hasWrongAnswers) {
+                        Icons.Filled.Refresh
+                    } else {
+                        Icons.Filled.CheckCircle
+                    },
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = stringResource(R.string.home_wrong_answers_title),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Text(
+                text = if (progress.hasWrongAnswers) {
+                    stringResource(R.string.home_wrong_answers_count, progress.wrongCount)
+                } else {
+                    stringResource(R.string.home_wrong_answers_empty)
+                },
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            if (progress.hasWrongAnswers) {
+                FilledTonalButton(
+                    onClick = onReviewWrongAnswers,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 56.dp)
+                        .testTag(HomeTestTags.REVIEW_WRONG_ANSWERS),
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Refresh,
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = stringResource(R.string.home_review_wrong_answers),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
             }
         }
     }
@@ -322,6 +403,7 @@ private fun HomeScreenPreview() {
             languageName = "Türkçe",
             stateName = "Hessen",
             onStartStudy = {},
+            onReviewWrongAnswers = {},
         )
     }
 }

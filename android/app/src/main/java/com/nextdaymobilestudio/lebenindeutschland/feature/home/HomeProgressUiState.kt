@@ -11,4 +11,6 @@ data class HomeProgressUiState(
         answeredCount.toFloat() / totalCount.toFloat()
     }
     val isComplete: Boolean = totalCount > 0 && answeredCount >= totalCount
+    val wrongCount: Int = (answeredCount - correctCount).coerceAtLeast(0)
+    val hasWrongAnswers: Boolean = wrongCount > 0
 }
