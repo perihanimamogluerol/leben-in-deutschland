@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Czas minął. Odpowiedzi przesłano automatycznie.</string>
     <string name="mock_exam_new">Nowy egzamin</string>
     <string name="mock_exam_back_home">Wróć do strony głównej</string>
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_description">Zmień język lub kraj związkowy.</string>
+    <string name="settings_progress_note">Postęp jest zapisywany osobno dla każdego języka i kraju związkowego. Zmiana wyboru usuwa zapisany egzamin próbny.</string>
 </resources>

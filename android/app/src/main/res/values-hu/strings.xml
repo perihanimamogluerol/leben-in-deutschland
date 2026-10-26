@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Lejárt az idő. A válaszok automatikusan beküldésre kerültek.</string>
     <string name="mock_exam_new">Új vizsga</string>
     <string name="mock_exam_back_home">Vissza a kezdőlapra</string>
+    <string name="settings_title">Beállítások</string>
+    <string name="settings_description">Módosítsa a nyelvet vagy a tartományt.</string>
+    <string name="settings_progress_note">A tanulási előrehaladás nyelvenként és tartományonként külön tárolódik. A választás módosítása törli a mentett próbavizsgát.</string>
 </resources>

@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Le temps est écoulé. Vos réponses ont été remises automatiquement.</string>
     <string name="mock_exam_new">Nouvel examen</string>
     <string name="mock_exam_back_home">Retour à l’accueil</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_description">Modifiez votre langue ou votre Land.</string>
+    <string name="settings_progress_note">Votre progression est enregistrée séparément pour chaque langue et Land. Modifier une sélection supprime l’examen blanc enregistré.</string>
 </resources>

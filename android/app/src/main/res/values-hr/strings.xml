@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Vrijeme je isteklo. Odgovori su automatski predani.</string>
     <string name="mock_exam_new">Novi ispit</string>
     <string name="mock_exam_back_home">Natrag na početnu</string>
+    <string name="settings_title">Postavke</string>
+    <string name="settings_description">Promijenite jezik ili saveznu pokrajinu.</string>
+    <string name="settings_progress_note">Napredak u učenju sprema se zasebno za svaki jezik i pokrajinu. Promjena odabira briše spremljeni probni ispit.</string>
 </resources>

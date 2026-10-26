@@ -25,6 +25,7 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.L
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionTestTags
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -166,6 +167,24 @@ class LanguageSelectionScreenTest {
     }
 
     @Test
+    fun optionalBackButtonInvokesCallback() {
+        var wentBack = false
+        setRoute(
+            viewModel = LanguageSelectionViewModel(
+                initialLanguage = SupportedLanguage.GERMAN,
+            ),
+            onBack = { wentBack = true },
+        )
+
+        composeRule
+            .onNodeWithTag(LanguageSelectionTestTags.BACK)
+            .assertIsDisplayed()
+            .performClick()
+
+        composeRule.runOnIdle { assertTrue(wentBack) }
+    }
+
+    @Test
     fun largeFontScaleKeepsCriticalControlsVisible() {
         composeRule.setContent {
             val currentDensity = LocalDensity.current
@@ -203,11 +222,13 @@ class LanguageSelectionScreenTest {
     private fun setRoute(
         viewModel: LanguageSelectionViewModel,
         onContinue: (SupportedLanguage) -> Unit = {},
+        onBack: (() -> Unit)? = null,
     ) {
         composeRule.setContent {
             LebenInDeutschlandTheme {
                 LanguageSelectionRoute(
                     onContinue = onContinue,
+                    onBack = onBack,
                     viewModel = viewModel,
                 )
             }

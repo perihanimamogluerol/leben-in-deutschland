@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">انتهى الوقت وتم تسليم إجاباتك تلقائيًا.</string>
     <string name="mock_exam_new">اختبار جديد</string>
     <string name="mock_exam_back_home">العودة إلى الرئيسية</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_description">غيّر لغتك أو ولايتك الاتحادية.</string>
+    <string name="settings_progress_note">يُحفظ تقدمك الدراسي بشكل منفصل لكل اختيار للغة والولاية. يؤدي تغيير الاختيار إلى حذف الاختبار التجريبي المحفوظ.</string>
 </resources>

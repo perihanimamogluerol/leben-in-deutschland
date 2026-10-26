@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
@@ -25,9 +26,13 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -60,6 +65,7 @@ fun LanguageSelectionScreen(
     onSearchQueryChanged: (String) -> Unit,
     onLanguageSelected: (SupportedLanguage) -> Unit,
     onContinue: () -> Unit,
+    onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -78,6 +84,7 @@ fun LanguageSelectionScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .statusBarsPadding()
                 .selectableGroup(),
             contentPadding = PaddingValues(
                 start = 20.dp,
@@ -88,7 +95,7 @@ fun LanguageSelectionScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             item(key = "header") {
-                LanguageSelectionHeader()
+                LanguageSelectionHeader(onBack = onBack)
             }
 
             item(key = "search") {
@@ -140,20 +147,39 @@ fun LanguageSelectionScreen(
 }
 
 @Composable
-private fun LanguageSelectionHeader() {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = stringResource(R.string.language_selection_title),
-            modifier = Modifier.semantics { heading() },
-            color = MaterialTheme.colorScheme.onBackground,
-            style = MaterialTheme.typography.displaySmall,
-        )
-        Text(
-            text = stringResource(R.string.language_selection_description),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+private fun LanguageSelectionHeader(onBack: (() -> Unit)?) {
+    Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        if (onBack != null) {
+            FilledTonalIconButton(
+                onClick = onBack,
+                modifier = Modifier.testTag(LanguageSelectionTestTags.BACK),
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(R.string.state_selection_back),
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.language_selection_title),
+                modifier = Modifier.semantics { heading() },
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.displaySmall,
+            )
+            Text(
+                text = stringResource(R.string.language_selection_description),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
 }
 

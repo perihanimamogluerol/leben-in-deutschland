@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">زمان تمام شد. پاسخ‌ها به‌طور خودکار ارسال شدند.</string>
     <string name="mock_exam_new">آزمون جدید</string>
     <string name="mock_exam_back_home">بازگشت به خانه</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_description">زبان یا ایالت خود را تغییر دهید.</string>
+    <string name="settings_progress_note">پیشرفت مطالعه برای هر انتخاب زبان و ایالت جداگانه ذخیره می‌شود. تغییر انتخاب، آزمون آزمایشی ذخیره‌شده را حذف می‌کند.</string>
 </resources>
