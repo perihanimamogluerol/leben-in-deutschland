@@ -97,4 +97,18 @@
     <string name="settings_title">الإعدادات</string>
     <string name="settings_description">غيّر لغتك أو ولايتك الاتحادية.</string>
     <string name="settings_progress_note">يُحفظ تقدمك الدراسي بشكل منفصل لكل اختيار للغة والولاية. يؤدي تغيير الاختيار إلى حذف الاختبار التجريبي المحفوظ.</string>
+    <string name="home_exam_history">سجل الاختبارات</string>
+    <string name="exam_history_title">سجل الاختبارات</string>
+    <string name="exam_history_empty_title">لا توجد اختبارات بعد</string>
+    <string name="exam_history_empty_description">أكمل اختبارًا تجريبيًا لرؤية نتيجتك هنا.</string>
+    <string name="exam_history_view_result">عرض النتيجة</string>
+    <string name="exam_history_detail_title">تفاصيل الاختبار</string>
+    <string name="exam_history_duration">المدة: %1$d دقيقة</string>
+    <string name="exam_history_correct">صحيح</string>
+    <string name="exam_history_wrong">خطأ</string>
+    <string name="exam_history_unanswered">بلا إجابة</string>
+    <string name="exam_history_your_answer">إجابتك: %1$s</string>
+    <string name="exam_history_correct_answer">الإجابة الصحيحة: %1$s</string>
+    <string name="exam_history_content_unavailable">محتوى السؤال لم يعد متاحًا.</string>
+    <string name="exam_history_error">تعذر تحميل سجل الاختبارات.</string>
 </resources>

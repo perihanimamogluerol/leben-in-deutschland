@@ -97,4 +97,18 @@
     <string name="settings_title">Podešavanja</string>
     <string name="settings_description">Promenite jezik ili saveznu pokrajinu.</string>
     <string name="settings_progress_note">Napredak u učenju čuva se odvojeno za svaki izbor jezika i pokrajine. Promena izbora briše sačuvani probni ispit.</string>
+    <string name="home_exam_history">Istorija ispita</string>
+    <string name="exam_history_title">Istorija ispita</string>
+    <string name="exam_history_empty_title">Još nema ispita</string>
+    <string name="exam_history_empty_description">Završite probni ispit da biste ovde videli rezultat.</string>
+    <string name="exam_history_view_result">Pogledaj rezultat</string>
+    <string name="exam_history_detail_title">Detalji ispita</string>
+    <string name="exam_history_duration">Trajanje: %1$d min</string>
+    <string name="exam_history_correct">Tačno</string>
+    <string name="exam_history_wrong">Netačno</string>
+    <string name="exam_history_unanswered">Bez odgovora</string>
+    <string name="exam_history_your_answer">Vaš odgovor: %1$s</string>
+    <string name="exam_history_correct_answer">Tačan odgovor: %1$s</string>
+    <string name="exam_history_content_unavailable">Sadržaj pitanja više nije dostupan.</string>
+    <string name="exam_history_error">Istorija ispita nije mogla da se učita.</string>
 </resources>

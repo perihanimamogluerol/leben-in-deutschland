@@ -97,4 +97,18 @@
     <string name="settings_title">Setări</string>
     <string name="settings_description">Schimbă limba sau landul federal.</string>
     <string name="settings_progress_note">Progresul este salvat separat pentru fiecare limbă și land. Schimbarea unei selecții șterge examenul de probă salvat.</string>
+    <string name="home_exam_history">Istoricul examenelor</string>
+    <string name="exam_history_title">Istoricul examenelor</string>
+    <string name="exam_history_empty_title">Încă nu există examene</string>
+    <string name="exam_history_empty_description">Finalizează un examen de probă pentru a vedea rezultatul aici.</string>
+    <string name="exam_history_view_result">Vezi rezultatul</string>
+    <string name="exam_history_detail_title">Detaliile examenului</string>
+    <string name="exam_history_duration">Durată: %1$d min</string>
+    <string name="exam_history_correct">Corect</string>
+    <string name="exam_history_wrong">Greșit</string>
+    <string name="exam_history_unanswered">Fără răspuns</string>
+    <string name="exam_history_your_answer">Răspunsul tău: %1$s</string>
+    <string name="exam_history_correct_answer">Răspuns corect: %1$s</string>
+    <string name="exam_history_content_unavailable">Conținutul întrebării nu mai este disponibil.</string>
+    <string name="exam_history_error">Istoricul examenelor nu a putut fi încărcat.</string>
 </resources>

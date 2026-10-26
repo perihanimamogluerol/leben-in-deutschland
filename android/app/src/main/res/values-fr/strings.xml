@@ -97,4 +97,18 @@
     <string name="settings_title">Paramètres</string>
     <string name="settings_description">Modifiez votre langue ou votre Land.</string>
     <string name="settings_progress_note">Votre progression est enregistrée séparément pour chaque langue et Land. Modifier une sélection supprime l’examen blanc enregistré.</string>
+    <string name="home_exam_history">Historique des examens</string>
+    <string name="exam_history_title">Historique des examens</string>
+    <string name="exam_history_empty_title">Aucun examen pour le moment</string>
+    <string name="exam_history_empty_description">Terminez un examen blanc pour voir votre résultat ici.</string>
+    <string name="exam_history_view_result">Voir le résultat</string>
+    <string name="exam_history_detail_title">Détails de l’examen</string>
+    <string name="exam_history_duration">Durée : %1$d min</string>
+    <string name="exam_history_correct">Correct</string>
+    <string name="exam_history_wrong">Incorrect</string>
+    <string name="exam_history_unanswered">Sans réponse</string>
+    <string name="exam_history_your_answer">Votre réponse : %1$s</string>
+    <string name="exam_history_correct_answer">Bonne réponse : %1$s</string>
+    <string name="exam_history_content_unavailable">Le contenu de la question n’est plus disponible.</string>
+    <string name="exam_history_error">Impossible de charger l’historique des examens.</string>
 </resources>

@@ -16,6 +16,9 @@ data class MockExamSnapshot(
     val correctCount: Int? = null,
     val submittedByTimeout: Boolean = false,
 ) {
+    val attemptId: String
+        get() = "$releaseId:$languageCode:$stateCode:$startedAtEpochMillis"
+
     val isComplete: Boolean = submittedAtEpochMillis != null
     val answeredCount: Int = selectedAnswers.size
     val unansweredCount: Int = (questionIds.size - answeredCount).coerceAtLeast(0)

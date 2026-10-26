@@ -29,6 +29,14 @@ data class StudySessionKey(
 data object MockExamKey : AppNavigationKey
 
 @Serializable
+data object ExamHistoryKey : AppNavigationKey
+
+@Serializable
+data class ExamHistoryDetailKey(
+    val attemptId: String,
+) : AppNavigationKey
+
+@Serializable
 data object SettingsKey : AppNavigationKey
 
 @Serializable

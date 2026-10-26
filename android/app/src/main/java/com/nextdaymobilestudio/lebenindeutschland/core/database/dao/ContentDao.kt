@@ -8,6 +8,8 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.AnswerEnt
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPackageEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseLanguageEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.MockExamAttemptEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.MockExamQuestionResultEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.QuestionEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyAnswerEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyContentEntity
@@ -49,6 +51,12 @@ interface ContentDao {
 
     @Upsert
     suspend fun upsertStudyQuestionProgress(progress: StudyQuestionProgressEntity)
+
+    @Upsert
+    suspend fun upsertMockExamAttempt(attempt: MockExamAttemptEntity)
+
+    @Upsert
+    suspend fun upsertMockExamQuestionResults(results: List<MockExamQuestionResultEntity>)
 
     @Query(
         """
@@ -298,6 +306,28 @@ interface ContentDao {
         languageCode: String,
         stateCode: String,
     )
+
+    @Query(
+        """
+        SELECT * FROM mock_exam_attempts
+        ORDER BY submitted_at_epoch_millis DESC, attempt_id DESC
+        """,
+    )
+    fun observeMockExamAttempts(): Flow<List<MockExamAttemptEntity>>
+
+    @Query("SELECT * FROM mock_exam_attempts WHERE attempt_id = :attemptId")
+    suspend fun getMockExamAttempt(attemptId: String): MockExamAttemptEntity?
+
+    @Query(
+        """
+        SELECT * FROM mock_exam_question_results
+        WHERE attempt_id = :attemptId
+        ORDER BY position
+        """,
+    )
+    suspend fun getMockExamQuestionResults(
+        attemptId: String,
+    ): List<MockExamQuestionResultEntity>
 
     @Transaction
     suspend fun getQuestionBundle(

@@ -18,6 +18,8 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.AppNavigationKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstrapKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ExamHistoryDetailKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ExamHistoryKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.HomeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.MockExamKey
@@ -34,6 +36,8 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.data.MockExam
 import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.ui.MockExamRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ContentBootstrapCoordinator
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.examhistory.ui.ExamHistoryDetailRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.examhistory.ui.ExamHistoryRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionRoute
@@ -196,6 +200,11 @@ private fun OnboardingNavigation(
                                 backStack.add(MockExamKey)
                             }
                         },
+                        onOpenExamHistory = {
+                            if (backStack.lastOrNull() != ExamHistoryKey) {
+                                backStack.add(ExamHistoryKey)
+                            }
+                        },
                         onOpenSettings = {
                             if (backStack.lastOrNull() != SettingsKey) {
                                 backStack.add(SettingsKey)
@@ -227,6 +236,25 @@ private fun OnboardingNavigation(
                         mockExamPreferencesRepository = mockExamPreferencesRepository,
                         onBack = navigateBack,
                         onFinished = navigateBack,
+                    )
+                }
+                entry<ExamHistoryKey> {
+                    ExamHistoryRoute(
+                        localContentRepository = localContentRepository,
+                        onBack = navigateBack,
+                        onOpenAttempt = { attemptId ->
+                            val destination = ExamHistoryDetailKey(attemptId)
+                            if (backStack.lastOrNull() != destination) {
+                                backStack.add(destination)
+                            }
+                        },
+                    )
+                }
+                entry<ExamHistoryDetailKey> { key ->
+                    ExamHistoryDetailRoute(
+                        attemptId = key.attemptId,
+                        localContentRepository = localContentRepository,
+                        onBack = navigateBack,
                     )
                 }
                 entry<SettingsKey> {

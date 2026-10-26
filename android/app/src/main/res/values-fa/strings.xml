@@ -97,4 +97,18 @@
     <string name="settings_title">تنظیمات</string>
     <string name="settings_description">زبان یا ایالت خود را تغییر دهید.</string>
     <string name="settings_progress_note">پیشرفت مطالعه برای هر انتخاب زبان و ایالت جداگانه ذخیره می‌شود. تغییر انتخاب، آزمون آزمایشی ذخیره‌شده را حذف می‌کند.</string>
+    <string name="home_exam_history">تاریخچه آزمون‌ها</string>
+    <string name="exam_history_title">تاریخچه آزمون‌ها</string>
+    <string name="exam_history_empty_title">هنوز آزمونی وجود ندارد</string>
+    <string name="exam_history_empty_description">یک آزمون آزمایشی را کامل کنید تا نتیجه را اینجا ببینید.</string>
+    <string name="exam_history_view_result">مشاهده نتیجه</string>
+    <string name="exam_history_detail_title">جزئیات آزمون</string>
+    <string name="exam_history_duration">مدت: %1$d دقیقه</string>
+    <string name="exam_history_correct">درست</string>
+    <string name="exam_history_wrong">نادرست</string>
+    <string name="exam_history_unanswered">بدون پاسخ</string>
+    <string name="exam_history_your_answer">پاسخ شما: %1$s</string>
+    <string name="exam_history_correct_answer">پاسخ درست: %1$s</string>
+    <string name="exam_history_content_unavailable">محتوای سؤال دیگر در دسترس نیست.</string>
+    <string name="exam_history_error">تاریخچه آزمون‌ها بارگیری نشد.</string>
 </resources>

@@ -97,4 +97,18 @@
     <string name="settings_title">Настройки</string>
     <string name="settings_description">Измените язык или федеральную землю.</string>
     <string name="settings_progress_note">Прогресс сохраняется отдельно для каждого языка и федеральной земли. Изменение выбора удаляет сохранённый пробный экзамен.</string>
+    <string name="home_exam_history">История экзаменов</string>
+    <string name="exam_history_title">История экзаменов</string>
+    <string name="exam_history_empty_title">Экзаменов пока нет</string>
+    <string name="exam_history_empty_description">Завершите пробный экзамен, чтобы увидеть результат здесь.</string>
+    <string name="exam_history_view_result">Посмотреть результат</string>
+    <string name="exam_history_detail_title">Сведения об экзамене</string>
+    <string name="exam_history_duration">Продолжительность: %1$d мин.</string>
+    <string name="exam_history_correct">Верно</string>
+    <string name="exam_history_wrong">Неверно</string>
+    <string name="exam_history_unanswered">Без ответа</string>
+    <string name="exam_history_your_answer">Ваш ответ: %1$s</string>
+    <string name="exam_history_correct_answer">Правильный ответ: %1$s</string>
+    <string name="exam_history_content_unavailable">Содержание вопроса больше недоступно.</string>
+    <string name="exam_history_error">Не удалось загрузить историю экзаменов.</string>
 </resources>

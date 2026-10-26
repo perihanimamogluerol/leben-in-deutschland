@@ -97,4 +97,18 @@
     <string name="settings_title">Mîheng</string>
     <string name="settings_description">Ziman an eyaleta xwe biguherînin.</string>
     <string name="settings_progress_note">Pêşkeftina xwendinê ji bo her hilbijartina ziman û eyaletê cuda tê tomarkirin. Guhertina hilbijartinê azmûna ceribandinê ya tomarkirî jê dibe.</string>
+    <string name="home_exam_history">Dîroka azmûnan</string>
+    <string name="exam_history_title">Dîroka azmûnan</string>
+    <string name="exam_history_empty_title">Hê azmûnek tune</string>
+    <string name="exam_history_empty_description">Azmûnek ceribandinê biqedînin da ku encamê li vir bibînin.</string>
+    <string name="exam_history_view_result">Encamê bibîne</string>
+    <string name="exam_history_detail_title">Hûrguliyên azmûnê</string>
+    <string name="exam_history_duration">Dem: %1$d deq.</string>
+    <string name="exam_history_correct">Rast</string>
+    <string name="exam_history_wrong">Çewt</string>
+    <string name="exam_history_unanswered">Bê bersiv</string>
+    <string name="exam_history_your_answer">Bersiva we: %1$s</string>
+    <string name="exam_history_correct_answer">Bersiva rast: %1$s</string>
+    <string name="exam_history_content_unavailable">Naveroka pirsê êdî tune ye.</string>
+    <string name="exam_history_error">Dîroka azmûnan nehat barkirin.</string>
 </resources>

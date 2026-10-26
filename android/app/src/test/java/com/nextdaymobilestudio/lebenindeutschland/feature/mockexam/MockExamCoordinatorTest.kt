@@ -3,6 +3,7 @@ package com.nextdaymobilestudio.lebenindeutschland.feature.mockexam
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPackageEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamResultRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
@@ -102,9 +103,35 @@ class MockExamCoordinatorTest {
         assertEquals(second.id, localRepository.studyAnswerWrites[1].questionId)
         assertEquals("B", localRepository.studyAnswerWrites[1].selectedAnswerId)
         assertFalse(localRepository.studyAnswerWrites[1].isCorrect)
+        assertEquals(1, localRepository.mockExamResults.size)
+        assertEquals(completed.attemptId, localRepository.mockExamResults.single().summary.attemptId)
+        assertEquals(33, localRepository.mockExamResults.single().questionResults.size)
 
         assertEquals(completed, coordinator.submit(completed, submittedByTimeout = false))
         assertEquals(2, localRepository.studyAnswerWrites.size)
+        assertEquals(1, localRepository.mockExamResults.size)
+    }
+
+    @Test
+    fun restoreBackfillsLegacyCompletedExamWithoutCountingProgressTwice() = runBlocking {
+        val localRepository = FakeMockExamContentRepository()
+        val preferencesRepository = FakeMockExamPreferencesRepository()
+        val coordinator = coordinator(localRepository, preferencesRepository)
+        val exam = coordinator.start("tr", "he")
+        val completed = exam.copy(
+            selectedAnswers = mapOf(exam.questionIds.first() to "A"),
+            submittedAtEpochMillis = 200_000L,
+            correctCount = 1,
+        )
+        preferencesRepository.saveExam(completed)
+
+        assertEquals(completed, coordinator.restore("tr", "he"))
+        assertEquals(1, localRepository.mockExamResults.size)
+        assertTrue(localRepository.studyAnswerWrites.isEmpty())
+
+        assertEquals(completed, coordinator.restore("tr", "he"))
+        assertEquals(1, localRepository.mockExamResults.size)
+        assertTrue(localRepository.studyAnswerWrites.isEmpty())
     }
 
     @Test
@@ -166,6 +193,7 @@ private class FakeMockExamContentRepository(
 ) : LocalContentRepository {
     private val release = mockExamRelease()
     val studyAnswerWrites = mutableListOf<StudyAnswerRecord>()
+    val mockExamResults = mutableListOf<MockExamResultRecord>()
 
     override fun observeActiveRelease(): Flow<ContentReleaseEntity?> =
         MutableStateFlow(release)
@@ -230,6 +258,23 @@ private class FakeMockExamContentRepository(
             answeredAtEpochMillis = answeredAtEpochMillis,
             attemptCount = 1,
         )
+    }
+
+    override suspend fun recordMockExamResult(
+        result: MockExamResultRecord,
+        updateStudyProgress: Boolean,
+    ): Boolean {
+        if (mockExamResults.any { saved -> saved.summary.attemptId == result.summary.attemptId }) {
+            return false
+        }
+        mockExamResults += result
+        if (updateStudyProgress) {
+            super<LocalContentRepository>.recordMockExamResult(
+                result = result,
+                updateStudyProgress = true,
+            )
+        }
+        return true
     }
 }
 

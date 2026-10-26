@@ -97,4 +97,18 @@
     <string name="settings_title">Cilësimet</string>
     <string name="settings_description">Ndryshoni gjuhën ose landin federal.</string>
     <string name="settings_progress_note">Përparimi ruhet veçmas për çdo gjuhë dhe land. Ndryshimi i një zgjedhjeje fshin provimin provë të ruajtur.</string>
+    <string name="home_exam_history">Historiku i provimeve</string>
+    <string name="exam_history_title">Historiku i provimeve</string>
+    <string name="exam_history_empty_title">Ende nuk ka provime</string>
+    <string name="exam_history_empty_description">Përfundoni një provim provë për të parë rezultatin këtu.</string>
+    <string name="exam_history_view_result">Shiko rezultatin</string>
+    <string name="exam_history_detail_title">Detajet e provimit</string>
+    <string name="exam_history_duration">Kohëzgjatja: %1$d min</string>
+    <string name="exam_history_correct">Saktë</string>
+    <string name="exam_history_wrong">Gabim</string>
+    <string name="exam_history_unanswered">Pa përgjigje</string>
+    <string name="exam_history_your_answer">Përgjigjja juaj: %1$s</string>
+    <string name="exam_history_correct_answer">Përgjigjja e saktë: %1$s</string>
+    <string name="exam_history_content_unavailable">Përmbajtja e pyetjes nuk është më e disponueshme.</string>
+    <string name="exam_history_error">Historiku i provimeve nuk u ngarkua.</string>
 </resources>

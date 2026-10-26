@@ -10,6 +10,7 @@ object HomeTestTags {
     const val REVIEW_WRONG_ANSWERS = "home-review-wrong-answers"
     const val MOCK_EXAM = "home-mock-exam"
     const val OPEN_MOCK_EXAM = "home-open-mock-exam"
+    const val OPEN_EXAM_HISTORY = "home-open-exam-history"
     const val LANGUAGE = "home-language"
     const val STATE = "home-state"
     const val START_STUDY = "home-start-study"

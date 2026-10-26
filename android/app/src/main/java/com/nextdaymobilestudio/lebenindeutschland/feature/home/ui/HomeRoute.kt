@@ -20,6 +20,7 @@ fun HomeRoute(
     onStartStudy: () -> Unit,
     onReviewWrongAnswers: () -> Unit,
     onOpenMockExam: () -> Unit,
+    onOpenExamHistory: () -> Unit,
     onOpenSettings: () -> Unit,
 ) {
     val progress by produceState(
@@ -61,6 +62,7 @@ fun HomeRoute(
         onStartStudy = onStartStudy,
         onReviewWrongAnswers = onReviewWrongAnswers,
         onOpenMockExam = onOpenMockExam,
+        onOpenExamHistory = onOpenExamHistory,
         onOpenSettings = onOpenSettings,
     )
 }

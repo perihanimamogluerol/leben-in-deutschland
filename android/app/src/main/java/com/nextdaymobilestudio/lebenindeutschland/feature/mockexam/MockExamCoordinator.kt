@@ -1,7 +1,9 @@
 package com.nextdaymobilestudio.lebenindeutschland.feature.mockexam
 
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamHistoryItem
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamQuestionResult
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamResultRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
-import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.LocalContentRepository
 import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.data.MockExamPreferencesRepository
 import java.util.Locale
@@ -26,9 +28,16 @@ class MockExamCoordinator(
             mockExamPreferencesRepository.clearExam()
             return null
         }
-        return savedExam.copy(
+        val restoredExam = savedExam.copy(
             currentIndex = savedExam.currentIndex.coerceIn(savedExam.questionIds.indices),
         )
+        if (restoredExam.isComplete) {
+            archiveCompletedExam(
+                exam = restoredExam,
+                updateStudyProgress = false,
+            )
+        }
+        return restoredExam
     }
 
     suspend fun start(
@@ -137,27 +146,67 @@ class MockExamCoordinator(
             questionsById.getValue(questionId).correctAnswerId == selectedAnswerId
         }
         val submittedAtEpochMillis = currentTimeMillis()
-        val answeredQuestions = exam.selectedAnswers.map { (questionId, selectedAnswerId) ->
-            StudyAnswerRecord(
-                questionId = questionId,
-                selectedAnswerId = selectedAnswerId,
-                isCorrect = questionsById.getValue(questionId).correctAnswerId == selectedAnswerId,
-            )
-        }
-        localContentRepository.recordStudyAnswers(
-            releaseId = exam.releaseId,
-            languageCode = exam.languageCode,
-            stateCode = exam.stateCode,
-            answers = answeredQuestions,
-            answeredAtEpochMillis = submittedAtEpochMillis,
-        )
-        return exam.copy(
+        val completed = exam.copy(
             submittedAtEpochMillis = submittedAtEpochMillis,
             correctCount = correctCount,
             submittedByTimeout = submittedByTimeout,
-        ).also { completed ->
-            mockExamPreferencesRepository.saveExam(completed)
+        )
+        archiveCompletedExam(
+            exam = completed,
+            questionsById = questionsById,
+            updateStudyProgress = true,
+        )
+        mockExamPreferencesRepository.saveExam(completed)
+        return completed
+    }
+
+    private suspend fun archiveCompletedExam(
+        exam: MockExamSnapshot,
+        questionsById: Map<String, StudyQuestion>? = null,
+        updateStudyProgress: Boolean,
+    ) {
+        require(exam.isComplete)
+        val submittedAtEpochMillis = requireNotNull(exam.submittedAtEpochMillis)
+        val resolvedQuestions = questionsById ?: exam.questionIds.associateWith { questionId ->
+            requireNotNull(
+                localContentRepository.getStudyQuestion(
+                    releaseId = exam.releaseId,
+                    questionId = questionId,
+                    languageCode = exam.languageCode,
+                ),
+            ) { "Missing installed question: $questionId" }
         }
+        val questionResults = exam.questionIds.mapIndexed { index, questionId ->
+            MockExamQuestionResult(
+                questionId = questionId,
+                position = index,
+                selectedAnswerId = exam.selectedAnswers[questionId],
+                correctAnswerId = resolvedQuestions.getValue(questionId).correctAnswerId,
+            )
+        }
+        val correctCount = questionResults.count(MockExamQuestionResult::isCorrect)
+        val unansweredCount = questionResults.count { result -> !result.isAnswered }
+        val wrongCount = questionResults.count { result -> result.isAnswered && !result.isCorrect }
+        localContentRepository.recordMockExamResult(
+            MockExamResultRecord(
+                summary = MockExamHistoryItem(
+                    attemptId = exam.attemptId,
+                    releaseId = exam.releaseId,
+                    languageCode = exam.languageCode,
+                    stateCode = exam.stateCode,
+                    startedAtEpochMillis = exam.startedAtEpochMillis,
+                    submittedAtEpochMillis = submittedAtEpochMillis,
+                    deadlineEpochMillis = exam.deadlineEpochMillis,
+                    correctCount = correctCount,
+                    wrongCount = wrongCount,
+                    unansweredCount = unansweredCount,
+                    totalCount = exam.questionIds.size,
+                    submittedByTimeout = exam.submittedByTimeout,
+                ),
+                questionResults = questionResults,
+            ),
+            updateStudyProgress = updateStudyProgress,
+        )
     }
 
     suspend fun clear() {

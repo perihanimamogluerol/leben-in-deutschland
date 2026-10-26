@@ -97,4 +97,18 @@
     <string name="settings_title">Ayarlar</string>
     <string name="settings_description">Dilinizi veya eyaletinizi değiştirin.</string>
     <string name="settings_progress_note">Çalışma ilerlemeniz her dil ve eyalet seçimi için ayrı saklanır. Bir seçimi değiştirmek kayıtlı deneme sınavını siler.</string>
+    <string name="home_exam_history">Sınav geçmişi</string>
+    <string name="exam_history_title">Sınav geçmişi</string>
+    <string name="exam_history_empty_title">Henüz sınav yok</string>
+    <string name="exam_history_empty_description">Sonucunuzu burada görmek için bir deneme sınavını tamamlayın.</string>
+    <string name="exam_history_view_result">Sonucu görüntüle</string>
+    <string name="exam_history_detail_title">Sınav ayrıntıları</string>
+    <string name="exam_history_duration">Süre: %1$d dk.</string>
+    <string name="exam_history_correct">Doğru</string>
+    <string name="exam_history_wrong">Yanlış</string>
+    <string name="exam_history_unanswered">Boş</string>
+    <string name="exam_history_your_answer">Cevabınız: %1$s</string>
+    <string name="exam_history_correct_answer">Doğru cevap: %1$s</string>
+    <string name="exam_history_content_unavailable">Soru içeriği artık kullanılamıyor.</string>
+    <string name="exam_history_error">Sınav geçmişi yüklenemedi.</string>
 </resources>
