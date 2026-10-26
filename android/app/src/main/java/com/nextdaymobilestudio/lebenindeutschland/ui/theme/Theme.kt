@@ -11,6 +11,8 @@ private val DarkColorScheme = darkColorScheme(
     onPrimaryContainer = WarmWhite,
     secondary = AccessibleSuccess,
     onSecondary = Midnight950,
+    secondaryContainer = AccessibleSuccessContainer,
+    onSecondaryContainer = OnAccessibleSuccessContainer,
     background = Midnight950,
     onBackground = WarmWhite,
     surface = Midnight900,
@@ -21,6 +23,8 @@ private val DarkColorScheme = darkColorScheme(
     outlineVariant = OutlineDark,
     error = AccessibleError,
     onError = Midnight950,
+    errorContainer = AccessibleErrorContainer,
+    onErrorContainer = OnAccessibleErrorContainer,
 )
 
 @Composable

@@ -13,6 +13,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyCont
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAnswerAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.RoomLocalContentRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -142,15 +143,19 @@ class LocalContentDatabaseTest {
             isCorrect = false,
             answeredAtEpochMillis = 100L,
         )
-        val secondAttempt = repository.recordStudyAnswer(
+        val secondAttempt = repository.recordStudyAnswers(
             releaseId = RELEASE_ID,
             languageCode = "en",
             stateCode = "BE",
-            questionId = "general_001",
-            selectedAnswerId = "D",
-            isCorrect = true,
+            answers = listOf(
+                StudyAnswerRecord(
+                    questionId = "general_001",
+                    selectedAnswerId = "D",
+                    isCorrect = true,
+                ),
+            ),
             answeredAtEpochMillis = 200L,
-        )
+        ).single()
 
         assertEquals(2, secondAttempt.attemptCount)
         assertEquals("D", secondAttempt.selectedAnswerId)

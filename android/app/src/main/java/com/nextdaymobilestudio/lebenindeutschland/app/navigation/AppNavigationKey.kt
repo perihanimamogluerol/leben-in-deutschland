@@ -24,3 +24,6 @@ data class HomeKey(
 data class StudySessionKey(
     val wrongAnswersOnly: Boolean = false,
 ) : AppNavigationKey
+
+@Serializable
+data object MockExamKey : AppNavigationKey

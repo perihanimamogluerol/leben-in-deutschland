@@ -5,6 +5,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentRe
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -29,6 +30,25 @@ interface LocalContentRepository {
         languageCode: String,
         stateCode: String?,
     ): List<String>
+
+    suspend fun getGeneralQuestionIds(
+        releaseId: String,
+        languageCode: String,
+    ): List<String> = getEligibleQuestionIds(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = null,
+    )
+
+    suspend fun getStateQuestionIds(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    ): List<String> = getEligibleQuestionIds(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = stateCode,
+    ).filterNot { questionId -> questionId.startsWith("general_") }
 
     suspend fun getStudyQuestion(
         releaseId: String,
@@ -57,6 +77,24 @@ interface LocalContentRepository {
         isCorrect: Boolean,
         answeredAtEpochMillis: Long,
     ): StudyAnswerProgress = error("Study progress is not supported")
+
+    suspend fun recordStudyAnswers(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        answers: List<StudyAnswerRecord>,
+        answeredAtEpochMillis: Long,
+    ): List<StudyAnswerProgress> = answers.map { answer ->
+        recordStudyAnswer(
+            releaseId = releaseId,
+            languageCode = languageCode,
+            stateCode = stateCode,
+            questionId = answer.questionId,
+            selectedAnswerId = answer.selectedAnswerId,
+            isCorrect = answer.isCorrect,
+            answeredAtEpochMillis = answeredAtEpochMillis,
+        )
+    }
 
     suspend fun clearStudyProgress(
         releaseId: String,

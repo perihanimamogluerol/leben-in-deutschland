@@ -126,6 +126,44 @@ interface ContentDao {
 
     @Query(
         """
+        SELECT q.question_id
+        FROM questions AS q
+        INNER JOIN study_content AS s
+            ON s.release_id = q.release_id
+            AND s.question_id = q.question_id
+            AND s.language_code = :languageCode
+        WHERE q.release_id = :releaseId
+            AND q.scope = 'GENERAL'
+        ORDER BY q.official_number, q.question_id
+        """,
+    )
+    suspend fun getGeneralQuestionIds(
+        releaseId: String,
+        languageCode: String,
+    ): List<String>
+
+    @Query(
+        """
+        SELECT q.question_id
+        FROM questions AS q
+        INNER JOIN study_content AS s
+            ON s.release_id = q.release_id
+            AND s.question_id = q.question_id
+            AND s.language_code = :languageCode
+        WHERE q.release_id = :releaseId
+            AND q.scope = 'STATE'
+            AND q.state_code = :stateCode
+        ORDER BY q.official_number, q.question_id
+        """,
+    )
+    suspend fun getStateQuestionIds(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    ): List<String>
+
+    @Query(
+        """
         SELECT * FROM questions
         WHERE release_id = :releaseId AND question_id = :questionId
         """,

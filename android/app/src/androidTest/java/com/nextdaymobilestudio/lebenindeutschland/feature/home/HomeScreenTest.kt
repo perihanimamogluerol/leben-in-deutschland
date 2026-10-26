@@ -25,11 +25,11 @@ class HomeScreenTest {
     fun homeShowsInstalledContentAndStartsStudy() {
         var started = false
         var reviewedWrongAnswers = false
+        var openedMockExam = false
 
         composeRule.setContent {
             LebenInDeutschlandTheme {
                 HomeScreen(
-                    questionCount = 460,
                     languageName = "Türkçe",
                     stateName = "Hessen",
                     studyProgress = HomeProgressUiState(
@@ -39,12 +39,13 @@ class HomeScreenTest {
                     ),
                     onStartStudy = { started = true },
                     onReviewWrongAnswers = { reviewedWrongAnswers = true },
+                    onOpenMockExam = { openedMockExam = true },
                 )
             }
         }
 
         composeRule.onNodeWithTag(HomeTestTags.SCREEN).assertIsDisplayed()
-        composeRule.onNodeWithTag(HomeTestTags.CONTENT_SUMMARY).assertIsDisplayed()
+        composeRule.onNodeWithTag(HomeTestTags.CONTENT_SUMMARY).assertDoesNotExist()
         composeRule.onNodeWithTag(HomeTestTags.STUDY_PROGRESS).assertIsDisplayed()
         val contentList = composeRule.onNodeWithTag(HomeTestTags.CONTENT_LIST)
         contentList.performScrollToNode(hasTestTag(HomeTestTags.LANGUAGE))
@@ -56,11 +57,14 @@ class HomeScreenTest {
         contentList.performScrollToNode(hasTestTag(HomeTestTags.REVIEW_WRONG_ANSWERS))
         composeRule.onNodeWithTag(HomeTestTags.REVIEW_WRONG_ANSWERS)
             .performClick()
+        contentList.performScrollToNode(hasTestTag(HomeTestTags.OPEN_MOCK_EXAM))
+        composeRule.onNodeWithTag(HomeTestTags.OPEN_MOCK_EXAM).performClick()
         composeRule.onNodeWithTag(HomeTestTags.START_STUDY).performClick()
 
         composeRule.runOnIdle {
             assertTrue(started)
             assertTrue(reviewedWrongAnswers)
+            assertTrue(openedMockExam)
         }
     }
 }

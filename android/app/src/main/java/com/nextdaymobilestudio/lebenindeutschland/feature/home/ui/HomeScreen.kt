@@ -47,12 +47,14 @@ import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandThe
 
 @Composable
 fun HomeScreen(
-    questionCount: Int,
     languageName: String,
     stateName: String,
     studyProgress: HomeProgressUiState = HomeProgressUiState(),
+    hasActiveMockExam: Boolean = false,
+    hasCompletedMockExam: Boolean = false,
     onStartStudy: () -> Unit,
     onReviewWrongAnswers: () -> Unit = {},
+    onOpenMockExam: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -98,10 +100,6 @@ fun HomeScreen(
                 }
             }
 
-            item {
-                ContentSummary(questionCount = questionCount)
-            }
-
             if (studyProgress.totalCount > 0) {
                 item {
                     StudyProgressSummary(progress = studyProgress)
@@ -115,6 +113,14 @@ fun HomeScreen(
                         onReviewWrongAnswers = onReviewWrongAnswers,
                     )
                 }
+            }
+
+            item {
+                MockExamSummary(
+                    hasActiveExam = hasActiveMockExam,
+                    hasCompletedExam = hasCompletedMockExam,
+                    onOpenMockExam = onOpenMockExam,
+                )
             }
 
             item {
@@ -140,6 +146,63 @@ fun HomeScreen(
                     label = stringResource(R.string.home_federal_state),
                     value = stateName,
                     testTag = HomeTestTags.STATE,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MockExamSummary(
+    hasActiveExam: Boolean,
+    hasCompletedExam: Boolean,
+    onOpenMockExam: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(HomeTestTags.MOCK_EXAM),
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.tertiaryContainer,
+    ) {
+        Column(
+            modifier = Modifier.padding(22.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.home_mock_exam_title),
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.home_mock_exam_description),
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Button(
+                onClick = onOpenMockExam,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 56.dp)
+                    .testTag(HomeTestTags.OPEN_MOCK_EXAM),
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.PlayArrow,
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = stringResource(
+                        when {
+                            hasActiveExam -> R.string.home_mock_exam_resume
+                            hasCompletedExam -> R.string.home_mock_exam_result
+                            else -> R.string.home_mock_exam_start
+                        },
+                    ),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
                 )
             }
         }
@@ -265,46 +328,6 @@ private fun StudyProgressSummary(progress: HomeProgressUiState) {
 }
 
 @Composable
-private fun ContentSummary(questionCount: Int) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .testTag(HomeTestTags.CONTENT_SUMMARY),
-        shape = RoundedCornerShape(24.dp),
-        color = MaterialTheme.colorScheme.primaryContainer,
-    ) {
-        Row(
-            modifier = Modifier.padding(22.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                imageVector = Icons.Filled.CheckCircle,
-                contentDescription = null,
-                modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
-                    text = stringResource(R.string.home_content_ready),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                )
-                Text(
-                    text = stringResource(
-                        R.string.home_questions_available,
-                        questionCount,
-                    ),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun SelectionSummary(
     label: String,
     value: String,
@@ -399,7 +422,6 @@ private fun StartStudySection(
 private fun HomeScreenPreview() {
     LebenInDeutschlandTheme {
         HomeScreen(
-            questionCount = 460,
             languageName = "Türkçe",
             stateName = "Hessen",
             onStartStudy = {},

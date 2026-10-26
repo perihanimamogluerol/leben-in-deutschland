@@ -16,3 +16,9 @@ data class StudyAnswerProgress(
     val answeredAtEpochMillis: Long,
     val attemptCount: Int,
 )
+
+data class StudyAnswerRecord(
+    val questionId: String,
+    val selectedAnswerId: String,
+    val isCorrect: Boolean,
+)
