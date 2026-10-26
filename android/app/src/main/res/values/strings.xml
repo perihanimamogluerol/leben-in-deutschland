@@ -96,4 +96,7 @@
     <string name="mock_exam_time_up">Die Zeit ist abgelaufen. Ihre Antworten wurden automatisch abgegeben.</string>
     <string name="mock_exam_new">Neue Prüfung</string>
     <string name="mock_exam_back_home">Zur Startseite</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_description">Ändern Sie Ihre Sprache oder Ihr Bundesland.</string>
+    <string name="settings_progress_note">Ihr Lernfortschritt wird für jede Sprach- und Bundeslandauswahl getrennt gespeichert. Bei einer Änderung wird die gespeicherte Probeprüfung gelöscht.</string>
 </resources>

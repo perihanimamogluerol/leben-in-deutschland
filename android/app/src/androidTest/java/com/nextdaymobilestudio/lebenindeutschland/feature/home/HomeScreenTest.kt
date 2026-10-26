@@ -26,6 +26,7 @@ class HomeScreenTest {
         var started = false
         var reviewedWrongAnswers = false
         var openedMockExam = false
+        var openedSettings = false
 
         composeRule.setContent {
             LebenInDeutschlandTheme {
@@ -40,11 +41,13 @@ class HomeScreenTest {
                     onStartStudy = { started = true },
                     onReviewWrongAnswers = { reviewedWrongAnswers = true },
                     onOpenMockExam = { openedMockExam = true },
+                    onOpenSettings = { openedSettings = true },
                 )
             }
         }
 
         composeRule.onNodeWithTag(HomeTestTags.SCREEN).assertIsDisplayed()
+        composeRule.onNodeWithTag(HomeTestTags.OPEN_SETTINGS).performClick()
         composeRule.onNodeWithTag(HomeTestTags.CONTENT_SUMMARY).assertDoesNotExist()
         composeRule.onNodeWithTag(HomeTestTags.STUDY_PROGRESS).assertIsDisplayed()
         val contentList = composeRule.onNodeWithTag(HomeTestTags.CONTENT_LIST)
@@ -65,6 +68,7 @@ class HomeScreenTest {
             assertTrue(started)
             assertTrue(reviewedWrongAnswers)
             assertTrue(openedMockExam)
+            assertTrue(openedSettings)
         }
     }
 }

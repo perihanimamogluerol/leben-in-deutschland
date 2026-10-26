@@ -12,6 +12,7 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.mode
 @Composable
 fun LanguageSelectionRoute(
     persistedLanguage: SupportedLanguage? = null,
+    onBack: (() -> Unit)? = null,
     onContinue: (SupportedLanguage) -> Unit,
     viewModel: LanguageSelectionViewModel? = null,
 ) {
@@ -32,5 +33,6 @@ fun LanguageSelectionRoute(
         onContinue = {
             uiState.selectedLanguage?.let(onContinue)
         },
+        onBack = onBack,
     )
 }

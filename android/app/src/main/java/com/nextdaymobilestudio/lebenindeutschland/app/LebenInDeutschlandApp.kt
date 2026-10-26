@@ -21,6 +21,9 @@ import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstra
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.HomeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.MockExamKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.SettingsKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.SettingsLanguageKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.SettingsStateKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StudySessionKey
 import com.nextdaymobilestudio.lebenindeutschland.core.content.sync.ContentSynchronizer
@@ -34,6 +37,7 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.Co
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.settings.ui.SettingsRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionRoute
@@ -192,6 +196,11 @@ private fun OnboardingNavigation(
                                 backStack.add(MockExamKey)
                             }
                         },
+                        onOpenSettings = {
+                            if (backStack.lastOrNull() != SettingsKey) {
+                                backStack.add(SettingsKey)
+                            }
+                        },
                     )
                 }
                 entry<StudySessionKey> { key ->
@@ -218,6 +227,57 @@ private fun OnboardingNavigation(
                         mockExamPreferencesRepository = mockExamPreferencesRepository,
                         onBack = navigateBack,
                         onFinished = navigateBack,
+                    )
+                }
+                entry<SettingsKey> {
+                    SettingsRoute(
+                        languageName = persistedLanguage?.nativeName.orEmpty(),
+                        stateName = persistedState?.germanName.orEmpty(),
+                        onBack = navigateBack,
+                        onChangeLanguage = {
+                            if (backStack.lastOrNull() != SettingsLanguageKey) {
+                                backStack.add(SettingsLanguageKey)
+                            }
+                        },
+                        onChangeState = {
+                            if (backStack.lastOrNull() != SettingsStateKey) {
+                                backStack.add(SettingsStateKey)
+                            }
+                        },
+                    )
+                }
+                entry<SettingsLanguageKey> {
+                    LanguageSelectionRoute(
+                        persistedLanguage = persistedLanguage,
+                        onBack = navigateBack,
+                        onContinue = { language ->
+                            coroutineScope.launch {
+                                if (language.code == persistedLanguage?.code) {
+                                    navigateBack()
+                                } else {
+                                    mockExamPreferencesRepository.clearExam()
+                                    repository.setLanguageCode(language.code)
+                                    backStack.clear()
+                                    backStack.add(ContentBootstrapKey)
+                                    onApplicationLanguageSelected(language)
+                                }
+                            }
+                        },
+                    )
+                }
+                entry<SettingsStateKey> {
+                    StateSelectionRoute(
+                        initialState = persistedState,
+                        onBack = navigateBack,
+                        onContinue = { state ->
+                            coroutineScope.launch {
+                                if (state.code != persistedState?.code) {
+                                    mockExamPreferencesRepository.clearExam()
+                                    repository.setStateCode(state.code)
+                                }
+                                navigateBack()
+                            }
+                        },
                     )
                 }
             },

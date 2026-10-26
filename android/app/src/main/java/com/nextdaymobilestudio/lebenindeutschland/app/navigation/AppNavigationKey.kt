@@ -27,3 +27,12 @@ data class StudySessionKey(
 
 @Serializable
 data object MockExamKey : AppNavigationKey
+
+@Serializable
+data object SettingsKey : AppNavigationKey
+
+@Serializable
+data object SettingsLanguageKey : AppNavigationKey
+
+@Serializable
+data object SettingsStateKey : AppNavigationKey

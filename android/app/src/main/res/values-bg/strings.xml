@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Времето изтече. Отговорите са предадени автоматично.</string>
     <string name="mock_exam_new">Нов изпит</string>
     <string name="mock_exam_back_home">Към началната страница</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_description">Променете езика или федералната провинция.</string>
+    <string name="settings_progress_note">Напредъкът се пази отделно за всеки избор на език и провинция. Промяната изтрива запазения пробен изпит.</string>
 </resources>

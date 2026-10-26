@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Timpul a expirat. Răspunsurile au fost trimise automat.</string>
     <string name="mock_exam_new">Examen nou</string>
     <string name="mock_exam_back_home">Înapoi la pagina principală</string>
+    <string name="settings_title">Setări</string>
+    <string name="settings_description">Schimbă limba sau landul federal.</string>
+    <string name="settings_progress_note">Progresul este salvat separat pentru fiecare limbă și land. Schimbarea unei selecții șterge examenul de probă salvat.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.nextdaymobilestudio.lebenindeutschland.feature.home.ui
 
 object HomeTestTags {
     const val SCREEN = "home-screen"
+    const val OPEN_SETTINGS = "home-open-settings"
     const val CONTENT_LIST = "home-content-list"
     const val CONTENT_SUMMARY = "home-content-summary"
     const val STUDY_PROGRESS = "home-study-progress"

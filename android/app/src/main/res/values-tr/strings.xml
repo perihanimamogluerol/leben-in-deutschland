@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">Süre doldu. Cevapların otomatik olarak teslim edildi.</string>
     <string name="mock_exam_new">Yeni sınav</string>
     <string name="mock_exam_back_home">Ana sayfaya dön</string>
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_description">Dilinizi veya eyaletinizi değiştirin.</string>
+    <string name="settings_progress_note">Çalışma ilerlemeniz her dil ve eyalet seçimi için ayrı saklanır. Bir seçimi değiştirmek kayıtlı deneme sınavını siler.</string>
 </resources>

@@ -94,4 +94,7 @@
     <string name="mock_exam_time_up">وخت پای ته ورسېد. ځوابونه په اوتومات ډول وسپارل شول.</string>
     <string name="mock_exam_new">نوې ازموینه</string>
     <string name="mock_exam_back_home">کور ته ستنېدل</string>
+    <string name="settings_title">امستنې</string>
+    <string name="settings_description">خپله ژبه یا ایالت بدل کړئ.</string>
+    <string name="settings_progress_note">د زده کړې پرمختګ د هرې ژبې او ایالت لپاره جلا ساتل کېږي. د ټاکنې بدلول خوندي شوې ازمایښتي ازموینه ړنګوي.</string>
 </resources>
