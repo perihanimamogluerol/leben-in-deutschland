@@ -26,6 +26,7 @@ class HomeScreenTest {
         var started = false
         var reviewedWrongAnswers = false
         var openedMockExam = false
+        var openedExamHistory = false
         var openedSettings = false
 
         composeRule.setContent {
@@ -41,6 +42,7 @@ class HomeScreenTest {
                     onStartStudy = { started = true },
                     onReviewWrongAnswers = { reviewedWrongAnswers = true },
                     onOpenMockExam = { openedMockExam = true },
+                    onOpenExamHistory = { openedExamHistory = true },
                     onOpenSettings = { openedSettings = true },
                 )
             }
@@ -62,12 +64,15 @@ class HomeScreenTest {
             .performClick()
         contentList.performScrollToNode(hasTestTag(HomeTestTags.OPEN_MOCK_EXAM))
         composeRule.onNodeWithTag(HomeTestTags.OPEN_MOCK_EXAM).performClick()
+        contentList.performScrollToNode(hasTestTag(HomeTestTags.OPEN_EXAM_HISTORY))
+        composeRule.onNodeWithTag(HomeTestTags.OPEN_EXAM_HISTORY).performClick()
         composeRule.onNodeWithTag(HomeTestTags.START_STUDY).performClick()
 
         composeRule.runOnIdle {
             assertTrue(started)
             assertTrue(reviewedWrongAnswers)
             assertTrue(openedMockExam)
+            assertTrue(openedExamHistory)
             assertTrue(openedSettings)
         }
     }

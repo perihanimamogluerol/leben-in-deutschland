@@ -97,4 +97,18 @@
     <string name="settings_title">Impostazioni</string>
     <string name="settings_description">Cambia la lingua o lo stato federale.</string>
     <string name="settings_progress_note">I progressi vengono salvati separatamente per ogni lingua e stato. La modifica di una selezione elimina l’esame simulato salvato.</string>
+    <string name="home_exam_history">Cronologia esami</string>
+    <string name="exam_history_title">Cronologia esami</string>
+    <string name="exam_history_empty_title">Nessun esame ancora</string>
+    <string name="exam_history_empty_description">Completa un esame simulato per vedere qui il risultato.</string>
+    <string name="exam_history_view_result">Visualizza risultato</string>
+    <string name="exam_history_detail_title">Dettagli esame</string>
+    <string name="exam_history_duration">Durata: %1$d min</string>
+    <string name="exam_history_correct">Corretta</string>
+    <string name="exam_history_wrong">Errata</string>
+    <string name="exam_history_unanswered">Senza risposta</string>
+    <string name="exam_history_your_answer">La tua risposta: %1$s</string>
+    <string name="exam_history_correct_answer">Risposta corretta: %1$s</string>
+    <string name="exam_history_content_unavailable">Il contenuto della domanda non è più disponibile.</string>
+    <string name="exam_history_error">Impossibile caricare la cronologia degli esami.</string>
 </resources>

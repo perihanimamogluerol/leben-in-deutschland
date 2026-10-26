@@ -3,6 +3,8 @@ package com.nextdaymobilestudio.lebenindeutschland.core.database.repository
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPackageEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamHistoryItem
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamResultRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
@@ -101,4 +103,32 @@ interface LocalContentRepository {
         languageCode: String,
         stateCode: String?,
     ) = Unit
+
+    fun observeMockExamHistory(): Flow<List<MockExamHistoryItem>> = flowOf(emptyList())
+
+    suspend fun getMockExamResult(attemptId: String): MockExamResultRecord? = null
+
+    suspend fun recordMockExamResult(
+        result: MockExamResultRecord,
+        updateStudyProgress: Boolean = true,
+    ): Boolean {
+        if (updateStudyProgress) {
+            recordStudyAnswers(
+                releaseId = result.summary.releaseId,
+                languageCode = result.summary.languageCode,
+                stateCode = result.summary.stateCode,
+                answers = result.questionResults.mapNotNull { questionResult ->
+                    questionResult.selectedAnswerId?.let { selectedAnswerId ->
+                        StudyAnswerRecord(
+                            questionId = questionResult.questionId,
+                            selectedAnswerId = selectedAnswerId,
+                            isCorrect = questionResult.isCorrect,
+                        )
+                    }
+                },
+                answeredAtEpochMillis = result.summary.submittedAtEpochMillis,
+            )
+        }
+        return true
+    }
 }

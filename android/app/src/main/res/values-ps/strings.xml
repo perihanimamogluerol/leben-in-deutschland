@@ -97,4 +97,18 @@
     <string name="settings_title">امستنې</string>
     <string name="settings_description">خپله ژبه یا ایالت بدل کړئ.</string>
     <string name="settings_progress_note">د زده کړې پرمختګ د هرې ژبې او ایالت لپاره جلا ساتل کېږي. د ټاکنې بدلول خوندي شوې ازمایښتي ازموینه ړنګوي.</string>
+    <string name="home_exam_history">د ازموینو تاریخ</string>
+    <string name="exam_history_title">د ازموینو تاریخ</string>
+    <string name="exam_history_empty_title">تر اوسه ازموینه نشته</string>
+    <string name="exam_history_empty_description">یوه ازمایښتي ازموینه بشپړه کړئ ترڅو پایله دلته وګورئ.</string>
+    <string name="exam_history_view_result">پایله وګورئ</string>
+    <string name="exam_history_detail_title">د ازموینې جزیات</string>
+    <string name="exam_history_duration">موده: %1$d دقیقې</string>
+    <string name="exam_history_correct">سم</string>
+    <string name="exam_history_wrong">ناسم</string>
+    <string name="exam_history_unanswered">بې ځوابه</string>
+    <string name="exam_history_your_answer">ستاسو ځواب: %1$s</string>
+    <string name="exam_history_correct_answer">سم ځواب: %1$s</string>
+    <string name="exam_history_content_unavailable">د پوښتنې منځپانګه نور شتون نه لري.</string>
+    <string name="exam_history_error">د ازموینو تاریخ پورته نه شو.</string>
 </resources>

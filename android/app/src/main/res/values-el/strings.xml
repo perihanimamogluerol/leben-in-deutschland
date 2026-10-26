@@ -97,4 +97,18 @@
     <string name="settings_title">Ρυθμίσεις</string>
     <string name="settings_description">Αλλάξτε τη γλώσσα ή το ομόσπονδο κρατίδιό σας.</string>
     <string name="settings_progress_note">Η πρόοδος μελέτης αποθηκεύεται ξεχωριστά για κάθε επιλογή γλώσσας και κρατιδίου. Η αλλαγή επιλογής διαγράφει την αποθηκευμένη δοκιμαστική εξέταση.</string>
+    <string name="home_exam_history">Ιστορικό εξετάσεων</string>
+    <string name="exam_history_title">Ιστορικό εξετάσεων</string>
+    <string name="exam_history_empty_title">Δεν υπάρχουν ακόμη εξετάσεις</string>
+    <string name="exam_history_empty_description">Ολοκληρώστε μια δοκιμαστική εξέταση για να δείτε εδώ το αποτέλεσμά σας.</string>
+    <string name="exam_history_view_result">Προβολή αποτελέσματος</string>
+    <string name="exam_history_detail_title">Λεπτομέρειες εξέτασης</string>
+    <string name="exam_history_duration">Διάρκεια: %1$d λεπ.</string>
+    <string name="exam_history_correct">Σωστό</string>
+    <string name="exam_history_wrong">Λάθος</string>
+    <string name="exam_history_unanswered">Χωρίς απάντηση</string>
+    <string name="exam_history_your_answer">Η απάντησή σας: %1$s</string>
+    <string name="exam_history_correct_answer">Σωστή απάντηση: %1$s</string>
+    <string name="exam_history_content_unavailable">Το περιεχόμενο της ερώτησης δεν είναι πλέον διαθέσιμο.</string>
+    <string name="exam_history_error">Δεν ήταν δυνατή η φόρτωση του ιστορικού εξετάσεων.</string>
 </resources>

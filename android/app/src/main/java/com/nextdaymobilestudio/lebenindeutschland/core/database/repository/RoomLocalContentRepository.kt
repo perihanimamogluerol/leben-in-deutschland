@@ -4,8 +4,13 @@ import androidx.room.withTransaction
 import com.nextdaymobilestudio.lebenindeutschland.core.database.LocalContentDatabase
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPackageEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.MockExamAttemptEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.MockExamQuestionResultEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyQuestionProgressEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamHistoryItem
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamQuestionResult
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamResultRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
@@ -13,6 +18,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuest
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.toStudyQuestion
 import java.util.Locale
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class RoomLocalContentRepository(
     private val database: LocalContentDatabase,
@@ -174,8 +180,74 @@ class RoomLocalContentRepository(
         answers: List<StudyAnswerRecord>,
         answeredAtEpochMillis: Long,
     ): List<StudyAnswerProgress> = database.withTransaction {
+        recordStudyAnswersInTransaction(
+            releaseId = releaseId,
+            languageCode = languageCode,
+            stateCode = stateCode,
+            answers = answers,
+            answeredAtEpochMillis = answeredAtEpochMillis,
+        )
+    }
+
+    override fun observeMockExamHistory(): Flow<List<MockExamHistoryItem>> =
+        contentDao.observeMockExamAttempts().map { attempts ->
+            attempts.map(MockExamAttemptEntity::toModel)
+        }
+
+    override suspend fun getMockExamResult(attemptId: String): MockExamResultRecord? {
+        val attempt = contentDao.getMockExamAttempt(attemptId) ?: return null
+        val questions = contentDao.getMockExamQuestionResults(attemptId)
+            .map(MockExamQuestionResultEntity::toModel)
+        return MockExamResultRecord(
+            summary = attempt.toModel(),
+            questionResults = questions,
+        )
+    }
+
+    override suspend fun recordMockExamResult(
+        result: MockExamResultRecord,
+        updateStudyProgress: Boolean,
+    ): Boolean =
+        database.withTransaction {
+            if (contentDao.getMockExamAttempt(result.summary.attemptId) != null) {
+                return@withTransaction false
+            }
+
+            if (updateStudyProgress) {
+                recordStudyAnswersInTransaction(
+                    releaseId = result.summary.releaseId,
+                    languageCode = result.summary.languageCode,
+                    stateCode = result.summary.stateCode,
+                    answers = result.questionResults.mapNotNull { questionResult ->
+                        questionResult.selectedAnswerId?.let { selectedAnswerId ->
+                            StudyAnswerRecord(
+                                questionId = questionResult.questionId,
+                                selectedAnswerId = selectedAnswerId,
+                                isCorrect = questionResult.isCorrect,
+                            )
+                        }
+                    },
+                    answeredAtEpochMillis = result.summary.submittedAtEpochMillis,
+                )
+            }
+            contentDao.upsertMockExamAttempt(result.summary.toEntity())
+            contentDao.upsertMockExamQuestionResults(
+                result.questionResults.map { questionResult ->
+                    questionResult.toEntity(result.summary.attemptId)
+                },
+            )
+            true
+        }
+
+    private suspend fun recordStudyAnswersInTransaction(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        answers: List<StudyAnswerRecord>,
+        answeredAtEpochMillis: Long,
+    ): List<StudyAnswerProgress> {
         val databaseStateCode = stateCode.toDatabaseStateCode()
-        answers.map { answer ->
+        return answers.map { answer ->
             val previous = contentDao.getStudyQuestionProgress(
                 releaseId = releaseId,
                 languageCode = languageCode,
@@ -224,3 +296,50 @@ private fun StudyQuestionProgressEntity.toModel(): StudyAnswerProgress = StudyAn
     answeredAtEpochMillis = answeredAtEpochMillis,
     attemptCount = attemptCount,
 )
+
+private fun MockExamAttemptEntity.toModel(): MockExamHistoryItem = MockExamHistoryItem(
+    attemptId = attemptId,
+    releaseId = releaseId,
+    languageCode = languageCode,
+    stateCode = stateCode,
+    startedAtEpochMillis = startedAtEpochMillis,
+    submittedAtEpochMillis = submittedAtEpochMillis,
+    deadlineEpochMillis = deadlineEpochMillis,
+    correctCount = correctCount,
+    wrongCount = wrongCount,
+    unansweredCount = unansweredCount,
+    totalCount = totalCount,
+    submittedByTimeout = submittedByTimeout,
+)
+
+private fun MockExamHistoryItem.toEntity(): MockExamAttemptEntity = MockExamAttemptEntity(
+    attemptId = attemptId,
+    releaseId = releaseId,
+    languageCode = languageCode,
+    stateCode = stateCode,
+    startedAtEpochMillis = startedAtEpochMillis,
+    submittedAtEpochMillis = submittedAtEpochMillis,
+    deadlineEpochMillis = deadlineEpochMillis,
+    correctCount = correctCount,
+    wrongCount = wrongCount,
+    unansweredCount = unansweredCount,
+    totalCount = totalCount,
+    submittedByTimeout = submittedByTimeout,
+)
+
+private fun MockExamQuestionResultEntity.toModel(): MockExamQuestionResult =
+    MockExamQuestionResult(
+        questionId = questionId,
+        position = position,
+        selectedAnswerId = selectedAnswerId,
+        correctAnswerId = correctAnswerId,
+    )
+
+private fun MockExamQuestionResult.toEntity(attemptId: String): MockExamQuestionResultEntity =
+    MockExamQuestionResultEntity(
+        attemptId = attemptId,
+        questionId = questionId,
+        position = position,
+        selectedAnswerId = selectedAnswerId,
+        correctAnswerId = correctAnswerId,
+    )

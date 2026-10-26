@@ -97,4 +97,18 @@
     <string name="settings_title">Настройки</string>
     <string name="settings_description">Променете езика или федералната провинция.</string>
     <string name="settings_progress_note">Напредъкът се пази отделно за всеки избор на език и провинция. Промяната изтрива запазения пробен изпит.</string>
+    <string name="home_exam_history">История на изпитите</string>
+    <string name="exam_history_title">История на изпитите</string>
+    <string name="exam_history_empty_title">Все още няма изпити</string>
+    <string name="exam_history_empty_description">Завършете пробен изпит, за да видите резултата си тук.</string>
+    <string name="exam_history_view_result">Виж резултата</string>
+    <string name="exam_history_detail_title">Подробности за изпита</string>
+    <string name="exam_history_duration">Продължителност: %1$d мин.</string>
+    <string name="exam_history_correct">Вярно</string>
+    <string name="exam_history_wrong">Грешно</string>
+    <string name="exam_history_unanswered">Без отговор</string>
+    <string name="exam_history_your_answer">Вашият отговор: %1$s</string>
+    <string name="exam_history_correct_answer">Верен отговор: %1$s</string>
+    <string name="exam_history_content_unavailable">Съдържанието на въпроса вече не е налично.</string>
+    <string name="exam_history_error">Историята на изпитите не можа да се зареди.</string>
 </resources>

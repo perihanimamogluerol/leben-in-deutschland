@@ -13,6 +13,9 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyCont
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAnswerAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamHistoryItem
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamQuestionResult
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.MockExamResultRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.RoomLocalContentRepository
 import kotlinx.coroutines.flow.first
@@ -22,6 +25,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -180,6 +184,55 @@ class LocalContentDatabaseTest {
             0,
             repository.observeStudyProgress(RELEASE_ID, "en", "BE")
                 .first().answeredCount,
+        )
+    }
+
+    @Test
+    fun mockExamHistoryIsStoredAtomicallyAndIdempotently() = runBlocking {
+        repository.replacePackage(snapshot(languageCode = "de"))
+        repository.replacePackage(snapshot(languageCode = "en"))
+        repository.activateRelease(RELEASE_ID, "en")
+        val result = MockExamResultRecord(
+            summary = MockExamHistoryItem(
+                attemptId = "attempt-1",
+                releaseId = RELEASE_ID,
+                languageCode = "en",
+                stateCode = "BE",
+                startedAtEpochMillis = 100L,
+                submittedAtEpochMillis = 200L,
+                deadlineEpochMillis = 3_600_100L,
+                correctCount = 1,
+                wrongCount = 0,
+                unansweredCount = 1,
+                totalCount = 2,
+                submittedByTimeout = false,
+            ),
+            questionResults = listOf(
+                MockExamQuestionResult(
+                    questionId = "general_001",
+                    position = 0,
+                    selectedAnswerId = "D",
+                    correctAnswerId = "D",
+                ),
+                MockExamQuestionResult(
+                    questionId = "state_be_001",
+                    position = 1,
+                    selectedAnswerId = null,
+                    correctAnswerId = "D",
+                ),
+            ),
+        )
+
+        assertTrue(repository.recordMockExamResult(result))
+        assertFalse(repository.recordMockExamResult(result))
+
+        val history = repository.observeMockExamHistory().first()
+        assertEquals(listOf("attempt-1"), history.map(MockExamHistoryItem::attemptId))
+        assertEquals(result, repository.getMockExamResult("attempt-1"))
+        assertEquals(
+            1,
+            repository.getStudyAnswerProgress(RELEASE_ID, "en", "BE")
+                .single().attemptCount,
         )
     }
 

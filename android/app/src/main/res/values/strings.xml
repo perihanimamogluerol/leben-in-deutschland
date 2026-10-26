@@ -99,4 +99,18 @@
     <string name="settings_title">Einstellungen</string>
     <string name="settings_description">Ändern Sie Ihre Sprache oder Ihr Bundesland.</string>
     <string name="settings_progress_note">Ihr Lernfortschritt wird für jede Sprach- und Bundeslandauswahl getrennt gespeichert. Bei einer Änderung wird die gespeicherte Probeprüfung gelöscht.</string>
+    <string name="home_exam_history">Prüfungsverlauf</string>
+    <string name="exam_history_title">Prüfungsverlauf</string>
+    <string name="exam_history_empty_title">Noch keine Prüfungen</string>
+    <string name="exam_history_empty_description">Schließen Sie eine Prüfungssimulation ab, um Ihr Ergebnis hier zu sehen.</string>
+    <string name="exam_history_view_result">Ergebnis ansehen</string>
+    <string name="exam_history_detail_title">Prüfungsdetails</string>
+    <string name="exam_history_duration">Dauer: %1$d Min.</string>
+    <string name="exam_history_correct">Richtig</string>
+    <string name="exam_history_wrong">Falsch</string>
+    <string name="exam_history_unanswered">Unbeantwortet</string>
+    <string name="exam_history_your_answer">Ihre Antwort: %1$s</string>
+    <string name="exam_history_correct_answer">Richtige Antwort: %1$s</string>
+    <string name="exam_history_content_unavailable">Der Frageninhalt ist nicht mehr verfügbar.</string>
+    <string name="exam_history_error">Der Prüfungsverlauf konnte nicht geladen werden.</string>
 </resources>

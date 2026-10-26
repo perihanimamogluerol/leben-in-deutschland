@@ -97,4 +97,18 @@
     <string name="settings_title">Ustawienia</string>
     <string name="settings_description">Zmień język lub kraj związkowy.</string>
     <string name="settings_progress_note">Postęp jest zapisywany osobno dla każdego języka i kraju związkowego. Zmiana wyboru usuwa zapisany egzamin próbny.</string>
+    <string name="home_exam_history">Historia egzaminów</string>
+    <string name="exam_history_title">Historia egzaminów</string>
+    <string name="exam_history_empty_title">Brak egzaminów</string>
+    <string name="exam_history_empty_description">Ukończ egzamin próbny, aby zobaczyć tutaj wynik.</string>
+    <string name="exam_history_view_result">Zobacz wynik</string>
+    <string name="exam_history_detail_title">Szczegóły egzaminu</string>
+    <string name="exam_history_duration">Czas: %1$d min</string>
+    <string name="exam_history_correct">Poprawna</string>
+    <string name="exam_history_wrong">Błędna</string>
+    <string name="exam_history_unanswered">Bez odpowiedzi</string>
+    <string name="exam_history_your_answer">Twoja odpowiedź: %1$s</string>
+    <string name="exam_history_correct_answer">Poprawna odpowiedź: %1$s</string>
+    <string name="exam_history_content_unavailable">Treść pytania nie jest już dostępna.</string>
+    <string name="exam_history_error">Nie udało się wczytać historii egzaminów.</string>
 </resources>

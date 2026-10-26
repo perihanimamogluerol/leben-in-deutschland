@@ -57,6 +57,7 @@ fun HomeScreen(
     onStartStudy: () -> Unit,
     onReviewWrongAnswers: () -> Unit = {},
     onOpenMockExam: () -> Unit = {},
+    onOpenExamHistory: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -110,6 +111,7 @@ fun HomeScreen(
                     hasActiveExam = hasActiveMockExam,
                     hasCompletedExam = hasCompletedMockExam,
                     onOpenMockExam = onOpenMockExam,
+                    onOpenExamHistory = onOpenExamHistory,
                 )
             }
 
@@ -185,6 +187,7 @@ private fun MockExamSummary(
     hasActiveExam: Boolean,
     hasCompletedExam: Boolean,
     onOpenMockExam: () -> Unit,
+    onOpenExamHistory: () -> Unit,
 ) {
     Surface(
         modifier = Modifier
@@ -229,6 +232,20 @@ private fun MockExamSummary(
                             else -> R.string.home_mock_exam_start
                         },
                     ),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            FilledTonalButton(
+                onClick = onOpenExamHistory,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 54.dp)
+                    .testTag(HomeTestTags.OPEN_EXAM_HISTORY),
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.home_exam_history),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
