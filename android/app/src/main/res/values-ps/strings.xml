@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">وخت پای ته ورسېد. ځوابونه په اوتومات ډول وسپارل شول.</string>
     <string name="mock_exam_new">نوې ازموینه</string>
     <string name="mock_exam_back_home">کور ته ستنېدل</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_change">بدل کړئ</string>
+    <string name="settings_language_hint">که اړتیا وي، یو نوی زده‌کړې کڅوړه ډاونلوډ کیږي. د دې لپاره د انټرنیټ اړیکه اړینه ده.</string>
+    <string name="settings_state_hint">ستاسو پرمختګ ساتل کیږي. یوازې د ایالت ۱۰ ځانګړې پوښتنې بدلیږي.</string>
+    <string name="language_change_preparing_title">د ژبې چمتو کول</string>
+    <string name="language_change_preparing_message">زده‌کړې کڅوړه ډاونلوډ او ازمول کیږي. ستاسو اوسنۍ ژبه تر هغه فعاله پاتې کیږي چې ټول څه چمتو شي.</string>
+    <string name="language_change_failed_title">ژبه ونه بدلېده</string>
+    <string name="language_change_failed_message">زده‌کړې کڅوړه ډاونلوډ نه شوه. خپله د انټرنیټ اړیکه وګورئ. ستاسو اوسنۍ ژبه فعاله پاتې کیږي.</string>
+    <string name="language_change_cancel">لغوه کړئ</string>
 </resources>

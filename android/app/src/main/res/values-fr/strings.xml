@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Le temps est écoulé. Vos réponses ont été remises automatiquement.</string>
     <string name="mock_exam_new">Nouvel examen</string>
     <string name="mock_exam_back_home">Retour à l’accueil</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_change">Modifier</string>
+    <string name="settings_language_hint">Si nécessaire, un nouveau pack d’étude est téléchargé. Une connexion internet est requise.</string>
+    <string name="settings_state_hint">Votre progression est conservée. Seules les 10 questions propres au Land changent.</string>
+    <string name="language_change_preparing_title">Préparation de la langue</string>
+    <string name="language_change_preparing_message">Le pack d’étude est en cours de téléchargement et de vérification. Votre langue actuelle reste active jusqu’à ce que tout soit prêt.</string>
+    <string name="language_change_failed_title">Langue non modifiée</string>
+    <string name="language_change_failed_message">Le pack d’étude n’a pas pu être téléchargé. Vérifiez votre connexion internet. Votre langue actuelle reste active.</string>
+    <string name="language_change_cancel">Annuler</string>
 </resources>

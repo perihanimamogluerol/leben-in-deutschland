@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">انتهى الوقت وتم تسليم إجاباتك تلقائيًا.</string>
     <string name="mock_exam_new">اختبار جديد</string>
     <string name="mock_exam_back_home">العودة إلى الرئيسية</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_change">تغيير</string>
+    <string name="settings_language_hint">سيتم تنزيل حزمة تعلّم جديدة عند الحاجة. يتطلب ذلك اتصالًا بالإنترنت.</string>
+    <string name="settings_state_hint">يبقى تقدّمك محفوظًا. تتغيّر فقط الأسئلة العشرة الخاصة بالولاية.</string>
+    <string name="language_change_preparing_title">جارٍ تجهيز اللغة</string>
+    <string name="language_change_preparing_message">يجري تنزيل حزمة التعلّم والتحقق منها. تبقى لغتك الحالية مفعّلة حتى يكتمل كل شيء.</string>
+    <string name="language_change_failed_title">لم يتم تغيير اللغة</string>
+    <string name="language_change_failed_message">تعذّر تنزيل حزمة التعلّم. تحقّق من اتصالك بالإنترنت. تبقى لغتك الحالية مفعّلة.</string>
+    <string name="language_change_cancel">إلغاء</string>
 </resources>

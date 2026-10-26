@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Времето изтече. Отговорите са предадени автоматично.</string>
     <string name="mock_exam_new">Нов изпит</string>
     <string name="mock_exam_back_home">Към началната страница</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_change">Промяна</string>
+    <string name="settings_language_hint">При нужда се изтегля нов учебен пакет. За това е необходима интернет връзка.</string>
+    <string name="settings_state_hint">Напредъкът ви се запазва. Променят се само 10-те въпроса за съответната федерална провинция.</string>
+    <string name="language_change_preparing_title">Подготовка на езика</string>
+    <string name="language_change_preparing_message">Учебният пакет се изтегля и проверява. Текущият език остава активен, докато всичко не е готово.</string>
+    <string name="language_change_failed_title">Езикът не е променен</string>
+    <string name="language_change_failed_message">Учебният пакет не можа да бъде изтеглен. Проверете интернет връзката си. Текущият език остава активен.</string>
+    <string name="language_change_cancel">Отказ</string>
 </resources>

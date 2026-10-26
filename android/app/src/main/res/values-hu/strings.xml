@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Lejárt az idő. A válaszok automatikusan beküldésre kerültek.</string>
     <string name="mock_exam_new">Új vizsga</string>
     <string name="mock_exam_back_home">Vissza a kezdőlapra</string>
+    <string name="settings_title">Beállítások</string>
+    <string name="settings_change">Módosítás</string>
+    <string name="settings_language_hint">Szükség esetén új tanulócsomag töltődik le. Ehhez internetkapcsolat szükséges.</string>
+    <string name="settings_state_hint">A haladásod megmarad. Csak a tartományra vonatkozó 10 kérdés változik.</string>
+    <string name="language_change_preparing_title">Nyelv előkészítése</string>
+    <string name="language_change_preparing_message">A tanulócsomag letöltése és ellenőrzése folyamatban van. A jelenlegi nyelv addig aktív marad, amíg minden készen nem áll.</string>
+    <string name="language_change_failed_title">A nyelv nem változott meg</string>
+    <string name="language_change_failed_message">A tanulócsomagot nem sikerült letölteni. Ellenőrizd az internetkapcsolatot. A jelenlegi nyelv aktív marad.</string>
+    <string name="language_change_cancel">Mégse</string>
 </resources>

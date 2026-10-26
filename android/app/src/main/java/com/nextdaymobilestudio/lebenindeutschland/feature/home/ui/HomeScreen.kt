@@ -55,6 +55,7 @@ fun HomeScreen(
     onStartStudy: () -> Unit,
     onReviewWrongAnswers: () -> Unit = {},
     onOpenMockExam: () -> Unit = {},
+    onOpenSettings: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -147,6 +148,23 @@ fun HomeScreen(
                     value = stateName,
                     testTag = HomeTestTags.STATE,
                 )
+            }
+
+            item {
+                FilledTonalButton(
+                    onClick = onOpenSettings,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 52.dp)
+                        .testTag(HomeTestTags.OPEN_SETTINGS),
+                    shape = RoundedCornerShape(16.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.settings_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
             }
         }
     }

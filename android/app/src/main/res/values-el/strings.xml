@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Ο χρόνος έληξε. Οι απαντήσεις υποβλήθηκαν αυτόματα.</string>
     <string name="mock_exam_new">Νέα εξέταση</string>
     <string name="mock_exam_back_home">Επιστροφή στην αρχική</string>
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_change">Αλλαγή</string>
+    <string name="settings_language_hint">Αν χρειαστεί, θα γίνει λήψη νέου πακέτου μελέτης. Απαιτείται σύνδεση στο διαδίκτυο.</string>
+    <string name="settings_state_hint">Η πρόοδός σας διατηρείται. Αλλάζουν μόνο οι 10 ερωτήσεις του ομόσπονδου κρατιδίου.</string>
+    <string name="language_change_preparing_title">Προετοιμασία γλώσσας</string>
+    <string name="language_change_preparing_message">Το πακέτο μελέτης λαμβάνεται και ελέγχεται. Η τρέχουσα γλώσσα παραμένει ενεργή μέχρι να είναι όλα έτοιμα.</string>
+    <string name="language_change_failed_title">Η γλώσσα δεν άλλαξε</string>
+    <string name="language_change_failed_message">Δεν ήταν δυνατή η λήψη του πακέτου μελέτης. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο. Η τρέχουσα γλώσσα παραμένει ενεργή.</string>
+    <string name="language_change_cancel">Ακύρωση</string>
 </resources>

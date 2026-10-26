@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Vreme je isteklo. Odgovori su automatski predati.</string>
     <string name="mock_exam_new">Novi ispit</string>
     <string name="mock_exam_back_home">Nazad na početnu</string>
+    <string name="settings_title">Podešavanja</string>
+    <string name="settings_change">Promeni</string>
+    <string name="settings_language_hint">Po potrebi se preuzima novi paket za učenje. Za to je potrebna internet veza.</string>
+    <string name="settings_state_hint">Vaš napredak ostaje sačuvan. Menja se samo 10 pitanja specifičnih za saveznu pokrajinu.</string>
+    <string name="language_change_preparing_title">Priprema jezika</string>
+    <string name="language_change_preparing_message">Paket za učenje se preuzima i proverava. Trenutni jezik ostaje aktivan dok sve ne bude spremno.</string>
+    <string name="language_change_failed_title">Jezik nije promenjen</string>
+    <string name="language_change_failed_message">Paket za učenje nije moguće preuzeti. Proverite internet vezu. Trenutni jezik ostaje aktivan.</string>
+    <string name="language_change_cancel">Otkaži</string>
 </resources>

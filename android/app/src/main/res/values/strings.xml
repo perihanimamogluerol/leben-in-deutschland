@@ -96,4 +96,13 @@
     <string name="mock_exam_time_up">Die Zeit ist abgelaufen. Ihre Antworten wurden automatisch abgegeben.</string>
     <string name="mock_exam_new">Neue Prüfung</string>
     <string name="mock_exam_back_home">Zur Startseite</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_change">Ändern</string>
+    <string name="settings_language_hint">Bei Bedarf wird ein neues Lernpaket geladen. Dafür ist eine Internetverbindung nötig.</string>
+    <string name="settings_state_hint">Ihr Lernfortschritt bleibt erhalten. Es ändern sich nur die 10 landesspezifischen Fragen.</string>
+    <string name="language_change_preparing_title">Sprache wird vorbereitet</string>
+    <string name="language_change_preparing_message">Das Lernpaket wird geladen und geprüft. Ihre bisherige Sprache bleibt aktiv, bis alles bereit ist.</string>
+    <string name="language_change_failed_title">Sprache nicht gewechselt</string>
+    <string name="language_change_failed_message">Das Lernpaket konnte nicht geladen werden. Prüfen Sie Ihre Internetverbindung. Ihre bisherige Sprache bleibt aktiv.</string>
+    <string name="language_change_cancel">Abbrechen</string>
 </resources>

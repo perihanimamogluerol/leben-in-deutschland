@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">زمان تمام شد. پاسخ‌ها به‌طور خودکار ارسال شدند.</string>
     <string name="mock_exam_new">آزمون جدید</string>
     <string name="mock_exam_back_home">بازگشت به خانه</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_change">تغییر</string>
+    <string name="settings_language_hint">در صورت نیاز، یک بسته آموزشی جدید دانلود می‌شود. برای این کار اتصال به اینترنت لازم است.</string>
+    <string name="settings_state_hint">پیشرفت شما حفظ می‌شود. فقط ۱۰ پرسش مربوط به ایالت تغییر می‌کند.</string>
+    <string name="language_change_preparing_title">آماده‌سازی زبان</string>
+    <string name="language_change_preparing_message">بسته آموزشی در حال دانلود و بررسی است. زبان فعلی شما تا آماده شدن همه چیز فعال می‌ماند.</string>
+    <string name="language_change_failed_title">زبان تغییر نکرد</string>
+    <string name="language_change_failed_message">دانلود بسته آموزشی انجام نشد. اتصال اینترنت خود را بررسی کنید. زبان فعلی شما فعال می‌ماند.</string>
+    <string name="language_change_cancel">انصراف</string>
 </resources>
