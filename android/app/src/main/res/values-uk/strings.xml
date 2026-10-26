@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Час вийшов. Відповіді надіслано автоматично.</string>
     <string name="mock_exam_new">Новий іспит</string>
     <string name="mock_exam_back_home">На головну</string>
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_change">Змінити</string>
+    <string name="settings_language_hint">За потреби буде завантажено новий навчальний пакет. Для цього потрібне інтернет-з’єднання.</string>
+    <string name="settings_state_hint">Ваш прогрес збережеться. Змінюються лише 10 питань для вашої федеральної землі.</string>
+    <string name="language_change_preparing_title">Підготовка мови</string>
+    <string name="language_change_preparing_message">Навчальний пакет завантажується та перевіряється. Поточна мова залишається активною, доки все не буде готово.</string>
+    <string name="language_change_failed_title">Мову не змінено</string>
+    <string name="language_change_failed_message">Не вдалося завантажити навчальний пакет. Перевірте інтернет-з’єднання. Поточна мова залишається активною.</string>
+    <string name="language_change_cancel">Скасувати</string>
 </resources>

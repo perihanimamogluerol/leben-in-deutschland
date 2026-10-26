@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Czas minął. Odpowiedzi przesłano automatycznie.</string>
     <string name="mock_exam_new">Nowy egzamin</string>
     <string name="mock_exam_back_home">Wróć do strony głównej</string>
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_change">Zmień</string>
+    <string name="settings_language_hint">W razie potrzeby zostanie pobrany nowy pakiet nauki. Wymaga to połączenia z internetem.</string>
+    <string name="settings_state_hint">Twój postęp zostanie zachowany. Zmieni się tylko 10 pytań dotyczących danego kraju związkowego.</string>
+    <string name="language_change_preparing_title">Przygotowywanie języka</string>
+    <string name="language_change_preparing_message">Pakiet nauki jest pobierany i sprawdzany. Obecny język pozostaje aktywny, dopóki wszystko nie będzie gotowe.</string>
+    <string name="language_change_failed_title">Język nie został zmieniony</string>
+    <string name="language_change_failed_message">Nie udało się pobrać pakietu nauki. Sprawdź połączenie z internetem. Obecny język pozostaje aktywny.</string>
+    <string name="language_change_cancel">Anuluj</string>
 </resources>

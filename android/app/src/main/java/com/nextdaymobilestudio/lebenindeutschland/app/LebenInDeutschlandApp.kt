@@ -19,8 +19,11 @@ import androidx.navigation3.ui.NavDisplay
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.AppNavigationKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstrapKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.HomeKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageChangeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.MockExamKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.SettingsKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateChangeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StudySessionKey
 import com.nextdaymobilestudio.lebenindeutschland.core.content.sync.ContentSynchronizer
@@ -34,6 +37,9 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.Co
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.model.SupportedLanguage
 import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.LanguageSelectionRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.settings.LanguageChangeCoordinator
+import com.nextdaymobilestudio.lebenindeutschland.feature.settings.ui.LanguageChangeRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.settings.ui.SettingsScreen
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionRoute
@@ -105,6 +111,18 @@ private fun OnboardingNavigation(
             contentSynchronizerProvider = contentSynchronizerProvider,
             reportError = { message, throwable ->
                 Log.e(CONTENT_BOOTSTRAP_LOG_TAG, message, throwable)
+            },
+        )
+    }
+    val languageChangeCoordinator = remember(
+        localContentRepository,
+        contentSynchronizerProvider,
+    ) {
+        LanguageChangeCoordinator(
+            localContentRepository = localContentRepository,
+            contentSynchronizerProvider = contentSynchronizerProvider,
+            reportError = { message, throwable ->
+                Log.e(LANGUAGE_CHANGE_LOG_TAG, message, throwable)
             },
         )
     }
@@ -192,6 +210,61 @@ private fun OnboardingNavigation(
                                 backStack.add(MockExamKey)
                             }
                         },
+                        onOpenSettings = {
+                            if (backStack.lastOrNull() != SettingsKey) {
+                                backStack.add(SettingsKey)
+                            }
+                        },
+                    )
+                }
+                entry<SettingsKey> {
+                    SettingsScreen(
+                        languageName = persistedLanguage?.nativeName.orEmpty(),
+                        stateName = persistedState?.germanName.orEmpty(),
+                        onBack = navigateBack,
+                        onChangeLanguage = {
+                            if (backStack.lastOrNull() != LanguageChangeKey) {
+                                backStack.add(LanguageChangeKey)
+                            }
+                        },
+                        onChangeState = {
+                            if (backStack.lastOrNull() != StateChangeKey) {
+                                backStack.add(StateChangeKey)
+                            }
+                        },
+                    )
+                }
+                entry<LanguageChangeKey> {
+                    LanguageChangeRoute(
+                        currentLanguage = persistedLanguage ?: SupportedLanguage.GERMAN,
+                        coordinator = languageChangeCoordinator,
+                        onLanguageReady = { language ->
+                            coroutineScope.launch {
+                                // The new package is already installed and validated. Only
+                                // now is it safe to switch the persisted and UI language.
+                                if (language != persistedLanguage) {
+                                    repository.setLanguageCode(language.code)
+                                }
+                                if (backStack.lastOrNull() == LanguageChangeKey) {
+                                    backStack.removeLastOrNull()
+                                }
+                                onApplicationLanguageSelected(language)
+                            }
+                        },
+                    )
+                }
+                entry<StateChangeKey> {
+                    StateSelectionRoute(
+                        initialState = persistedState,
+                        onBack = navigateBack,
+                        onContinue = { state ->
+                            coroutineScope.launch {
+                                repository.setStateCode(state.code)
+                                if (backStack.lastOrNull() == StateChangeKey) {
+                                    backStack.removeLastOrNull()
+                                }
+                            }
+                        },
                     )
                 }
                 entry<StudySessionKey> { key ->
@@ -229,3 +302,4 @@ private fun Flow<OnboardingPreferences>.asNullable(): Flow<OnboardingPreferences
     map { preferences -> preferences }
 
 private const val CONTENT_BOOTSTRAP_LOG_TAG = "ContentBootstrap"
+private const val LANGUAGE_CHANGE_LOG_TAG = "LanguageChange"

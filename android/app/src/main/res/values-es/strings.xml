@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Se acabó el tiempo. Tus respuestas se entregaron automáticamente.</string>
     <string name="mock_exam_new">Nuevo examen</string>
     <string name="mock_exam_back_home">Volver al inicio</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_change">Cambiar</string>
+    <string name="settings_language_hint">Si es necesario, se descargará un nuevo paquete de estudio. Para ello se requiere conexión a internet.</string>
+    <string name="settings_state_hint">Tu progreso se conserva. Solo cambian las 10 preguntas específicas del estado federado.</string>
+    <string name="language_change_preparing_title">Preparando el idioma</string>
+    <string name="language_change_preparing_message">El paquete de estudio se está descargando y comprobando. Tu idioma actual sigue activo hasta que todo esté listo.</string>
+    <string name="language_change_failed_title">Idioma no cambiado</string>
+    <string name="language_change_failed_message">No se pudo descargar el paquete de estudio. Comprueba tu conexión a internet. Tu idioma actual sigue activo.</string>
+    <string name="language_change_cancel">Cancelar</string>
 </resources>

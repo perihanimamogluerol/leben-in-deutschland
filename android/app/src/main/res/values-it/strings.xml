@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Tempo scaduto. Le risposte sono state consegnate automaticamente.</string>
     <string name="mock_exam_new">Nuovo esame</string>
     <string name="mock_exam_back_home">Torna alla home</string>
+    <string name="settings_title">Impostazioni</string>
+    <string name="settings_change">Modifica</string>
+    <string name="settings_language_hint">Se necessario viene scaricato un nuovo pacchetto di studio. È necessaria una connessione a internet.</string>
+    <string name="settings_state_hint">I tuoi progressi vengono mantenuti. Cambiano solo le 10 domande specifiche del Land.</string>
+    <string name="language_change_preparing_title">Preparazione della lingua</string>
+    <string name="language_change_preparing_message">Il pacchetto di studio viene scaricato e verificato. La lingua attuale resta attiva finché tutto non è pronto.</string>
+    <string name="language_change_failed_title">Lingua non cambiata</string>
+    <string name="language_change_failed_message">Non è stato possibile scaricare il pacchetto di studio. Controlla la connessione a internet. La lingua attuale resta attiva.</string>
+    <string name="language_change_cancel">Annulla</string>
 </resources>

@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Koha mbaroi. Përgjigjet u dorëzuan automatikisht.</string>
     <string name="mock_exam_new">Provim i ri</string>
     <string name="mock_exam_back_home">Kthehu në krye</string>
+    <string name="settings_title">Cilësimet</string>
+    <string name="settings_change">Ndrysho</string>
+    <string name="settings_language_hint">Kur është e nevojshme, shkarkohet një paketë e re mësimi. Për këtë nevojitet lidhje me internetin.</string>
+    <string name="settings_state_hint">Progresi juaj ruhet. Ndryshojnë vetëm 10 pyetjet specifike të landit.</string>
+    <string name="language_change_preparing_title">Gjuha po përgatitet</string>
+    <string name="language_change_preparing_message">Paketa e mësimit po shkarkohet dhe po kontrollohet. Gjuha aktuale mbetet aktive derisa gjithçka të jetë gati.</string>
+    <string name="language_change_failed_title">Gjuha nuk u ndryshua</string>
+    <string name="language_change_failed_message">Paketa e mësimit nuk u shkarkua dot. Kontrolloni lidhjen me internetin. Gjuha aktuale mbetet aktive.</string>
+    <string name="language_change_cancel">Anulo</string>
 </resources>

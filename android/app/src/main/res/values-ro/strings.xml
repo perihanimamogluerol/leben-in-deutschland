@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Timpul a expirat. Răspunsurile au fost trimise automat.</string>
     <string name="mock_exam_new">Examen nou</string>
     <string name="mock_exam_back_home">Înapoi la pagina principală</string>
+    <string name="settings_title">Setări</string>
+    <string name="settings_change">Schimbă</string>
+    <string name="settings_language_hint">Dacă este nevoie, se descarcă un nou pachet de învățare. Este necesară o conexiune la internet.</string>
+    <string name="settings_state_hint">Progresul dvs. este păstrat. Se schimbă doar cele 10 întrebări specifice landului.</string>
+    <string name="language_change_preparing_title">Se pregătește limba</string>
+    <string name="language_change_preparing_message">Pachetul de învățare se descarcă și se verifică. Limba actuală rămâne activă până când totul este gata.</string>
+    <string name="language_change_failed_title">Limba nu a fost schimbată</string>
+    <string name="language_change_failed_message">Pachetul de învățare nu a putut fi descărcat. Verificați conexiunea la internet. Limba actuală rămâne activă.</string>
+    <string name="language_change_cancel">Anulează</string>
 </resources>

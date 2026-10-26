@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Süre doldu. Cevapların otomatik olarak teslim edildi.</string>
     <string name="mock_exam_new">Yeni sınav</string>
     <string name="mock_exam_back_home">Ana sayfaya dön</string>
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_change">Değiştir</string>
+    <string name="settings_language_hint">Gerekirse yeni bir çalışma paketi indirilir. Bunun için internet bağlantısı gerekir.</string>
+    <string name="settings_state_hint">İlerlemeniz korunur. Yalnızca eyalete özgü 10 soru değişir.</string>
+    <string name="language_change_preparing_title">Dil hazırlanıyor</string>
+    <string name="language_change_preparing_message">Çalışma paketi indiriliyor ve kontrol ediliyor. Her şey hazır olana kadar mevcut diliniz etkin kalır.</string>
+    <string name="language_change_failed_title">Dil değiştirilmedi</string>
+    <string name="language_change_failed_message">Çalışma paketi indirilemedi. İnternet bağlantınızı kontrol edin. Mevcut diliniz etkin kalır.</string>
+    <string name="language_change_cancel">İptal</string>
 </resources>

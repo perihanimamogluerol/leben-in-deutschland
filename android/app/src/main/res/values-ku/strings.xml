@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Dem qediya. Bersiv bixweber hatin teslîmkirin.</string>
     <string name="mock_exam_new">Azmûna nû</string>
     <string name="mock_exam_back_home">Vegere serûpelê</string>
+    <string name="settings_title">Mîheng</string>
+    <string name="settings_change">Biguherîne</string>
+    <string name="settings_language_hint">Heke pêdivî be, pakêteke nû ya fêrbûnê tê daxistin. Ji bo vê girêdana înternetê lazim e.</string>
+    <string name="settings_state_hint">Pêşketina te tê parastin. Tenê 10 pirsên taybet ên eyaletê diguherin.</string>
+    <string name="language_change_preparing_title">Ziman tê amadekirin</string>
+    <string name="language_change_preparing_message">Pakêta fêrbûnê tê daxistin û tê kontrolkirin. Zimanê te yê heyî heta her tişt amade nebe çalak dimîne.</string>
+    <string name="language_change_failed_title">Ziman nehat guhertin</string>
+    <string name="language_change_failed_message">Pakêta fêrbûnê nehat daxistin. Girêdana xwe ya înternetê kontrol bike. Zimanê te yê heyî çalak dimîne.</string>
+    <string name="language_change_cancel">Betal bike</string>
 </resources>

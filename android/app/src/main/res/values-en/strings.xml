@@ -94,4 +94,13 @@
     <string name="mock_exam_time_up">Time is up. Your answers were submitted automatically.</string>
     <string name="mock_exam_new">New exam</string>
     <string name="mock_exam_back_home">Back to home</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_change">Change</string>
+    <string name="settings_language_hint">A new content package is downloaded if needed. This requires an internet connection.</string>
+    <string name="settings_state_hint">Your progress is kept. Only the 10 state-specific questions change.</string>
+    <string name="language_change_preparing_title">Preparing language</string>
+    <string name="language_change_preparing_message">The content package is being downloaded and checked. Your current language stays active until everything is ready.</string>
+    <string name="language_change_failed_title">Language not changed</string>
+    <string name="language_change_failed_message">The content package could not be downloaded. Check your internet connection. Your current language stays active.</string>
+    <string name="language_change_cancel">Cancel</string>
 </resources>

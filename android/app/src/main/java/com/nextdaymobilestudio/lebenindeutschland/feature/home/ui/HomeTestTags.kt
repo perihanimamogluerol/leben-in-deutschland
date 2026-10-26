@@ -12,4 +12,5 @@ object HomeTestTags {
     const val LANGUAGE = "home-language"
     const val STATE = "home-state"
     const val START_STUDY = "home-start-study"
+    const val OPEN_SETTINGS = "home-open-settings"
 }
