@@ -267,21 +267,21 @@ private fun AnswerOption(
     val isSelected = selectedAnswerId == answer.id
     val isCorrectAnswer = question.correctAnswerId == answer.id
     val containerColor = when {
-        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.primaryContainer
+        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.secondaryContainer
         isSubmitted && isSelected -> MaterialTheme.colorScheme.errorContainer
-        isSelected -> MaterialTheme.colorScheme.secondaryContainer
+        isSelected -> MaterialTheme.colorScheme.primaryContainer
         else -> MaterialTheme.colorScheme.surface
     }
     val contentColor = when {
-        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.onPrimaryContainer
+        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.onSecondaryContainer
         isSubmitted && isSelected -> MaterialTheme.colorScheme.onErrorContainer
-        isSelected -> MaterialTheme.colorScheme.onSecondaryContainer
+        isSelected -> MaterialTheme.colorScheme.onPrimaryContainer
         else -> MaterialTheme.colorScheme.onSurface
     }
     val borderColor = when {
-        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.primary
+        isSubmitted && isCorrectAnswer -> MaterialTheme.colorScheme.secondary
         isSubmitted && isSelected -> MaterialTheme.colorScheme.error
-        isSelected -> MaterialTheme.colorScheme.secondary
+        isSelected -> MaterialTheme.colorScheme.primary
         else -> MaterialTheme.colorScheme.outlineVariant
     }
 
@@ -372,12 +372,12 @@ private fun StudyImage(
 @Composable
 private fun ExplanationCard(state: StudySessionUiState.Ready) {
     val background = if (state.isCorrect) {
-        MaterialTheme.colorScheme.primaryContainer
+        MaterialTheme.colorScheme.secondaryContainer
     } else {
         MaterialTheme.colorScheme.errorContainer
     }
     val foreground = if (state.isCorrect) {
-        MaterialTheme.colorScheme.onPrimaryContainer
+        MaterialTheme.colorScheme.onSecondaryContainer
     } else {
         MaterialTheme.colorScheme.onErrorContainer
     }

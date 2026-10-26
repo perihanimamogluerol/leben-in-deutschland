@@ -7,6 +7,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentRe
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyQuestionProgressEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerRecord
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.toStudyQuestion
@@ -99,6 +100,24 @@ class RoomLocalContentRepository(
         stateCode?.uppercase(Locale.ROOT),
     )
 
+    override suspend fun getGeneralQuestionIds(
+        releaseId: String,
+        languageCode: String,
+    ): List<String> = contentDao.getGeneralQuestionIds(
+        releaseId = releaseId,
+        languageCode = languageCode,
+    )
+
+    override suspend fun getStateQuestionIds(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    ): List<String> = contentDao.getStateQuestionIds(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = stateCode.uppercase(Locale.ROOT),
+    )
+
     override suspend fun getStudyQuestion(
         releaseId: String,
         questionId: String,
@@ -134,26 +153,48 @@ class RoomLocalContentRepository(
         selectedAnswerId: String,
         isCorrect: Boolean,
         answeredAtEpochMillis: Long,
-    ): StudyAnswerProgress = database.withTransaction {
+    ): StudyAnswerProgress = recordStudyAnswers(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = stateCode,
+        answers = listOf(
+            StudyAnswerRecord(
+                questionId = questionId,
+                selectedAnswerId = selectedAnswerId,
+                isCorrect = isCorrect,
+            ),
+        ),
+        answeredAtEpochMillis = answeredAtEpochMillis,
+    ).single()
+
+    override suspend fun recordStudyAnswers(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        answers: List<StudyAnswerRecord>,
+        answeredAtEpochMillis: Long,
+    ): List<StudyAnswerProgress> = database.withTransaction {
         val databaseStateCode = stateCode.toDatabaseStateCode()
-        val previous = contentDao.getStudyQuestionProgress(
-            releaseId = releaseId,
-            languageCode = languageCode,
-            stateCode = databaseStateCode,
-            questionId = questionId,
-        )
-        val progress = StudyQuestionProgressEntity(
-            releaseId = releaseId,
-            languageCode = languageCode,
-            stateCode = databaseStateCode,
-            questionId = questionId,
-            selectedAnswerId = selectedAnswerId,
-            isCorrect = isCorrect,
-            answeredAtEpochMillis = answeredAtEpochMillis,
-            attemptCount = (previous?.attemptCount ?: 0) + 1,
-        )
-        contentDao.upsertStudyQuestionProgress(progress)
-        progress.toModel()
+        answers.map { answer ->
+            val previous = contentDao.getStudyQuestionProgress(
+                releaseId = releaseId,
+                languageCode = languageCode,
+                stateCode = databaseStateCode,
+                questionId = answer.questionId,
+            )
+            val progress = StudyQuestionProgressEntity(
+                releaseId = releaseId,
+                languageCode = languageCode,
+                stateCode = databaseStateCode,
+                questionId = answer.questionId,
+                selectedAnswerId = answer.selectedAnswerId,
+                isCorrect = answer.isCorrect,
+                answeredAtEpochMillis = answeredAtEpochMillis,
+                attemptCount = (previous?.attemptCount ?: 0) + 1,
+            )
+            contentDao.upsertStudyQuestionProgress(progress)
+            progress.toModel()
+        }
     }
 
     override suspend fun clearStudyProgress(

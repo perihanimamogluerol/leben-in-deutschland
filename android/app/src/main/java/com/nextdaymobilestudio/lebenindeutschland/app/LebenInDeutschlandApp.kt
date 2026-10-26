@@ -20,12 +20,15 @@ import com.nextdaymobilestudio.lebenindeutschland.app.navigation.AppNavigationKe
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.ContentBootstrapKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.HomeKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.LanguageSelectionKey
+import com.nextdaymobilestudio.lebenindeutschland.app.navigation.MockExamKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StateSelectionKey
 import com.nextdaymobilestudio.lebenindeutschland.app.navigation.StudySessionKey
 import com.nextdaymobilestudio.lebenindeutschland.core.content.sync.ContentSynchronizer
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.LocalContentRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferences
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.data.MockExamPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.ui.MockExamRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ContentBootstrapCoordinator
 import com.nextdaymobilestudio.lebenindeutschland.feature.contentbootstrap.ui.ContentBootstrapRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeRoute
@@ -43,6 +46,7 @@ import kotlinx.coroutines.launch
 fun LebenInDeutschlandApp(
     onboardingPreferencesRepository: OnboardingPreferencesRepository,
     localContentRepository: LocalContentRepository,
+    mockExamPreferencesRepository: MockExamPreferencesRepository,
     contentSynchronizerProvider: () -> ContentSynchronizer,
     onApplicationLanguageSelected: (SupportedLanguage) -> Unit,
     modifier: Modifier = Modifier,
@@ -64,6 +68,7 @@ fun LebenInDeutschlandApp(
                 preferences = loadedPreferences,
                 repository = onboardingPreferencesRepository,
                 localContentRepository = localContentRepository,
+                mockExamPreferencesRepository = mockExamPreferencesRepository,
                 contentSynchronizerProvider = contentSynchronizerProvider,
                 onApplicationLanguageSelected = onApplicationLanguageSelected,
             )
@@ -76,6 +81,7 @@ private fun OnboardingNavigation(
     preferences: OnboardingPreferences,
     repository: OnboardingPreferencesRepository,
     localContentRepository: LocalContentRepository,
+    mockExamPreferencesRepository: MockExamPreferencesRepository,
     contentSynchronizerProvider: () -> ContentSynchronizer,
     onApplicationLanguageSelected: (SupportedLanguage) -> Unit,
 ) {
@@ -160,15 +166,15 @@ private fun OnboardingNavigation(
                         },
                     )
                 }
-                entry<HomeKey> { key ->
+                entry<HomeKey> {
                     HomeRoute(
-                        questionCount = key.questionCount,
                         languageName = persistedLanguage?.nativeName.orEmpty(),
                         stateName = persistedState?.germanName.orEmpty(),
                         selectedLanguageCode = persistedLanguage?.code
                             ?: SupportedLanguage.GERMAN.code,
                         selectedStateCode = persistedState?.code,
                         localContentRepository = localContentRepository,
+                        mockExamPreferencesRepository = mockExamPreferencesRepository,
                         onStartStudy = {
                             val destination = StudySessionKey()
                             if (backStack.lastOrNull() != destination) {
@@ -179,6 +185,11 @@ private fun OnboardingNavigation(
                             val destination = StudySessionKey(wrongAnswersOnly = true)
                             if (backStack.lastOrNull() != destination) {
                                 backStack.add(destination)
+                            }
+                        },
+                        onOpenMockExam = {
+                            if (backStack.lastOrNull() != MockExamKey) {
+                                backStack.add(MockExamKey)
                             }
                         },
                     )
@@ -194,6 +205,17 @@ private fun OnboardingNavigation(
                         } else {
                             StudySessionMode.ALL_QUESTIONS
                         },
+                        onBack = navigateBack,
+                        onFinished = navigateBack,
+                    )
+                }
+                entry<MockExamKey> {
+                    MockExamRoute(
+                        selectedLanguageCode = persistedLanguage?.code
+                            ?: SupportedLanguage.GERMAN.code,
+                        selectedStateCode = persistedState?.code,
+                        localContentRepository = localContentRepository,
+                        mockExamPreferencesRepository = mockExamPreferencesRepository,
                         onBack = navigateBack,
                         onFinished = navigateBack,
                     )

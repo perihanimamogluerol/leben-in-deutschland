@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
                     onboardingPreferencesRepository =
                         appContainer.onboardingPreferencesRepository,
                     localContentRepository = appContainer.localContentRepository,
+                    mockExamPreferencesRepository =
+                        appContainer.mockExamPreferencesRepository,
                     contentSynchronizerProvider =
                         appContainer.contentSynchronizerProvider,
                     onApplicationLanguageSelected = ::applyApplicationLanguage,

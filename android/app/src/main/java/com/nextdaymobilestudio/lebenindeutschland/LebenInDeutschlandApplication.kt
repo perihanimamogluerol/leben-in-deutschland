@@ -9,6 +9,8 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.Local
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.RoomLocalContentRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.OnboardingPreferencesRepository
 import com.nextdaymobilestudio.lebenindeutschland.core.preferences.createOnboardingPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.data.MockExamPreferencesRepository
+import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.data.createMockExamPreferencesRepository
 
 class LebenInDeutschlandApplication : Application() {
     val appContainer: AppContainer by lazy {
@@ -21,6 +23,9 @@ class AppContainer(
 ) {
     val onboardingPreferencesRepository: OnboardingPreferencesRepository =
         context.createOnboardingPreferencesRepository()
+
+    val mockExamPreferencesRepository: MockExamPreferencesRepository =
+        context.createMockExamPreferencesRepository()
 
     private val localContentDatabase: LocalContentDatabase =
         LocalContentDatabase.create(context)
