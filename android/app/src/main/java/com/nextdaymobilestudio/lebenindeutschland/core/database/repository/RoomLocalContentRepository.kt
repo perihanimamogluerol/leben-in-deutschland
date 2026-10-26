@@ -4,9 +4,13 @@ import androidx.room.withTransaction
 import com.nextdaymobilestudio.lebenindeutschland.core.database.LocalContentDatabase
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPackageEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyQuestionProgressEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.toStudyQuestion
+import java.util.Locale
 import kotlinx.coroutines.flow.Flow
 
 class RoomLocalContentRepository(
@@ -89,7 +93,11 @@ class RoomLocalContentRepository(
         releaseId: String,
         languageCode: String,
         stateCode: String?,
-    ): List<String> = contentDao.getEligibleQuestionIds(releaseId, languageCode, stateCode)
+    ): List<String> = contentDao.getEligibleQuestionIds(
+        releaseId,
+        languageCode,
+        stateCode?.uppercase(Locale.ROOT),
+    )
 
     override suspend fun getStudyQuestion(
         releaseId: String,
@@ -98,7 +106,80 @@ class RoomLocalContentRepository(
     ): StudyQuestion? = contentDao.getQuestionBundle(releaseId, questionId, languageCode)
         ?.toStudyQuestion()
 
+    override fun observeStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ): Flow<StudyProgressSummary> = contentDao.observeStudyProgress(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = stateCode.toDatabaseStateCode(),
+    )
+
+    override suspend fun getStudyAnswerProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ): List<StudyAnswerProgress> = contentDao.getStudyQuestionProgress(
+        releaseId = releaseId,
+        languageCode = languageCode,
+        stateCode = stateCode.toDatabaseStateCode(),
+    ).map { progress -> progress.toModel() }
+
+    override suspend fun recordStudyAnswer(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        questionId: String,
+        selectedAnswerId: String,
+        isCorrect: Boolean,
+        answeredAtEpochMillis: Long,
+    ): StudyAnswerProgress = database.withTransaction {
+        val databaseStateCode = stateCode.toDatabaseStateCode()
+        val previous = contentDao.getStudyQuestionProgress(
+            releaseId = releaseId,
+            languageCode = languageCode,
+            stateCode = databaseStateCode,
+            questionId = questionId,
+        )
+        val progress = StudyQuestionProgressEntity(
+            releaseId = releaseId,
+            languageCode = languageCode,
+            stateCode = databaseStateCode,
+            questionId = questionId,
+            selectedAnswerId = selectedAnswerId,
+            isCorrect = isCorrect,
+            answeredAtEpochMillis = answeredAtEpochMillis,
+            attemptCount = (previous?.attemptCount ?: 0) + 1,
+        )
+        contentDao.upsertStudyQuestionProgress(progress)
+        progress.toModel()
+    }
+
+    override suspend fun clearStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ) {
+        contentDao.clearStudyProgress(
+            releaseId = releaseId,
+            languageCode = languageCode,
+            stateCode = stateCode.toDatabaseStateCode(),
+        )
+    }
+
     private companion object {
         const val GERMAN_LANGUAGE_CODE = "de"
     }
 }
+
+private fun String?.toDatabaseStateCode(): String =
+    this?.uppercase(Locale.ROOT).orEmpty()
+
+private fun StudyQuestionProgressEntity.toModel(): StudyAnswerProgress = StudyAnswerProgress(
+    questionId = questionId,
+    selectedAnswerId = selectedAnswerId,
+    isCorrect = isCorrect,
+    answeredAtEpochMillis = answeredAtEpochMillis,
+    attemptCount = attemptCount,
+)

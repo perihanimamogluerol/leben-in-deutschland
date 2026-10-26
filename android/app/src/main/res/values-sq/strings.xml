@@ -31,6 +31,11 @@
     <string name="home_language">Gjuha</string>
     <string name="home_federal_state">Landi federal</string>
     <string name="home_start_studying">Fillo të mësosh</string>
+    <string name="home_continue_studying">Vazhdo të mësosh</string>
+    <string name="home_study_again">Mëso përsëri</string>
+    <string name="home_progress_title">Përparimi yt</string>
+    <string name="home_progress_answered">U përgjigjën %1$d nga %2$d pyetje</string>
+    <string name="home_progress_correct">%1$d përgjigje të sakta</string>
     <string name="home_start_hint">Ushtroni pyetjet e përgjithshme dhe ato të landit me ritmin tuaj.</string>
     <string name="study_title">Ushtrimi i pyetjeve</string>
     <string name="study_progress">Pyetja %1$d nga %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Pyetjet nuk mund të ngarkoheshin</string>
     <string name="study_error_description">Provo përsëri.</string>
     <string name="study_complete_title">Ushtrimi përfundoi</string>
-    <string name="study_complete_description">Përfunduat %1$d pyetje.</string>
+    <string name="study_complete_description">U përgjigjët saktë në %1$d nga %2$d pyetje.</string>
     <string name="study_back_home">Kthehu në faqen kryesore</string>
 </resources>

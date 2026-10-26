@@ -424,7 +424,7 @@ private fun StudyActionSection(
     ) {
         Button(
             onClick = if (state.isSubmitted) onNextQuestion else onSubmitAnswer,
-            enabled = state.isSubmitted || state.selectedAnswerId != null,
+            enabled = !state.isSaving && (state.isSubmitted || state.selectedAnswerId != null),
             modifier = Modifier
                 .fillMaxWidth()
                 .navigationBarsPadding()
@@ -497,6 +497,7 @@ private fun CompleteContent(
         title = stringResource(R.string.study_complete_title),
         description = stringResource(
             R.string.study_complete_description,
+            state.correctCount,
             state.questionCount,
         ),
         buttonText = stringResource(R.string.study_back_home),

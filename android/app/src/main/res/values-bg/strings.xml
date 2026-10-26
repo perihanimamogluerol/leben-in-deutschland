@@ -31,6 +31,11 @@
     <string name="home_language">Език</string>
     <string name="home_federal_state">Федерална провинция</string>
     <string name="home_start_studying">Започнете да учите</string>
+    <string name="home_continue_studying">Продължете да учите</string>
+    <string name="home_study_again">Учете отново</string>
+    <string name="home_progress_title">Вашият напредък</string>
+    <string name="home_progress_answered">Отговорени %1$d от %2$d въпроса</string>
+    <string name="home_progress_correct">%1$d верни отговора</string>
     <string name="home_start_hint">Упражнявайте общите и провинциалните въпроси със собствено темпо.</string>
     <string name="study_title">Упражняване на въпроси</string>
     <string name="study_progress">Въпрос %1$d от %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Въпросите не можаха да се заредят</string>
     <string name="study_error_description">Опитайте отново.</string>
     <string name="study_complete_title">Упражнението е завършено</string>
-    <string name="study_complete_description">Завършихте %1$d въпроса.</string>
+    <string name="study_complete_description">Отговорихте правилно на %1$d от %2$d въпроса.</string>
     <string name="study_back_home">Към началната страница</string>
 </resources>

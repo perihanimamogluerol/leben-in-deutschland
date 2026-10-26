@@ -33,6 +33,11 @@
     <string name="home_language">Sprache</string>
     <string name="home_federal_state">Bundesland</string>
     <string name="home_start_studying">Lernen starten</string>
+    <string name="home_continue_studying">Weiterlernen</string>
+    <string name="home_study_again">Erneut lernen</string>
+    <string name="home_progress_title">Ihr Lernfortschritt</string>
+    <string name="home_progress_answered">%1$d von %2$d Fragen beantwortet</string>
+    <string name="home_progress_correct">%1$d richtig beantwortet</string>
     <string name="home_start_hint">Üben Sie allgemeine und landesspezifische Fragen in Ihrem eigenen Tempo.</string>
     <string name="study_title">Fragen üben</string>
     <string name="study_progress">Frage %1$d von %2$d</string>
@@ -47,6 +52,6 @@
     <string name="study_error_title">Fragen konnten nicht geladen werden</string>
     <string name="study_error_description">Versuchen Sie es erneut.</string>
     <string name="study_complete_title">Übung abgeschlossen</string>
-    <string name="study_complete_description">Sie haben %1$d Fragen bearbeitet.</string>
+    <string name="study_complete_description">Sie haben %1$d von %2$d Fragen richtig beantwortet.</string>
     <string name="study_back_home">Zur Startseite</string>
 </resources>

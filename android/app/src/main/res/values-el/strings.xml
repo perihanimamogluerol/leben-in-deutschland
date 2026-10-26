@@ -31,6 +31,11 @@
     <string name="home_language">Γλώσσα</string>
     <string name="home_federal_state">Ομόσπονδο κρατίδιο</string>
     <string name="home_start_studying">Έναρξη μελέτης</string>
+    <string name="home_continue_studying">Συνέχεια μελέτης</string>
+    <string name="home_study_again">Μελέτη ξανά</string>
+    <string name="home_progress_title">Η πρόοδός σας</string>
+    <string name="home_progress_answered">Απαντήθηκαν %1$d από %2$d ερωτήσεις</string>
+    <string name="home_progress_correct">%1$d σωστές απαντήσεις</string>
     <string name="home_start_hint">Εξασκηθείτε στις γενικές και κρατιδιακές ερωτήσεις με τον δικό σας ρυθμό.</string>
     <string name="study_title">Εξάσκηση ερωτήσεων</string>
     <string name="study_progress">Ερώτηση %1$d από %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Δεν ήταν δυνατή η φόρτωση των ερωτήσεων</string>
     <string name="study_error_description">Δοκιμάστε ξανά.</string>
     <string name="study_complete_title">Η εξάσκηση ολοκληρώθηκε</string>
-    <string name="study_complete_description">Ολοκληρώσατε %1$d ερωτήσεις.</string>
+    <string name="study_complete_description">Απαντήσατε σωστά σε %1$d από %2$d ερωτήσεις.</string>
     <string name="study_back_home">Επιστροφή στην αρχική</string>
 </resources>

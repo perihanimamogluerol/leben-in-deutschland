@@ -11,6 +11,9 @@ sealed interface StudySessionUiState {
         val totalCount: Int,
         val selectedAnswerId: String? = null,
         val isSubmitted: Boolean = false,
+        val isSaving: Boolean = false,
+        val answeredCount: Int = 0,
+        val correctCount: Int = 0,
     ) : StudySessionUiState {
         val isLastQuestion: Boolean = currentIndex == totalCount - 1
         val isCorrect: Boolean = selectedAnswerId == question.correctAnswerId
@@ -18,6 +21,7 @@ sealed interface StudySessionUiState {
 
     data class Complete(
         val questionCount: Int,
+        val correctCount: Int,
     ) : StudySessionUiState
 
     data object Error : StudySessionUiState

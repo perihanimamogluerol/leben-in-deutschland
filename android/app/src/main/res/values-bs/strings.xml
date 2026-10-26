@@ -31,6 +31,11 @@
     <string name="home_language">Jezik</string>
     <string name="home_federal_state">Savezna pokrajina</string>
     <string name="home_start_studying">Počni učiti</string>
+    <string name="home_continue_studying">Nastavi učiti</string>
+    <string name="home_study_again">Uči ponovo</string>
+    <string name="home_progress_title">Tvoj napredak</string>
+    <string name="home_progress_answered">Odgovoreno na %1$d od %2$d pitanja</string>
+    <string name="home_progress_correct">%1$d tačnih odgovora</string>
     <string name="home_start_hint">Vježbajte opća pitanja i pitanja savezne pokrajine vlastitim tempom.</string>
     <string name="study_title">Vježbanje pitanja</string>
     <string name="study_progress">Pitanje %1$d od %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Pitanja se nisu mogla učitati</string>
     <string name="study_error_description">Pokušajte ponovo.</string>
     <string name="study_complete_title">Vježba je završena</string>
-    <string name="study_complete_description">Obradili ste %1$d pitanja.</string>
+    <string name="study_complete_description">Tačno ste odgovorili na %1$d od %2$d pitanja.</string>
     <string name="study_back_home">Nazad na početnu</string>
 </resources>

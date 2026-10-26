@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -29,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextdaymobilestudio.lebenindeutschland.R
+import com.nextdaymobilestudio.lebenindeutschland.feature.home.HomeProgressUiState
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
 
 @Composable
@@ -45,6 +48,7 @@ fun HomeScreen(
     questionCount: Int,
     languageName: String,
     stateName: String,
+    studyProgress: HomeProgressUiState = HomeProgressUiState(),
     onStartStudy: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -54,7 +58,10 @@ fun HomeScreen(
             .testTag(HomeTestTags.SCREEN),
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
-            StartStudySection(onStartStudy = onStartStudy)
+            StartStudySection(
+                progress = studyProgress,
+                onStartStudy = onStartStudy,
+            )
         },
     ) { innerPadding ->
         LazyColumn(
@@ -91,6 +98,12 @@ fun HomeScreen(
                 ContentSummary(questionCount = questionCount)
             }
 
+            if (studyProgress.totalCount > 0) {
+                item {
+                    StudyProgressSummary(progress = studyProgress)
+                }
+            }
+
             item {
                 Text(
                     text = stringResource(R.string.home_your_selection),
@@ -114,6 +127,56 @@ fun HomeScreen(
                     label = stringResource(R.string.home_federal_state),
                     value = stateName,
                     testTag = HomeTestTags.STATE,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun StudyProgressSummary(progress: HomeProgressUiState) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(HomeTestTags.STUDY_PROGRESS),
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 2.dp,
+    ) {
+        Column(
+            modifier = Modifier.padding(22.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.home_progress_title),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(
+                    R.string.home_progress_answered,
+                    progress.answeredCount,
+                    progress.totalCount,
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            LinearProgressIndicator(
+                progress = { progress.fraction },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 10.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+            )
+            if (progress.answeredCount > 0) {
+                Text(
+                    text = stringResource(
+                        R.string.home_progress_correct,
+                        progress.correctCount,
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
@@ -194,7 +257,10 @@ private fun SelectionSummary(
 }
 
 @Composable
-private fun StartStudySection(onStartStudy: () -> Unit) {
+private fun StartStudySection(
+    progress: HomeProgressUiState,
+    onStartStudy: () -> Unit,
+) {
     Surface(
         color = MaterialTheme.colorScheme.background,
         tonalElevation = 4.dp,
@@ -226,7 +292,13 @@ private fun StartStudySection(onStartStudy: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = stringResource(R.string.home_start_studying),
+                    text = stringResource(
+                        when {
+                            progress.isComplete -> R.string.home_study_again
+                            progress.answeredCount > 0 -> R.string.home_continue_studying
+                            else -> R.string.home_start_studying
+                        },
+                    ),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )

@@ -31,6 +31,11 @@
     <string name="home_language">Nyelv</string>
     <string name="home_federal_state">Szövetségi tartomány</string>
     <string name="home_start_studying">Tanulás indítása</string>
+    <string name="home_continue_studying">Tanulás folytatása</string>
+    <string name="home_study_again">Újratanulás</string>
+    <string name="home_progress_title">Tanulási eredmény</string>
+    <string name="home_progress_answered">%1$d / %2$d kérdés megválaszolva</string>
+    <string name="home_progress_correct">%1$d helyes válasz</string>
     <string name="home_start_hint">Gyakorolja az általános és tartományi kérdéseket a saját tempójában.</string>
     <string name="study_title">Kérdések gyakorlása</string>
     <string name="study_progress">%1$d. kérdés / %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">A kérdések nem tölthetők be</string>
     <string name="study_error_description">Próbálja újra.</string>
     <string name="study_complete_title">A gyakorlás befejeződött</string>
-    <string name="study_complete_description">%1$d kérdést teljesített.</string>
+    <string name="study_complete_description">%2$d kérdésből %1$d kérdésre válaszolt helyesen.</string>
     <string name="study_back_home">Vissza a főoldalra</string>
 </resources>

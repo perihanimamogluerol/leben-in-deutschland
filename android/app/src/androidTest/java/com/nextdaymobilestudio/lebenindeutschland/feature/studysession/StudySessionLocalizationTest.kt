@@ -51,7 +51,7 @@ class StudySessionLocalizationTest {
     private fun Context.localizedString(stringResource: Int): String = when (stringResource) {
         R.string.study_progress -> getString(stringResource, 1, 460)
         R.string.study_answer_image_description -> getString(stringResource, "A")
-        R.string.study_complete_description -> getString(stringResource, 460)
+        R.string.study_complete_description -> getString(stringResource, 320, 460)
         else -> getString(stringResource)
     }
 

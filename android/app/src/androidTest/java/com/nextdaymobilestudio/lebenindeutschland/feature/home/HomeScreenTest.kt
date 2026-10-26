@@ -29,6 +29,11 @@ class HomeScreenTest {
                     questionCount = 460,
                     languageName = "Türkçe",
                     stateName = "Hessen",
+                    studyProgress = HomeProgressUiState(
+                        answeredCount = 3,
+                        correctCount = 2,
+                        totalCount = 310,
+                    ),
                     onStartStudy = { started = true },
                 )
             }
@@ -36,6 +41,7 @@ class HomeScreenTest {
 
         composeRule.onNodeWithTag(HomeTestTags.SCREEN).assertIsDisplayed()
         composeRule.onNodeWithTag(HomeTestTags.CONTENT_SUMMARY).assertIsDisplayed()
+        composeRule.onNodeWithTag(HomeTestTags.STUDY_PROGRESS).assertIsDisplayed()
         composeRule.onNodeWithTag(HomeTestTags.LANGUAGE).assertIsDisplayed()
         composeRule.onNodeWithTag(HomeTestTags.STATE).assertIsDisplayed()
         composeRule.onNodeWithText("Türkçe").assertIsDisplayed()

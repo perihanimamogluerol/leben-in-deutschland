@@ -73,7 +73,10 @@ class StudySessionScreenTest {
     fun completedSessionCanReturnHome() {
         var finished = false
         setScreen(
-            state = StudySessionUiState.Complete(questionCount = 2),
+            state = StudySessionUiState.Complete(
+                questionCount = 2,
+                correctCount = 1,
+            ),
             onFinished = { finished = true },
         )
 

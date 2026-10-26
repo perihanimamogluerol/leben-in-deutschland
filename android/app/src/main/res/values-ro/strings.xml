@@ -31,6 +31,11 @@
     <string name="home_language">Limbă</string>
     <string name="home_federal_state">Land federal</string>
     <string name="home_start_studying">Începeți studiul</string>
+    <string name="home_continue_studying">Continuați studiul</string>
+    <string name="home_study_again">Studiați din nou</string>
+    <string name="home_progress_title">Progresul dumneavoastră</string>
+    <string name="home_progress_answered">%1$d din %2$d întrebări au răspuns</string>
+    <string name="home_progress_correct">%1$d răspunsuri corecte</string>
     <string name="home_start_hint">Exersați întrebările generale și cele specifice landului în ritmul dvs.</string>
     <string name="study_title">Exersați întrebările</string>
     <string name="study_progress">Întrebarea %1$d din %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Întrebările nu au putut fi încărcate</string>
     <string name="study_error_description">Încercați din nou.</string>
     <string name="study_complete_title">Exercițiu finalizat</string>
-    <string name="study_complete_description">Ați parcurs %1$d întrebări.</string>
+    <string name="study_complete_description">Ați răspuns corect la %1$d din %2$d întrebări.</string>
     <string name="study_back_home">Înapoi la pagina principală</string>
 </resources>

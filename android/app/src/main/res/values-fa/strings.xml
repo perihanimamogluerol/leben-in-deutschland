@@ -31,6 +31,11 @@
     <string name="home_language">زبان</string>
     <string name="home_federal_state">ایالت فدرال</string>
     <string name="home_start_studying">شروع یادگیری</string>
+    <string name="home_continue_studying">ادامه یادگیری</string>
+    <string name="home_study_again">مطالعه دوباره</string>
+    <string name="home_progress_title">پیشرفت شما</string>
+    <string name="home_progress_answered">به %1$d از %2$d پرسش پاسخ داده شد</string>
+    <string name="home_progress_correct">%1$d پاسخ درست</string>
     <string name="home_start_hint">پرسش‌های عمومی و ویژه ایالت را با سرعت دلخواه خود تمرین کنید.</string>
     <string name="study_title">تمرین پرسش‌ها</string>
     <string name="study_progress">پرسش %1$d از %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">پرسش‌ها بارگیری نشدند</string>
     <string name="study_error_description">لطفاً دوباره تلاش کنید.</string>
     <string name="study_complete_title">تمرین کامل شد</string>
-    <string name="study_complete_description">%1$d پرسش را تکمیل کردید.</string>
+    <string name="study_complete_description">به %1$d از %2$d پرسش پاسخ درست دادید.</string>
     <string name="study_back_home">بازگشت به صفحه اصلی</string>
 </resources>

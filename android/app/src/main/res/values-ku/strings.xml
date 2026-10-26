@@ -31,6 +31,11 @@
     <string name="home_language">Ziman</string>
     <string name="home_federal_state">Eyaleta federal</string>
     <string name="home_start_studying">Dest bi xwendinê bike</string>
+    <string name="home_continue_studying">Xwendinê bidomîne</string>
+    <string name="home_study_again">Dîsa bixwîne</string>
+    <string name="home_progress_title">Pêşveçûna te</string>
+    <string name="home_progress_answered">Ji %2$d pirsan %1$d hatin bersivandin</string>
+    <string name="home_progress_correct">%1$d bersivên rast</string>
     <string name="home_start_hint">Pirsên giştî û yên taybet ên eyaletê bi lezê xwe bixwîne.</string>
     <string name="study_title">Pratîka pirsan</string>
     <string name="study_progress">Pirs %1$d ji %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Pirs nehatin barkirin</string>
     <string name="study_error_description">Ji kerema xwe dîsa biceribîne.</string>
     <string name="study_complete_title">Pratîk qediya</string>
-    <string name="study_complete_description">Te %1$d pirs qedand.</string>
+    <string name="study_complete_description">Te ji %2$d pirsan %1$d rast bersivand.</string>
     <string name="study_back_home">Vegere rûpela sereke</string>
 </resources>

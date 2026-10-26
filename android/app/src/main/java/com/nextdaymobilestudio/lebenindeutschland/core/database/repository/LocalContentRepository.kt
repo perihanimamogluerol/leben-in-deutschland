@@ -4,7 +4,10 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPa
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 interface LocalContentRepository {
     fun observeActiveRelease(): Flow<ContentReleaseEntity?>
@@ -32,4 +35,32 @@ interface LocalContentRepository {
         questionId: String,
         languageCode: String,
     ): StudyQuestion?
+
+    fun observeStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ): Flow<StudyProgressSummary> = flowOf(StudyProgressSummary(0, 0))
+
+    suspend fun getStudyAnswerProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ): List<StudyAnswerProgress> = emptyList()
+
+    suspend fun recordStudyAnswer(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        questionId: String,
+        selectedAnswerId: String,
+        isCorrect: Boolean,
+        answeredAtEpochMillis: Long,
+    ): StudyAnswerProgress = error("Study progress is not supported")
+
+    suspend fun clearStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ) = Unit
 }
