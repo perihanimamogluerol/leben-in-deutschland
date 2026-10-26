@@ -21,4 +21,6 @@ data class HomeKey(
 ) : AppNavigationKey
 
 @Serializable
-data object StudySessionKey : AppNavigationKey
+data class StudySessionKey(
+    val wrongAnswersOnly: Boolean = false,
+) : AppNavigationKey

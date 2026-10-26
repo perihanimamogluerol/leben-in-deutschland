@@ -52,4 +52,13 @@
     <string name="study_complete_title">Η εξάσκηση ολοκληρώθηκε</string>
     <string name="study_complete_description">Απαντήσατε σωστά σε %1$d από %2$d ερωτήσεις.</string>
     <string name="study_back_home">Επιστροφή στην αρχική</string>
+    <string name="home_wrong_answers_title">Λανθασμένες απαντήσεις</string>
+    <string name="home_wrong_answers_count">%1$d ερωτήσεις για επανάληψη</string>
+    <string name="home_wrong_answers_empty">Δεν υπάρχουν αυτή τη στιγμή λανθασμένες απαντήσεις για επανάληψη.</string>
+    <string name="home_review_wrong_answers">Επανάληψη λαθών</string>
+    <string name="study_wrong_answers_title">Επανάληψη λαθών</string>
+    <string name="study_wrong_answers_empty_title">Όλα σωστά</string>
+    <string name="study_wrong_answers_empty_description">Δεν υπάρχουν αυτή τη στιγμή λανθασμένες απαντήσεις για επανάληψη.</string>
+    <string name="study_wrong_answers_complete_title">Η επανάληψη ολοκληρώθηκε</string>
+    <string name="study_wrong_answers_complete_description">Απομένουν %1$d ερωτήσεις για επανάληψη.</string>
 </resources>

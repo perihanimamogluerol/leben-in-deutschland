@@ -13,6 +13,7 @@ data class StudySession(
     val startIndex: Int,
     val answeredCount: Int,
     val correctCount: Int,
+    val mode: StudySessionMode = StudySessionMode.ALL_QUESTIONS,
 )
 
 class StudySessionCoordinator(
@@ -22,25 +23,29 @@ class StudySessionCoordinator(
     suspend fun start(
         languageCode: String,
         stateCode: String?,
+        mode: StudySessionMode = StudySessionMode.ALL_QUESTIONS,
     ): StudySession {
         val release = requireNotNull(localContentRepository.getActiveRelease()) {
             "An active content release is required"
         }
         val normalizedStateCode = stateCode?.uppercase(Locale.ROOT)
-        val questionIds = localContentRepository.getEligibleQuestionIds(
+        val eligibleQuestionIds = localContentRepository.getEligibleQuestionIds(
             releaseId = release.releaseId,
             languageCode = languageCode,
             stateCode = normalizedStateCode,
         )
-        require(questionIds.isNotEmpty()) {
+        require(eligibleQuestionIds.isNotEmpty()) {
             "No eligible questions are installed"
         }
         var progress = localContentRepository.getStudyAnswerProgress(
             releaseId = release.releaseId,
             languageCode = languageCode,
             stateCode = normalizedStateCode,
-        ).filter { answer -> answer.questionId in questionIds }
-        if (progress.map(StudyAnswerProgress::questionId).toSet().size == questionIds.size) {
+        ).filter { answer -> answer.questionId in eligibleQuestionIds }
+        if (
+            mode == StudySessionMode.ALL_QUESTIONS &&
+            progress.map(StudyAnswerProgress::questionId).toSet().size == eligibleQuestionIds.size
+        ) {
             localContentRepository.clearStudyProgress(
                 releaseId = release.releaseId,
                 languageCode = languageCode,
@@ -48,17 +53,33 @@ class StudySessionCoordinator(
             )
             progress = emptyList()
         }
+        val progressByQuestionId = progress.associateBy(StudyAnswerProgress::questionId)
+        val questionIds = when (mode) {
+            StudySessionMode.ALL_QUESTIONS -> eligibleQuestionIds
+            StudySessionMode.WRONG_ANSWERS -> eligibleQuestionIds.filter { questionId ->
+                progressByQuestionId[questionId]?.isCorrect == false
+            }
+        }
         val answeredQuestionIds = progress.map(StudyAnswerProgress::questionId).toSet()
         return StudySession(
             releaseId = release.releaseId,
             languageCode = languageCode,
             stateCode = normalizedStateCode,
             questionIds = questionIds,
-            startIndex = questionIds.indexOfFirst { questionId ->
-                questionId !in answeredQuestionIds
-            }.coerceAtLeast(0),
-            answeredCount = answeredQuestionIds.size,
-            correctCount = progress.count(StudyAnswerProgress::isCorrect),
+            startIndex = if (mode == StudySessionMode.WRONG_ANSWERS) {
+                0
+            } else {
+                questionIds.indexOfFirst { questionId ->
+                    questionId !in answeredQuestionIds
+                }.coerceAtLeast(0)
+            },
+            answeredCount = if (mode == StudySessionMode.WRONG_ANSWERS) 0 else answeredQuestionIds.size,
+            correctCount = if (mode == StudySessionMode.WRONG_ANSWERS) {
+                0
+            } else {
+                progress.count(StudyAnswerProgress::isCorrect)
+            },
+            mode = mode,
         )
     }
 

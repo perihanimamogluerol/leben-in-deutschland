@@ -52,4 +52,13 @@
     <string name="study_complete_title">تمرین کامل شد</string>
     <string name="study_complete_description">به %1$d از %2$d پرسش پاسخ درست دادید.</string>
     <string name="study_back_home">بازگشت به صفحه اصلی</string>
+    <string name="home_wrong_answers_title">پاسخ‌های نادرست</string>
+    <string name="home_wrong_answers_count">%1$d پرسش برای مرور</string>
+    <string name="home_wrong_answers_empty">در حال حاضر پاسخ نادرستی برای مرور وجود ندارد.</string>
+    <string name="home_review_wrong_answers">مرور پاسخ‌های نادرست</string>
+    <string name="study_wrong_answers_title">مرور پاسخ‌های نادرست</string>
+    <string name="study_wrong_answers_empty_title">همه پاسخ‌ها درست است</string>
+    <string name="study_wrong_answers_empty_description">در حال حاضر پاسخ نادرستی برای مرور وجود ندارد.</string>
+    <string name="study_wrong_answers_complete_title">مرور کامل شد</string>
+    <string name="study_wrong_answers_complete_description">هنوز %1$d پرسش نیاز به مرور دارد.</string>
 </resources>

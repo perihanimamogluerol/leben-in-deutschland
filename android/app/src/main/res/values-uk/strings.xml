@@ -52,4 +52,13 @@
     <string name="study_complete_title">Практику завершено</string>
     <string name="study_complete_description">Ви правильно відповіли на %1$d із %2$d запитань.</string>
     <string name="study_back_home">На головну</string>
+    <string name="home_wrong_answers_title">Неправильні відповіді</string>
+    <string name="home_wrong_answers_count">%1$d запитань для повторення</string>
+    <string name="home_wrong_answers_empty">Зараз немає неправильних відповідей для повторення.</string>
+    <string name="home_review_wrong_answers">Повторити помилки</string>
+    <string name="study_wrong_answers_title">Повторення помилок</string>
+    <string name="study_wrong_answers_empty_title">Усе правильно</string>
+    <string name="study_wrong_answers_empty_description">Зараз немає неправильних відповідей для повторення.</string>
+    <string name="study_wrong_answers_complete_title">Повторення завершено</string>
+    <string name="study_wrong_answers_complete_description">Для повторення залишилося %1$d запитань.</string>
 </resources>

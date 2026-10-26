@@ -52,4 +52,13 @@
     <string name="study_complete_title">تمرین بشپړ شو</string>
     <string name="study_complete_description">تاسو له %2$d څخه %1$d پوښتنو ته سم ځواب ورکړ.</string>
     <string name="study_back_home">کور پاڼې ته ستنېدل</string>
+    <string name="home_wrong_answers_title">ناسم ځوابونه</string>
+    <string name="home_wrong_answers_count">د بیاکتنې لپاره %1$d پوښتنې</string>
+    <string name="home_wrong_answers_empty">اوس مهال د بیاکتنې لپاره ناسم ځوابونه نشته.</string>
+    <string name="home_review_wrong_answers">ناسم ځوابونه بیا وګورئ</string>
+    <string name="study_wrong_answers_title">ناسم ځوابونه بیا وګورئ</string>
+    <string name="study_wrong_answers_empty_title">ټول ځوابونه سم دي</string>
+    <string name="study_wrong_answers_empty_description">اوس مهال د بیاکتنې لپاره ناسم ځوابونه نشته.</string>
+    <string name="study_wrong_answers_complete_title">بیاکتنه بشپړه شوه</string>
+    <string name="study_wrong_answers_complete_description">لا هم %1$d پوښتنې بیاکتنې ته اړتیا لري.</string>
 </resources>

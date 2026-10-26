@@ -34,6 +34,7 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.languageselection.ui.L
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.model.GermanState
 import com.nextdaymobilestudio.lebenindeutschland.feature.stateselection.ui.StateSelectionRoute
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionRoute
+import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySessionMode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -169,18 +170,30 @@ private fun OnboardingNavigation(
                         selectedStateCode = persistedState?.code,
                         localContentRepository = localContentRepository,
                         onStartStudy = {
-                            if (backStack.lastOrNull() != StudySessionKey) {
-                                backStack.add(StudySessionKey)
+                            val destination = StudySessionKey()
+                            if (backStack.lastOrNull() != destination) {
+                                backStack.add(destination)
+                            }
+                        },
+                        onReviewWrongAnswers = {
+                            val destination = StudySessionKey(wrongAnswersOnly = true)
+                            if (backStack.lastOrNull() != destination) {
+                                backStack.add(destination)
                             }
                         },
                     )
                 }
-                entry<StudySessionKey> {
+                entry<StudySessionKey> { key ->
                     StudySessionRoute(
                         selectedLanguageCode = persistedLanguage?.code
                             ?: SupportedLanguage.GERMAN.code,
                         selectedStateCode = persistedState?.code,
                         localContentRepository = localContentRepository,
+                        mode = if (key.wrongAnswersOnly) {
+                            StudySessionMode.WRONG_ANSWERS
+                        } else {
+                            StudySessionMode.ALL_QUESTIONS
+                        },
                         onBack = navigateBack,
                         onFinished = navigateBack,
                     )

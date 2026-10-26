@@ -52,4 +52,13 @@
     <string name="study_complete_title">Pratîk qediya</string>
     <string name="study_complete_description">Te ji %2$d pirsan %1$d rast bersivand.</string>
     <string name="study_back_home">Vegere rûpela sereke</string>
+    <string name="home_wrong_answers_title">Bersivên şaş</string>
+    <string name="home_wrong_answers_count">%1$d pirs ji bo dubarekirinê</string>
+    <string name="home_wrong_answers_empty">Niha bersiveke şaş ji bo dubarekirinê tune ye.</string>
+    <string name="home_review_wrong_answers">Bersivên şaş dubare bike</string>
+    <string name="study_wrong_answers_title">Bersivên şaş dubare bike</string>
+    <string name="study_wrong_answers_empty_title">Hemû rast in</string>
+    <string name="study_wrong_answers_empty_description">Niha bersiveke şaş ji bo dubarekirinê tune ye.</string>
+    <string name="study_wrong_answers_complete_title">Dubarekirin qediya</string>
+    <string name="study_wrong_answers_complete_description">%1$d pirs ji bo dubarekirinê mane.</string>
 </resources>

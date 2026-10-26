@@ -52,4 +52,13 @@
     <string name="study_complete_title">Ushtrimi përfundoi</string>
     <string name="study_complete_description">U përgjigjët saktë në %1$d nga %2$d pyetje.</string>
     <string name="study_back_home">Kthehu në faqen kryesore</string>
+    <string name="home_wrong_answers_title">Përgjigjet e gabuara</string>
+    <string name="home_wrong_answers_count">%1$d pyetje për përsëritje</string>
+    <string name="home_wrong_answers_empty">Aktualisht nuk ka përgjigje të gabuara për t’u përsëritur.</string>
+    <string name="home_review_wrong_answers">Përsërit përgjigjet e gabuara</string>
+    <string name="study_wrong_answers_title">Përsërit përgjigjet e gabuara</string>
+    <string name="study_wrong_answers_empty_title">Të gjitha të sakta</string>
+    <string name="study_wrong_answers_empty_description">Aktualisht nuk ka përgjigje të gabuara për t’u përsëritur.</string>
+    <string name="study_wrong_answers_complete_title">Përsëritja përfundoi</string>
+    <string name="study_wrong_answers_complete_description">Kanë mbetur %1$d pyetje për përsëritje.</string>
 </resources>

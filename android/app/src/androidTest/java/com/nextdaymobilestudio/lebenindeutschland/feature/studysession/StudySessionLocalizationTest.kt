@@ -52,6 +52,7 @@ class StudySessionLocalizationTest {
         R.string.study_progress -> getString(stringResource, 1, 460)
         R.string.study_answer_image_description -> getString(stringResource, "A")
         R.string.study_complete_description -> getString(stringResource, 320, 460)
+        R.string.study_wrong_answers_complete_description -> getString(stringResource, 3)
         else -> getString(stringResource)
     }
 
@@ -72,6 +73,11 @@ class StudySessionLocalizationTest {
             R.string.study_complete_title,
             R.string.study_complete_description,
             R.string.study_back_home,
+            R.string.study_wrong_answers_title,
+            R.string.study_wrong_answers_empty_title,
+            R.string.study_wrong_answers_empty_description,
+            R.string.study_wrong_answers_complete_title,
+            R.string.study_wrong_answers_complete_description,
         )
     }
 }

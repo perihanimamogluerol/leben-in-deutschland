@@ -59,11 +59,13 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentIma
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySessionUiState
+import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySessionMode
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
 
 @Composable
 fun StudySessionScreen(
     uiState: StudySessionUiState,
+    mode: StudySessionMode = StudySessionMode.ALL_QUESTIONS,
     onBack: () -> Unit,
     onAnswerSelected: (String) -> Unit,
     onSubmitAnswer: () -> Unit,
@@ -77,7 +79,7 @@ fun StudySessionScreen(
             .fillMaxSize()
             .testTag(StudySessionTestTags.SCREEN),
         containerColor = MaterialTheme.colorScheme.background,
-        topBar = { StudyTopBar(onBack = onBack) },
+        topBar = { StudyTopBar(mode = mode, onBack = onBack) },
         bottomBar = {
             if (uiState is StudySessionUiState.Ready) {
                 StudyActionSection(
@@ -91,8 +93,13 @@ fun StudySessionScreen(
         when (uiState) {
             StudySessionUiState.Loading -> LoadingContent(innerPadding)
             StudySessionUiState.Error -> ErrorContent(innerPadding, onRetry)
+            StudySessionUiState.EmptyWrongAnswers -> EmptyWrongAnswersContent(
+                innerPadding = innerPadding,
+                onFinished = onFinished,
+            )
             is StudySessionUiState.Complete -> CompleteContent(
                 state = uiState,
+                mode = mode,
                 innerPadding = innerPadding,
                 onFinished = onFinished,
             )
@@ -106,7 +113,10 @@ fun StudySessionScreen(
 }
 
 @Composable
-private fun StudyTopBar(onBack: () -> Unit) {
+private fun StudyTopBar(
+    mode: StudySessionMode,
+    onBack: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,7 +132,13 @@ private fun StudyTopBar(onBack: () -> Unit) {
         }
         Spacer(modifier = Modifier.width(14.dp))
         Text(
-            text = stringResource(R.string.study_title),
+            text = stringResource(
+                if (mode == StudySessionMode.WRONG_ANSWERS) {
+                    R.string.study_wrong_answers_title
+                } else {
+                    R.string.study_title
+                },
+            ),
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
@@ -486,6 +502,7 @@ private fun ErrorContent(
 @Composable
 private fun CompleteContent(
     state: StudySessionUiState.Complete,
+    mode: StudySessionMode,
     innerPadding: PaddingValues,
     onFinished: () -> Unit,
 ) {
@@ -494,12 +511,43 @@ private fun CompleteContent(
             .padding(innerPadding)
             .testTag(StudySessionTestTags.COMPLETE),
         icon = Icons.Filled.CheckCircle,
-        title = stringResource(R.string.study_complete_title),
-        description = stringResource(
-            R.string.study_complete_description,
-            state.correctCount,
-            state.questionCount,
+        title = stringResource(
+            if (mode == StudySessionMode.WRONG_ANSWERS) {
+                R.string.study_wrong_answers_complete_title
+            } else {
+                R.string.study_complete_title
+            },
         ),
+        description = if (mode == StudySessionMode.WRONG_ANSWERS) {
+            stringResource(
+                R.string.study_wrong_answers_complete_description,
+                (state.questionCount - state.correctCount).coerceAtLeast(0),
+            )
+        } else {
+            stringResource(
+                R.string.study_complete_description,
+                state.correctCount,
+                state.questionCount,
+            )
+        },
+        buttonText = stringResource(R.string.study_back_home),
+        buttonTestTag = StudySessionTestTags.BACK_HOME,
+        onClick = onFinished,
+    )
+}
+
+@Composable
+private fun EmptyWrongAnswersContent(
+    innerPadding: PaddingValues,
+    onFinished: () -> Unit,
+) {
+    StatusContent(
+        modifier = Modifier
+            .padding(innerPadding)
+            .testTag(StudySessionTestTags.EMPTY_WRONG_ANSWERS),
+        icon = Icons.Filled.CheckCircle,
+        title = stringResource(R.string.study_wrong_answers_empty_title),
+        description = stringResource(R.string.study_wrong_answers_empty_description),
         buttonText = stringResource(R.string.study_back_home),
         buttonTestTag = StudySessionTestTags.BACK_HOME,
         onClick = onFinished,
@@ -594,6 +642,7 @@ private fun StudySessionScreenPreview() {
             onNextQuestion = {},
             onRetry = {},
             onFinished = {},
+            mode = StudySessionMode.ALL_QUESTIONS,
         )
     }
 }

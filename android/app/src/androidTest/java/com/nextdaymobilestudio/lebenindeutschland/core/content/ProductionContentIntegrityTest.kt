@@ -10,6 +10,7 @@ import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySess
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -17,7 +18,8 @@ import org.junit.runner.RunWith
  * Verifies the real Schema 3 package downloaded by the application.
  *
  * This is intentionally a device test: run the application through content bootstrap first,
- * then execute only this class against the persistent production Room database.
+ * then execute only this class against the persistent production Room database. A regular
+ * connected test run skips this check when that external prerequisite is not available.
  */
 @RunWith(AndroidJUnit4::class)
 class ProductionContentIntegrityTest {
@@ -28,9 +30,12 @@ class ProductionContentIntegrityTest {
     fun installedProductionCatalogContainsAll460UsableQuestions() = runBlocking {
         val application = targetContext.applicationContext as LebenInDeutschlandApplication
         val repository = application.appContainer.localContentRepository
-        val release = requireNotNull(repository.getActiveRelease()) {
-            "No active content release. Open the app and complete content preparation first."
-        }
+        val activeRelease = repository.getActiveRelease()
+        assumeTrue(
+            "No active content release. Open the app and complete content preparation first.",
+            activeRelease != null,
+        )
+        val release = requireNotNull(activeRelease)
         assertEquals(3, release.schemaVersion)
         assertEquals(460, release.questionCount)
 

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StudySessionCoordinatorTest {
@@ -120,6 +121,49 @@ class StudySessionCoordinatorTest {
         assertEquals(0, session.startIndex)
         assertEquals(0, session.answeredCount)
         assertEquals(0, session.correctCount)
+    }
+
+    @Test
+    fun wrongAnswersModeContainsOnlyCurrentlyIncorrectQuestions() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "general_002", "state_he_001"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "A", true, 100L, 1),
+                StudyAnswerProgress("general_002", "B", false, 200L, 1),
+            ),
+        )
+
+        val session = StudySessionCoordinator(repository).start(
+            languageCode = "tr",
+            stateCode = "he",
+            mode = StudySessionMode.WRONG_ANSWERS,
+        )
+
+        assertEquals(listOf("general_002"), session.questionIds)
+        assertEquals(0, session.startIndex)
+        assertEquals(0, session.answeredCount)
+        assertEquals(0, repository.clearCount)
+    }
+
+    @Test
+    fun wrongAnswersModeIsEmptyWhenEveryAnsweredQuestionIsCorrect() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "general_002"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "A", true, 100L, 1),
+            ),
+        )
+
+        val session = StudySessionCoordinator(repository).start(
+            languageCode = "tr",
+            stateCode = "he",
+            mode = StudySessionMode.WRONG_ANSWERS,
+        )
+
+        assertTrue(session.questionIds.isEmpty())
+        assertEquals(0, repository.clearCount)
     }
 }
 

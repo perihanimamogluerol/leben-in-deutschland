@@ -1,10 +1,12 @@
 package com.nextdaymobilestudio.lebenindeutschland.feature.home
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeScreen
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.ui.HomeTestTags
@@ -22,6 +24,7 @@ class HomeScreenTest {
     @Test
     fun homeShowsInstalledContentAndStartsStudy() {
         var started = false
+        var reviewedWrongAnswers = false
 
         composeRule.setContent {
             LebenInDeutschlandTheme {
@@ -35,6 +38,7 @@ class HomeScreenTest {
                         totalCount = 310,
                     ),
                     onStartStudy = { started = true },
+                    onReviewWrongAnswers = { reviewedWrongAnswers = true },
                 )
             }
         }
@@ -42,12 +46,21 @@ class HomeScreenTest {
         composeRule.onNodeWithTag(HomeTestTags.SCREEN).assertIsDisplayed()
         composeRule.onNodeWithTag(HomeTestTags.CONTENT_SUMMARY).assertIsDisplayed()
         composeRule.onNodeWithTag(HomeTestTags.STUDY_PROGRESS).assertIsDisplayed()
+        val contentList = composeRule.onNodeWithTag(HomeTestTags.CONTENT_LIST)
+        contentList.performScrollToNode(hasTestTag(HomeTestTags.LANGUAGE))
         composeRule.onNodeWithTag(HomeTestTags.LANGUAGE).assertIsDisplayed()
-        composeRule.onNodeWithTag(HomeTestTags.STATE).assertIsDisplayed()
         composeRule.onNodeWithText("Türkçe").assertIsDisplayed()
+        contentList.performScrollToNode(hasTestTag(HomeTestTags.STATE))
+        composeRule.onNodeWithTag(HomeTestTags.STATE).assertIsDisplayed()
         composeRule.onNodeWithText("Hessen").assertIsDisplayed()
+        contentList.performScrollToNode(hasTestTag(HomeTestTags.REVIEW_WRONG_ANSWERS))
+        composeRule.onNodeWithTag(HomeTestTags.REVIEW_WRONG_ANSWERS)
+            .performClick()
         composeRule.onNodeWithTag(HomeTestTags.START_STUDY).performClick()
 
-        composeRule.runOnIdle { assertTrue(started) }
+        composeRule.runOnIdle {
+            assertTrue(started)
+            assertTrue(reviewedWrongAnswers)
+        }
     }
 }

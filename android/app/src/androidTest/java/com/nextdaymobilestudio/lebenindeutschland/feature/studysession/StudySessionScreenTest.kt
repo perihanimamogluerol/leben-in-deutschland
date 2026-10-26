@@ -85,16 +85,33 @@ class StudySessionScreenTest {
         composeRule.runOnIdle { assertTrue(finished) }
     }
 
+    @Test
+    fun emptyWrongAnswersCanReturnHome() {
+        var finished = false
+        setScreen(
+            state = StudySessionUiState.EmptyWrongAnswers,
+            mode = StudySessionMode.WRONG_ANSWERS,
+            onFinished = { finished = true },
+        )
+
+        composeRule.onNodeWithTag(StudySessionTestTags.EMPTY_WRONG_ANSWERS)
+            .assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.BACK_HOME).performClick()
+        composeRule.runOnIdle { assertTrue(finished) }
+    }
+
     private fun setScreen(
         state: StudySessionUiState,
         onAnswerSelected: (String) -> Unit = {},
         onRetry: () -> Unit = {},
         onFinished: () -> Unit = {},
+        mode: StudySessionMode = StudySessionMode.ALL_QUESTIONS,
     ) {
         composeRule.setContent {
             LebenInDeutschlandTheme {
                 StudySessionScreen(
                     uiState = state,
+                    mode = mode,
                     onBack = {},
                     onAnswerSelected = onAnswerSelected,
                     onSubmitAnswer = {},

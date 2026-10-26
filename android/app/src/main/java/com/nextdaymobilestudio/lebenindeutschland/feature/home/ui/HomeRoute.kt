@@ -16,6 +16,7 @@ fun HomeRoute(
     selectedStateCode: String?,
     localContentRepository: LocalContentRepository,
     onStartStudy: () -> Unit,
+    onReviewWrongAnswers: () -> Unit,
 ) {
     val progress by produceState(
         initialValue = HomeProgressUiState(),
@@ -47,5 +48,6 @@ fun HomeRoute(
         stateName = stateName,
         studyProgress = progress,
         onStartStudy = onStartStudy,
+        onReviewWrongAnswers = onReviewWrongAnswers,
     )
 }

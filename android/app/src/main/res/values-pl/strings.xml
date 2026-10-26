@@ -52,4 +52,13 @@
     <string name="study_complete_title">Ćwiczenie ukończone</string>
     <string name="study_complete_description">Poprawnie odpowiedziano na %1$d z %2$d pytań.</string>
     <string name="study_back_home">Wróć do strony głównej</string>
+    <string name="home_wrong_answers_title">Błędne odpowiedzi</string>
+    <string name="home_wrong_answers_count">%1$d pytań do powtórzenia</string>
+    <string name="home_wrong_answers_empty">Obecnie nie ma błędnych odpowiedzi do powtórzenia.</string>
+    <string name="home_review_wrong_answers">Powtórz błędne odpowiedzi</string>
+    <string name="study_wrong_answers_title">Powtórz błędne odpowiedzi</string>
+    <string name="study_wrong_answers_empty_title">Wszystko poprawnie</string>
+    <string name="study_wrong_answers_empty_description">Obecnie nie ma błędnych odpowiedzi do powtórzenia.</string>
+    <string name="study_wrong_answers_complete_title">Powtórka zakończona</string>
+    <string name="study_wrong_answers_complete_description">Pozostało %1$d pytań do powtórzenia.</string>
 </resources>
