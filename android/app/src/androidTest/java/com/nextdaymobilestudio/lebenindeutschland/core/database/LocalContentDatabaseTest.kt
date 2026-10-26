@@ -127,6 +127,57 @@ class LocalContentDatabaseTest {
         assertFalse(repository.observeInstalledPackages(RELEASE_ID).first().isEmpty())
     }
 
+    @Test
+    fun studyProgressPersistsAttemptsAndCanBeCleared() = runBlocking {
+        repository.replacePackage(snapshot(languageCode = "de"))
+        repository.replacePackage(snapshot(languageCode = "en"))
+        repository.activateRelease(RELEASE_ID, "en")
+
+        repository.recordStudyAnswer(
+            releaseId = RELEASE_ID,
+            languageCode = "en",
+            stateCode = "be",
+            questionId = "general_001",
+            selectedAnswerId = "A",
+            isCorrect = false,
+            answeredAtEpochMillis = 100L,
+        )
+        val secondAttempt = repository.recordStudyAnswer(
+            releaseId = RELEASE_ID,
+            languageCode = "en",
+            stateCode = "BE",
+            questionId = "general_001",
+            selectedAnswerId = "D",
+            isCorrect = true,
+            answeredAtEpochMillis = 200L,
+        )
+
+        assertEquals(2, secondAttempt.attemptCount)
+        assertEquals("D", secondAttempt.selectedAnswerId)
+        assertEquals(
+            1,
+            repository.observeStudyProgress(RELEASE_ID, "en", "be")
+                .first().answeredCount,
+        )
+        assertEquals(
+            1,
+            repository.observeStudyProgress(RELEASE_ID, "en", "BE")
+                .first().correctCount,
+        )
+        assertEquals(
+            1,
+            repository.getStudyAnswerProgress(RELEASE_ID, "en", "be").size,
+        )
+
+        repository.clearStudyProgress(RELEASE_ID, "en", "be")
+
+        assertEquals(
+            0,
+            repository.observeStudyProgress(RELEASE_ID, "en", "BE")
+                .first().answeredCount,
+        )
+    }
+
     private fun snapshot(
         languageCode: String,
         explanationSuffix: String = "",

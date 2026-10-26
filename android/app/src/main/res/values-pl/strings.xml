@@ -31,6 +31,11 @@
     <string name="home_language">Język</string>
     <string name="home_federal_state">Kraj związkowy</string>
     <string name="home_start_studying">Rozpocznij naukę</string>
+    <string name="home_continue_studying">Kontynuuj naukę</string>
+    <string name="home_study_again">Ucz się ponownie</string>
+    <string name="home_progress_title">Twój postęp</string>
+    <string name="home_progress_answered">Odpowiedziano na %1$d z %2$d pytań</string>
+    <string name="home_progress_correct">%1$d poprawnych odpowiedzi</string>
     <string name="home_start_hint">Ćwicz pytania ogólne i dotyczące kraju związkowego we własnym tempie.</string>
     <string name="study_title">Ćwiczenie pytań</string>
     <string name="study_progress">Pytanie %1$d z %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Nie udało się wczytać pytań</string>
     <string name="study_error_description">Spróbuj ponownie.</string>
     <string name="study_complete_title">Ćwiczenie ukończone</string>
-    <string name="study_complete_description">Ukończono %1$d pytań.</string>
+    <string name="study_complete_description">Poprawnie odpowiedziano na %1$d z %2$d pytań.</string>
     <string name="study_back_home">Wróć do strony głównej</string>
 </resources>

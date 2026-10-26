@@ -31,6 +31,11 @@
     <string name="home_language">Idioma</string>
     <string name="home_federal_state">Estado federado</string>
     <string name="home_start_studying">Empezar a estudiar</string>
+    <string name="home_continue_studying">Continuar estudiando</string>
+    <string name="home_study_again">Estudiar de nuevo</string>
+    <string name="home_progress_title">Tu progreso</string>
+    <string name="home_progress_answered">%1$d de %2$d preguntas respondidas</string>
+    <string name="home_progress_correct">%1$d respuestas correctas</string>
     <string name="home_start_hint">Practica las preguntas generales y específicas del estado a tu ritmo.</string>
     <string name="study_title">Practicar preguntas</string>
     <string name="study_progress">Pregunta %1$d de %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">No se pudieron cargar las preguntas</string>
     <string name="study_error_description">Inténtalo de nuevo.</string>
     <string name="study_complete_title">Práctica completada</string>
-    <string name="study_complete_description">Has completado %1$d preguntas.</string>
+    <string name="study_complete_description">Has respondido correctamente %1$d de %2$d preguntas.</string>
     <string name="study_back_home">Volver al inicio</string>
 </resources>

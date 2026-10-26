@@ -48,12 +48,12 @@ class HomeLocalizationTest {
         return createConfigurationContext(configuration)
     }
 
-    private fun Context.localizedString(stringResource: Int): String =
-        if (stringResource == R.string.home_questions_available) {
-            getString(stringResource, 460)
-        } else {
-            getString(stringResource)
-        }
+    private fun Context.localizedString(stringResource: Int): String = when (stringResource) {
+        R.string.home_questions_available -> getString(stringResource, 460)
+        R.string.home_progress_answered -> getString(stringResource, 12, 310)
+        R.string.home_progress_correct -> getString(stringResource, 9)
+        else -> getString(stringResource)
+    }
 
     companion object {
         private val HOME_STRING_RESOURCES = intArrayOf(
@@ -65,6 +65,11 @@ class HomeLocalizationTest {
             R.string.home_language,
             R.string.home_federal_state,
             R.string.home_start_studying,
+            R.string.home_continue_studying,
+            R.string.home_study_again,
+            R.string.home_progress_title,
+            R.string.home_progress_answered,
+            R.string.home_progress_correct,
             R.string.home_start_hint,
         )
     }

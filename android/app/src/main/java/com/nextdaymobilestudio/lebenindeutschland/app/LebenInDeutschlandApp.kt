@@ -164,6 +164,10 @@ private fun OnboardingNavigation(
                         questionCount = key.questionCount,
                         languageName = persistedLanguage?.nativeName.orEmpty(),
                         stateName = persistedState?.germanName.orEmpty(),
+                        selectedLanguageCode = persistedLanguage?.code
+                            ?: SupportedLanguage.GERMAN.code,
+                        selectedStateCode = persistedState?.code,
+                        localContentRepository = localContentRepository,
                         onStartStudy = {
                             if (backStack.lastOrNull() != StudySessionKey) {
                                 backStack.add(StudySessionKey)

@@ -31,6 +31,11 @@
     <string name="home_language">Language</string>
     <string name="home_federal_state">Federal state</string>
     <string name="home_start_studying">Start studying</string>
+    <string name="home_continue_studying">Continue studying</string>
+    <string name="home_study_again">Study again</string>
+    <string name="home_progress_title">Your study progress</string>
+    <string name="home_progress_answered">%1$d of %2$d questions answered</string>
+    <string name="home_progress_correct">%1$d answered correctly</string>
     <string name="home_start_hint">Practice general and state-specific questions at your own pace.</string>
     <string name="study_title">Practice questions</string>
     <string name="study_progress">Question %1$d of %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Questions could not be loaded</string>
     <string name="study_error_description">Please try again.</string>
     <string name="study_complete_title">Practice complete</string>
-    <string name="study_complete_description">You completed %1$d questions.</string>
+    <string name="study_complete_description">You answered %1$d of %2$d questions correctly.</string>
     <string name="study_back_home">Back to home</string>
 </resources>

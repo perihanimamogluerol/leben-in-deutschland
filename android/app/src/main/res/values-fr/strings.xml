@@ -31,6 +31,11 @@
     <string name="home_language">Langue</string>
     <string name="home_federal_state">Land</string>
     <string name="home_start_studying">Commencer à étudier</string>
+    <string name="home_continue_studying">Continuer à étudier</string>
+    <string name="home_study_again">Étudier à nouveau</string>
+    <string name="home_progress_title">Votre progression</string>
+    <string name="home_progress_answered">%1$d questions répondues sur %2$d</string>
+    <string name="home_progress_correct">%1$d réponses correctes</string>
     <string name="home_start_hint">Entraînez-vous aux questions générales et propres au Land à votre rythme.</string>
     <string name="study_title">Entraînement aux questions</string>
     <string name="study_progress">Question %1$d sur %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Impossible de charger les questions</string>
     <string name="study_error_description">Réessayez.</string>
     <string name="study_complete_title">Entraînement terminé</string>
-    <string name="study_complete_description">Vous avez terminé %1$d questions.</string>
+    <string name="study_complete_description">Vous avez répondu correctement à %1$d questions sur %2$d.</string>
     <string name="study_back_home">Retour à l’accueil</string>
 </resources>

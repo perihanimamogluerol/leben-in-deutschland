@@ -31,6 +31,11 @@
     <string name="home_language">Мова</string>
     <string name="home_federal_state">Федеральна земля</string>
     <string name="home_start_studying">Почати навчання</string>
+    <string name="home_continue_studying">Продовжити навчання</string>
+    <string name="home_study_again">Пройти ще раз</string>
+    <string name="home_progress_title">Ваш прогрес</string>
+    <string name="home_progress_answered">Відповіді на %1$d із %2$d запитань</string>
+    <string name="home_progress_correct">%1$d правильних відповідей</string>
     <string name="home_start_hint">Практикуйте загальні та земельні запитання у власному темпі.</string>
     <string name="study_title">Практика запитань</string>
     <string name="study_progress">Запитання %1$d з %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Не вдалося завантажити запитання</string>
     <string name="study_error_description">Спробуйте ще раз.</string>
     <string name="study_complete_title">Практику завершено</string>
-    <string name="study_complete_description">Ви опрацювали %1$d запитань.</string>
+    <string name="study_complete_description">Ви правильно відповіли на %1$d із %2$d запитань.</string>
     <string name="study_back_home">На головну</string>
 </resources>

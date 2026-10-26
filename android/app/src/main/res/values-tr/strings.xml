@@ -31,6 +31,11 @@
     <string name="home_language">Dil</string>
     <string name="home_federal_state">Eyalet</string>
     <string name="home_start_studying">Çalışmaya başla</string>
+    <string name="home_continue_studying">Çalışmaya devam et</string>
+    <string name="home_study_again">Tekrar çalış</string>
+    <string name="home_progress_title">Çalışma ilerlemeniz</string>
+    <string name="home_progress_answered">%1$d / %2$d soru cevaplandı</string>
+    <string name="home_progress_correct">%1$d doğru cevap</string>
     <string name="home_start_hint">Genel ve eyalete özel soruları kendi hızınızda çalışın.</string>
     <string name="study_title">Soru çalışması</string>
     <string name="study_progress">Soru %1$d / %2$d</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">Sorular yüklenemedi</string>
     <string name="study_error_description">Lütfen tekrar deneyin.</string>
     <string name="study_complete_title">Çalışma tamamlandı</string>
-    <string name="study_complete_description">%1$d soruyu tamamladınız.</string>
+    <string name="study_complete_description">%2$d sorunun %1$d tanesini doğru cevapladınız.</string>
     <string name="study_back_home">Ana sayfaya dön</string>
 </resources>

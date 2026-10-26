@@ -4,6 +4,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentPa
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentReleaseEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentPackageSnapshot
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswerProgress
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.core.database.repository.LocalContentRepository
 import kotlinx.coroutines.flow.Flow
@@ -42,7 +43,11 @@ class StudySessionCoordinatorTest {
         val session = StudySession(
             releaseId = RELEASE_ID,
             languageCode = "tr",
+            stateCode = "HE",
             questionIds = listOf("general_001", "state_he_001"),
+            startIndex = 0,
+            answeredCount = 0,
+            correctCount = 0,
         )
 
         val question = coordinator.getQuestion(session, index = 1)
@@ -60,6 +65,61 @@ class StudySessionCoordinatorTest {
         assertThrows(IllegalArgumentException::class.java) {
             runBlocking { coordinator.start(languageCode = "de", stateCode = "bw") }
         }
+    }
+
+    @Test
+    fun startResumesAtFirstUnansweredQuestion() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "general_002", "state_he_001"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "A", true, 100L, 1),
+                StudyAnswerProgress("general_002", "B", false, 200L, 1),
+            ),
+        )
+
+        val session = StudySessionCoordinator(repository).start("tr", "he")
+
+        assertEquals(2, session.startIndex)
+        assertEquals(2, session.answeredCount)
+        assertEquals(1, session.correctCount)
+    }
+
+    @Test
+    fun recordAnswerPersistsCorrectnessAndTimestamp() = runBlocking {
+        val question = studyQuestion("state_he_001")
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf(question.id),
+            questions = mapOf(question.id to question),
+        )
+        val coordinator = StudySessionCoordinator(repository, currentTimeMillis = { 456L })
+        val session = coordinator.start("tr", "he")
+
+        val saved = coordinator.recordAnswer(session, question, selectedAnswerId = "A")
+
+        assertEquals(true, saved.isCorrect)
+        assertEquals(456L, saved.answeredAtEpochMillis)
+        assertEquals(saved, repository.recordedProgress)
+    }
+
+    @Test
+    fun completedProgressIsClearedBeforeStartingAgain() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "state_he_001"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "A", true, 100L, 1),
+                StudyAnswerProgress("state_he_001", "B", false, 200L, 1),
+            ),
+        )
+
+        val session = StudySessionCoordinator(repository).start("tr", "he")
+
+        assertEquals(1, repository.clearCount)
+        assertEquals(0, session.startIndex)
+        assertEquals(0, session.answeredCount)
+        assertEquals(0, session.correctCount)
     }
 }
 
@@ -79,12 +139,17 @@ private class FakeStudyRepository(
     activeRelease: ContentReleaseEntity?,
     private val eligibleIds: List<String>,
     private val questions: Map<String, StudyQuestion> = emptyMap(),
+    private val progress: List<StudyAnswerProgress> = emptyList(),
 ) : LocalContentRepository {
     private val activeReleaseFlow = MutableStateFlow(activeRelease)
 
     var lastEligibleRequest: EligibleRequest? = null
         private set
     var lastQuestionRequest: QuestionRequest? = null
+        private set
+    var recordedProgress: StudyAnswerProgress? = null
+        private set
+    var clearCount: Int = 0
         private set
 
     override fun observeActiveRelease(): Flow<ContentReleaseEntity?> = activeReleaseFlow
@@ -121,6 +186,36 @@ private class FakeStudyRepository(
     ): StudyQuestion? {
         lastQuestionRequest = QuestionRequest(releaseId, questionId, languageCode)
         return questions[questionId]
+    }
+
+    override suspend fun getStudyAnswerProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ): List<StudyAnswerProgress> = progress
+
+    override suspend fun recordStudyAnswer(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+        questionId: String,
+        selectedAnswerId: String,
+        isCorrect: Boolean,
+        answeredAtEpochMillis: Long,
+    ): StudyAnswerProgress = StudyAnswerProgress(
+        questionId = questionId,
+        selectedAnswerId = selectedAnswerId,
+        isCorrect = isCorrect,
+        answeredAtEpochMillis = answeredAtEpochMillis,
+        attemptCount = 1,
+    ).also { saved -> recordedProgress = saved }
+
+    override suspend fun clearStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String?,
+    ) {
+        clearCount += 1
     }
 }
 

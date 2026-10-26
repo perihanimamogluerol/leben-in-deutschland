@@ -31,6 +31,11 @@
     <string name="home_language">ژبه</string>
     <string name="home_federal_state">فدرالي ایالت</string>
     <string name="home_start_studying">زده کړه پیل کړئ</string>
+    <string name="home_continue_studying">زده کړې ته دوام ورکړئ</string>
+    <string name="home_study_again">بیا زده کړه</string>
+    <string name="home_progress_title">ستاسو پرمختګ</string>
+    <string name="home_progress_answered">له %2$d څخه %1$d پوښتنو ته ځواب ورکړل شوی</string>
+    <string name="home_progress_correct">%1$d سم ځوابونه</string>
     <string name="home_start_hint">عمومي او د ایالت ځانګړې پوښتنې په خپل سرعت تمرین کړئ.</string>
     <string name="study_title">د پوښتنو تمرین</string>
     <string name="study_progress">پوښتنه %1$d له %2$d څخه</string>
@@ -45,6 +50,6 @@
     <string name="study_error_title">پوښتنې پورته نه شوې</string>
     <string name="study_error_description">مهرباني وکړئ بیا هڅه وکړئ.</string>
     <string name="study_complete_title">تمرین بشپړ شو</string>
-    <string name="study_complete_description">تاسو %1$d پوښتنې بشپړې کړې.</string>
+    <string name="study_complete_description">تاسو له %2$d څخه %1$d پوښتنو ته سم ځواب ورکړ.</string>
     <string name="study_back_home">کور پاڼې ته ستنېدل</string>
 </resources>

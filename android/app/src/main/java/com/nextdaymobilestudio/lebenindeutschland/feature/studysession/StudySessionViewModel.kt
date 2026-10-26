@@ -35,7 +35,12 @@ class StudySessionViewModel(
             try {
                 val loadedSession = coordinator.start(languageCode, stateCode)
                 session = loadedSession
-                showQuestion(loadedSession, index = 0)
+                showQuestion(
+                    loadedSession = loadedSession,
+                    index = loadedSession.startIndex,
+                    answeredCount = loadedSession.answeredCount,
+                    correctCount = loadedSession.correctCount,
+                )
             } catch (exception: CancellationException) {
                 throw exception
             } catch (_: Exception) {
@@ -46,15 +51,36 @@ class StudySessionViewModel(
 
     fun selectAnswer(answerId: String) {
         val current = _uiState.value as? StudySessionUiState.Ready ?: return
-        if (!current.isSubmitted) {
+        if (!current.isSubmitted && !current.isSaving) {
             _uiState.value = current.copy(selectedAnswerId = answerId)
         }
     }
 
     fun submitAnswer() {
         val current = _uiState.value as? StudySessionUiState.Ready ?: return
-        if (current.selectedAnswerId != null) {
-            _uiState.value = current.copy(isSubmitted = true)
+        val selectedAnswerId = current.selectedAnswerId ?: return
+        if (current.isSubmitted || current.isSaving) return
+        val loadedSession = session ?: return
+        loadingJob?.cancel()
+        loadingJob = viewModelScope.launch {
+            _uiState.value = current.copy(isSaving = true)
+            try {
+                val saved = coordinator.recordAnswer(
+                    session = loadedSession,
+                    question = current.question,
+                    selectedAnswerId = selectedAnswerId,
+                )
+                _uiState.value = current.copy(
+                    isSubmitted = true,
+                    isSaving = false,
+                    answeredCount = current.answeredCount + 1,
+                    correctCount = current.correctCount + if (saved.isCorrect) 1 else 0,
+                )
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (_: Exception) {
+                _uiState.value = StudySessionUiState.Error
+            }
         }
     }
 
@@ -62,7 +88,10 @@ class StudySessionViewModel(
         val current = _uiState.value as? StudySessionUiState.Ready ?: return
         if (!current.isSubmitted) return
         if (current.isLastQuestion) {
-            _uiState.value = StudySessionUiState.Complete(current.totalCount)
+            _uiState.value = StudySessionUiState.Complete(
+                questionCount = current.totalCount,
+                correctCount = current.correctCount,
+            )
             return
         }
         val loadedSession = session ?: return
@@ -70,7 +99,12 @@ class StudySessionViewModel(
         loadingJob = viewModelScope.launch {
             _uiState.value = StudySessionUiState.Loading
             try {
-                showQuestion(loadedSession, current.currentIndex + 1)
+                showQuestion(
+                    loadedSession = loadedSession,
+                    index = current.currentIndex + 1,
+                    answeredCount = current.answeredCount,
+                    correctCount = current.correctCount,
+                )
             } catch (exception: CancellationException) {
                 throw exception
             } catch (_: Exception) {
@@ -82,11 +116,15 @@ class StudySessionViewModel(
     private suspend fun showQuestion(
         loadedSession: StudySession,
         index: Int,
+        answeredCount: Int,
+        correctCount: Int,
     ) {
         _uiState.value = StudySessionUiState.Ready(
             question = coordinator.getQuestion(loadedSession, index),
             currentIndex = index,
             totalCount = loadedSession.questionIds.size,
+            answeredCount = answeredCount,
+            correctCount = correctCount,
         )
     }
 

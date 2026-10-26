@@ -11,9 +11,11 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.ContentRe
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.QuestionEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyAnswerEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyContentEntity
+import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyQuestionProgressEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAnswerAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.LocalQuestionBundle
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyProgressSummary
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -44,6 +46,9 @@ interface ContentDao {
 
     @Upsert
     suspend fun upsertTranslationAnswerAudits(audits: List<TranslationAnswerAuditEntity>)
+
+    @Upsert
+    suspend fun upsertStudyQuestionProgress(progress: StudyQuestionProgressEntity)
 
     @Query(
         """
@@ -193,6 +198,68 @@ interface ContentDao {
         questionId: String,
         languageCode: String,
     ): List<TranslationAnswerAuditEntity>
+
+    @Query(
+        """
+        SELECT * FROM study_question_progress
+        WHERE release_id = :releaseId
+            AND language_code = :languageCode
+            AND state_code = :stateCode
+        ORDER BY answered_at_epoch_millis, question_id
+        """,
+    )
+    suspend fun getStudyQuestionProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    ): List<StudyQuestionProgressEntity>
+
+    @Query(
+        """
+        SELECT * FROM study_question_progress
+        WHERE release_id = :releaseId
+            AND language_code = :languageCode
+            AND state_code = :stateCode
+            AND question_id = :questionId
+        """,
+    )
+    suspend fun getStudyQuestionProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+        questionId: String,
+    ): StudyQuestionProgressEntity?
+
+    @Query(
+        """
+        SELECT
+            COUNT(*) AS answered_count,
+            COALESCE(SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END), 0) AS correct_count
+        FROM study_question_progress
+        WHERE release_id = :releaseId
+            AND language_code = :languageCode
+            AND state_code = :stateCode
+        """,
+    )
+    fun observeStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    ): Flow<StudyProgressSummary>
+
+    @Query(
+        """
+        DELETE FROM study_question_progress
+        WHERE release_id = :releaseId
+            AND language_code = :languageCode
+            AND state_code = :stateCode
+        """,
+    )
+    suspend fun clearStudyProgress(
+        releaseId: String,
+        languageCode: String,
+        stateCode: String,
+    )
 
     @Transaction
     suspend fun getQuestionBundle(
