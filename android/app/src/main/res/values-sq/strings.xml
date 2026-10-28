@@ -35,7 +35,7 @@
     <string name="home_study_again">Mëso përsëri</string>
     <string name="home_progress_title">Përparimi yt</string>
     <string name="home_progress_answered">U përgjigjën %1$d nga %2$d pyetje</string>
-    <string name="home_progress_correct">%1$d përgjigje të sakta</string>
+    <string name="home_progress_correct">%1$d të sakta / %2$d të gabuara</string>
     <string name="home_start_hint">Ushtroni pyetjet e përgjithshme dhe ato të landit me ritmin tuaj.</string>
     <string name="study_title">Ushtrimi i pyetjeve</string>
     <string name="study_progress">Pyetja %1$d nga %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Saktë</string>
     <string name="study_incorrect">Ende jo saktë</string>
     <string name="study_explanation">Shpjegimi</string>
+    <string name="study_memory_key_title">Ndihmë për kujtesën</string>
     <string name="study_check_answer">Kontrollo përgjigjen</string>
     <string name="study_next_question">Pyetja tjetër</string>
     <string name="study_finish">Përfundo ushtrimin</string>

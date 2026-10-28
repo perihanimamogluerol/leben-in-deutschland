@@ -63,6 +63,12 @@ data class QuestionEntity(
     val questionImageHeight: Int?,
     @ColumnInfo(name = "question_image_mime_type")
     val questionImageMimeType: String?,
+    @ColumnInfo(name = "memory_question_cue")
+    val memoryQuestionCue: String? = null,
+    @ColumnInfo(name = "memory_answer_cue")
+    val memoryAnswerCue: String? = null,
+    @ColumnInfo(name = "memory_key_status")
+    val memoryKeyStatus: String? = null,
 )
 
 @Entity(

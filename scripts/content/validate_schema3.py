@@ -11,12 +11,15 @@ from pathlib import Path
 from typing import Any
 
 from build_schema3 import (
+    ALLOWED_MEMORY_KEY_STATUSES,
     PACKAGE_STRATEGY,
     REPEATED_EXPLANATION_LIMIT,
     SCHEMA_VERSION,
     json_size,
+    normalized_memory_key_pair,
     read_json,
     sha256_json,
+    validate_memory_cue,
 )
 
 
@@ -117,6 +120,58 @@ def validate_question(
             question_id=question_id,
         )
 
+    memory_key = german.get("memoryKey")
+    if memory_key is not None:
+        if not isinstance(memory_key, dict):
+            add_issue(
+                structural,
+                "INVALID_MEMORY_KEY",
+                "German memory key must be an object.",
+                language_code=language_code,
+                question_id=question_id,
+            )
+        else:
+            if not validate_memory_cue(
+                memory_key.get("questionCue")
+            ) or not validate_memory_cue(memory_key.get("answerCue")):
+                add_issue(
+                    structural,
+                    "INVALID_MEMORY_KEY_CUE",
+                    "Memory-key cues must contain 1-8 words and at most 80 characters.",
+                    language_code=language_code,
+                    question_id=question_id,
+                )
+            if memory_key.get("status") not in ALLOWED_MEMORY_KEY_STATUSES:
+                add_issue(
+                    quality,
+                    "UNVERIFIED_MEMORY_KEY_PROVENANCE",
+                    "German memory-key provenance is not verified.",
+                    language_code=language_code,
+                    question_id=question_id,
+                )
+
+            correct_answer = next(
+                (
+                    answer
+                    for answer in german_answers
+                    if isinstance(answer, dict)
+                    and answer.get("id") == question.get("correctAnswerId")
+                ),
+                None,
+            )
+            if (
+                isinstance(correct_answer, dict)
+                and isinstance(correct_answer.get("image"), dict)
+                and bool(correct_answer["image"])
+            ):
+                add_issue(
+                    structural,
+                    "MEMORY_KEY_FOR_IMAGE_ANSWER",
+                    "Image-answer questions must not contain a memory key.",
+                    language_code=language_code,
+                    question_id=question_id,
+                )
+
     explanation = study.get("explanation")
     if not isinstance(explanation, str) or not explanation.strip():
         add_issue(
@@ -166,6 +221,8 @@ def validate_release(
         )
 
     reference_ids: set[str] | None = None
+    reference_memory_keys: dict[str, str] | None = None
+    reference_image_answer_skips: int | None = None
     observed_package_hashes: dict[str, str] = {}
 
     for language_code in languages:
@@ -287,6 +344,78 @@ def validate_release(
                 if isinstance(question, dict):
                     package_questions.append(question)
 
+        memory_key_enabled = any(
+            isinstance(question.get("german"), dict)
+            and question["german"].get("memoryKey") is not None
+            for question in package_questions
+        )
+        package_memory_keys: dict[str, str] = {}
+        image_answer_skips = 0
+        if memory_key_enabled:
+            observed_pairs: dict[str, str] = {}
+            for question in package_questions:
+                question_id = question.get("id")
+                german = question.get("german")
+                if not isinstance(question_id, str) or not isinstance(german, dict):
+                    continue
+                correct_answer = next(
+                    (
+                        answer
+                        for answer in german.get("answers", [])
+                        if isinstance(answer, dict)
+                        and answer.get("id") == question.get("correctAnswerId")
+                    ),
+                    None,
+                )
+                has_image_answer = (
+                    isinstance(correct_answer, dict)
+                    and isinstance(correct_answer.get("image"), dict)
+                    and bool(correct_answer["image"])
+                )
+                memory_key = german.get("memoryKey")
+                if has_image_answer:
+                    image_answer_skips += 1
+                    continue
+                if not isinstance(memory_key, dict):
+                    add_issue(
+                        quality,
+                        "MISSING_MEMORY_KEY",
+                        "German memory key is missing for a text-answer question.",
+                        language_code=language_code,
+                        question_id=question_id,
+                    )
+                    continue
+                question_cue = memory_key.get("questionCue")
+                answer_cue = memory_key.get("answerCue")
+                if not validate_memory_cue(question_cue) or not validate_memory_cue(
+                    answer_cue
+                ):
+                    continue
+                pair = normalized_memory_key_pair(question_cue, answer_cue)
+                previous = observed_pairs.get(pair)
+                if previous is not None:
+                    add_issue(
+                        structural,
+                        "DUPLICATE_MEMORY_KEY_PAIR",
+                        f"Memory-key pair duplicates {previous}.",
+                        language_code=language_code,
+                        question_id=question_id,
+                    )
+                observed_pairs[pair] = question_id
+                package_memory_keys[question_id] = pair
+
+        observed_memory_key_count = len(package_memory_keys)
+        declared_memory_key_count = package.get("memoryKeyCount")
+        if declared_memory_key_count is not None and (
+            declared_memory_key_count != observed_memory_key_count
+        ):
+            add_issue(
+                structural,
+                "PACKAGE_MEMORY_KEY_COUNT_MISMATCH",
+                "Package memoryKeyCount does not match its questions.",
+                language_code=language_code,
+            )
+
         counts = Counter(text for _, text in explanations)
         repeated = {
             text: count
@@ -337,6 +466,20 @@ def validate_release(
                 language_code=language_code,
             )
 
+        if reference_memory_keys is None:
+            reference_memory_keys = package_memory_keys
+            reference_image_answer_skips = image_answer_skips
+        elif (
+            package_memory_keys != reference_memory_keys
+            or image_answer_skips != reference_image_answer_skips
+        ):
+            add_issue(
+                structural,
+                "PACKAGE_MEMORY_KEYS_MISMATCH",
+                "Language packages do not contain identical German memory keys.",
+                language_code=language_code,
+            )
+
     if release.get("packageHashes") != observed_package_hashes:
         add_issue(
             structural,
@@ -349,6 +492,16 @@ def validate_release(
             structural,
             "RELEASE_HASH_MISMATCH",
             "Release catalog hash is incorrect.",
+        )
+
+    memory_key_count = len(reference_memory_keys or {})
+    if release.get("memoryKeyCount") is not None and (
+        release.get("memoryKeyCount") != memory_key_count
+    ):
+        add_issue(
+            structural,
+            "RELEASE_MEMORY_KEY_COUNT_MISMATCH",
+            "Release memoryKeyCount does not match its language packages.",
         )
 
     if structural:
@@ -374,6 +527,8 @@ def validate_release(
         "questionCount": release.get("questionCount"),
         "languageCount": len(languages),
         "qualityIssueCount": len(quality),
+        "memoryKeyCount": memory_key_count,
+        "imageAnswerSkippedCount": reference_image_answer_skips or 0,
         "readyForUpload": not quality and release.get("status") == "READY",
     }
 

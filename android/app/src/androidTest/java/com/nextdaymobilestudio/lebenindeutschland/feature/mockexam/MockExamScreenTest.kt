@@ -7,9 +7,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyMemoryKey
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.ui.MockExamScreen
 import com.nextdaymobilestudio.lebenindeutschland.feature.mockexam.ui.MockExamTestTags
+import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionTestTags
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -62,6 +64,7 @@ class MockExamScreenTest {
 
         composeRule.onNodeWithTag(MockExamTestTags.TIMER).assertIsDisplayed()
         composeRule.onNodeWithTag(MockExamTestTags.QUESTION).assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertDoesNotExist()
         composeRule.onNodeWithTag(MockExamTestTags.answer("B")).performClick()
         composeRule.onNodeWithTag(MockExamTestTags.NEXT).assertIsEnabled().performClick()
         composeRule.onNodeWithTag(MockExamTestTags.FINISH).performClick()
@@ -151,4 +154,9 @@ private fun question(): StudyQuestion = StudyQuestion(
     ),
     explanationStatus = "AI_GENERATED_NEEDS_REVIEW",
     reviewed = false,
+    memoryKey = StudyMemoryKey(
+        questionCue = "Frage erkennen",
+        answerCue = "Antwort A",
+        status = "AI_GENERATED_NEEDS_REVIEW",
+    ),
 )

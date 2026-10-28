@@ -28,6 +28,12 @@ class ContentPackageMapperTest {
         assertEquals("source-record-id", snapshot.translationAudits.single().sourceRecordId)
         assertEquals(4, snapshot.translationAnswerAudits.size)
         assertEquals(true, snapshot.translationAnswerAudits[1].usedFallback)
+        assertEquals("Frage erkennen", snapshot.questions.single().memoryQuestionCue)
+        assertEquals("Antwort A", snapshot.questions.single().memoryAnswerCue)
+        assertEquals(
+            "AI_GENERATED_NEEDS_REVIEW",
+            snapshot.questions.single().memoryKeyStatus,
+        )
     }
 
     @Test

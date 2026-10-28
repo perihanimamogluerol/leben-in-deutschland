@@ -158,6 +158,96 @@ manifest. After applying translations, rebuild schema 3 without
 `--allow-incomplete` and run production validation. AI-generated explanations
 remain marked as needing human review even when structural validation passes.
 
+## Generate German Memory Keys Safely
+
+`memory_key_pipeline.py` creates short German question-to-answer mnemonic pairs.
+Questions whose correct answer is an image are deliberately skipped. Generated
+keys are marked as needing human review and the apply step rejects missing or
+duplicate pairs.
+
+Prepare 441 text-answer requests from the production source catalog:
+
+```bash
+python scripts/content/memory_key_pipeline.py prepare \
+  --input .local/content/schema-2-complete-explanations-v2.json \
+  --output .local/memory-keys/requests.jsonl
+```
+
+Review the manifest before submission. For the current 460-question catalog it
+must report `requestCount: 441`, `skippedCount: 19`, and
+`readyForSubmit: true`.
+
+```bash
+python scripts/content/memory_key_pipeline.py submit \
+  --input .local/memory-keys/requests.jsonl \
+  --manifest .local/memory-keys/requests.manifest.json \
+  --state .local/memory-keys/batch.json \
+  --confirm-submit SUBMIT
+
+python scripts/content/memory_key_pipeline.py status \
+  --state .local/memory-keys/batch.json
+
+python scripts/content/memory_key_pipeline.py download \
+  --state .local/memory-keys/batch.json \
+  --output .local/memory-keys/output.jsonl
+```
+
+If a validated batch remains queued and direct processing is explicitly
+preferred, cancel it first and wait until its status is `cancelled`:
+
+```bash
+python scripts/content/memory_key_pipeline.py cancel \
+  --state .local/memory-keys/batch.json \
+  --confirm-cancel CANCEL
+
+python scripts/content/memory_key_pipeline.py status \
+  --state .local/memory-keys/batch.json
+```
+
+Then run the same requests through the standard Responses API. Successful
+responses are appended and synced to disk immediately. Re-running the command
+resumes only missing requests; `--batch-state` prevents duplicate processing
+while the old batch is still active.
+
+```bash
+python scripts/content/memory_key_pipeline.py run-direct \
+  --input .local/memory-keys/requests.jsonl \
+  --manifest .local/memory-keys/requests.manifest.json \
+  --output .local/memory-keys/output.jsonl \
+  --batch-state .local/memory-keys/batch.json \
+  --workers 5 \
+  --confirm-run RUN_DIRECT
+```
+
+Apply the completed results to a new catalog and validate all invariants:
+
+```bash
+python scripts/content/memory_key_pipeline.py apply \
+  --input .local/content/schema-2-complete-explanations-v2.json \
+  --manifest .local/memory-keys/requests.manifest.json \
+  --batch-output .local/memory-keys/output.jsonl \
+  --output .local/content/schema-2-with-memory-keys.json
+
+python scripts/content/memory_key_pipeline.py validate \
+  --input .local/content/schema-2-with-memory-keys.json
+```
+
+Build and validate a new immutable schema-3 release. Memory keys are an
+additive optional schema-3 field, so older clients can still synchronize the
+release and ignore the new object. When at least one memory key is present, the
+builder requires complete coverage of textual correct answers and no keys for
+image answers.
+
+```bash
+python scripts/content/build_schema3.py \
+  --input .local/content/schema-2-with-memory-keys.json \
+  --output .local/generated/schema-3-memory-keys \
+  --dataset-version 2026-10-27.memory-keys
+
+python scripts/content/validate_schema3.py \
+  --input .local/generated/schema-3-memory-keys
+```
+
 ## Publish Schema 3 to Firestore
 
 `firestore_upload_schema3.py` keeps validation, upload, verification, and

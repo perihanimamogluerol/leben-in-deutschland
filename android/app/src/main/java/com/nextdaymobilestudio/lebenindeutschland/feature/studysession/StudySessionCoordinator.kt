@@ -19,6 +19,7 @@ data class StudySession(
 class StudySessionCoordinator(
     private val localContentRepository: LocalContentRepository,
     private val currentTimeMillis: () -> Long = System::currentTimeMillis,
+    private val shuffle: (List<String>) -> List<String> = { values -> values.shuffled() },
 ) {
     suspend fun start(
         languageCode: String,
@@ -54,25 +55,31 @@ class StudySessionCoordinator(
             progress = emptyList()
         }
         val progressByQuestionId = progress.associateBy(StudyAnswerProgress::questionId)
-        val questionIds = when (mode) {
-            StudySessionMode.ALL_QUESTIONS -> eligibleQuestionIds
-            StudySessionMode.WRONG_ANSWERS -> eligibleQuestionIds.filter { questionId ->
-                progressByQuestionId[questionId]?.isCorrect == false
-            }
-        }
         val answeredQuestionIds = progress.map(StudyAnswerProgress::questionId).toSet()
+        val (questionIds, startIndex) = when (mode) {
+            StudySessionMode.ALL_QUESTIONS -> {
+                val answered = eligibleQuestionIds.filter { questionId ->
+                    questionId in answeredQuestionIds
+                }
+                val randomizedUnanswered = shuffle(
+                    eligibleQuestionIds.filterNot { questionId ->
+                        questionId in answeredQuestionIds
+                    },
+                )
+                (answered + randomizedUnanswered) to answered.size
+            }
+            StudySessionMode.WRONG_ANSWERS -> shuffle(
+                eligibleQuestionIds.filter { questionId ->
+                    progressByQuestionId[questionId]?.isCorrect == false
+                },
+            ) to 0
+        }
         return StudySession(
             releaseId = release.releaseId,
             languageCode = languageCode,
             stateCode = normalizedStateCode,
             questionIds = questionIds,
-            startIndex = if (mode == StudySessionMode.WRONG_ANSWERS) {
-                0
-            } else {
-                questionIds.indexOfFirst { questionId ->
-                    questionId !in answeredQuestionIds
-                }.coerceAtLeast(0)
-            },
+            startIndex = startIndex,
             answeredCount = if (mode == StudySessionMode.WRONG_ANSWERS) 0 else answeredQuestionIds.size,
             correctCount = if (mode == StudySessionMode.WRONG_ANSWERS) {
                 0

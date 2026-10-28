@@ -35,7 +35,7 @@
     <string name="home_study_again">Étudier à nouveau</string>
     <string name="home_progress_title">Votre progression</string>
     <string name="home_progress_answered">%1$d questions répondues sur %2$d</string>
-    <string name="home_progress_correct">%1$d réponses correctes</string>
+    <string name="home_progress_correct">%1$d correctes / %2$d incorrectes</string>
     <string name="home_start_hint">Entraînez-vous aux questions générales et propres au Land à votre rythme.</string>
     <string name="study_title">Entraînement aux questions</string>
     <string name="study_progress">Question %1$d sur %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Correct</string>
     <string name="study_incorrect">Pas encore correct</string>
     <string name="study_explanation">Explication</string>
+    <string name="study_memory_key_title">Aide-mémoire</string>
     <string name="study_check_answer">Vérifier la réponse</string>
     <string name="study_next_question">Question suivante</string>
     <string name="study_finish">Terminer l’entraînement</string>

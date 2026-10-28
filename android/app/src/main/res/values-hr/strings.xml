@@ -35,7 +35,7 @@
     <string name="home_study_again">Uči ponovno</string>
     <string name="home_progress_title">Tvoj napredak</string>
     <string name="home_progress_answered">Odgovoreno na %1$d od %2$d pitanja</string>
-    <string name="home_progress_correct">%1$d točnih odgovora</string>
+    <string name="home_progress_correct">%1$d točnih / %2$d netočnih odgovora</string>
     <string name="home_start_hint">Vježbajte opća pitanja i pitanja savezne zemlje vlastitim tempom.</string>
     <string name="study_title">Vježbanje pitanja</string>
     <string name="study_progress">Pitanje %1$d od %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Točno</string>
     <string name="study_incorrect">Još nije točno</string>
     <string name="study_explanation">Objašnjenje</string>
+    <string name="study_memory_key_title">Pomoć za pamćenje</string>
     <string name="study_check_answer">Provjeri odgovor</string>
     <string name="study_next_question">Sljedeće pitanje</string>
     <string name="study_finish">Završi vježbu</string>

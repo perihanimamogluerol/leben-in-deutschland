@@ -35,7 +35,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.Translati
         MockExamAttemptEntity::class,
         MockExamQuestionResultEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
 )
 abstract class LocalContentDatabase : RoomDatabase() {
@@ -49,7 +49,7 @@ abstract class LocalContentDatabase : RoomDatabase() {
                 context.applicationContext,
                 LocalContentDatabase::class.java,
                 DATABASE_NAME,
-            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
+            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build()
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -145,6 +145,20 @@ abstract class LocalContentDatabase : RoomDatabase() {
                         `index_mock_exam_question_results_attempt_id`
                     ON `mock_exam_question_results` (`attempt_id`)
                     """.trimIndent(),
+                )
+            }
+        }
+
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE `questions` ADD COLUMN `memory_question_cue` TEXT",
+                )
+                db.execSQL(
+                    "ALTER TABLE `questions` ADD COLUMN `memory_answer_cue` TEXT",
+                )
+                db.execSQL(
+                    "ALTER TABLE `questions` ADD COLUMN `memory_key_status` TEXT",
                 )
             }
         }

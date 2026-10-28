@@ -22,6 +22,8 @@ the naturalization test.
   type. Both official outcomes use the same 33-question format.
 - Build every exam from 30 unique random general questions and 3 unique random
   questions for the selected federal state.
+- Randomize both the selected question set and its presentation order for each
+  new exam; restoring an active exam preserves its saved order.
 - Start a 60-minute deadline when the exam is created. The deadline is stored as
   wall-clock time, so closing the app does not pause the exam.
 - Persist the full active exam snapshot in a dedicated Preferences DataStore:

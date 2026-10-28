@@ -35,7 +35,7 @@
     <string name="home_study_again">Ucz się ponownie</string>
     <string name="home_progress_title">Twój postęp</string>
     <string name="home_progress_answered">Odpowiedziano na %1$d z %2$d pytań</string>
-    <string name="home_progress_correct">%1$d poprawnych odpowiedzi</string>
+    <string name="home_progress_correct">%1$d poprawnych / %2$d błędnych</string>
     <string name="home_start_hint">Ćwicz pytania ogólne i dotyczące kraju związkowego we własnym tempie.</string>
     <string name="study_title">Ćwiczenie pytań</string>
     <string name="study_progress">Pytanie %1$d z %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Poprawnie</string>
     <string name="study_incorrect">Jeszcze niepoprawnie</string>
     <string name="study_explanation">Wyjaśnienie</string>
+    <string name="study_memory_key_title">Wskazówka do zapamiętania</string>
     <string name="study_check_answer">Sprawdź odpowiedź</string>
     <string name="study_next_question">Następne pytanie</string>
     <string name="study_finish">Zakończ ćwiczenie</string>

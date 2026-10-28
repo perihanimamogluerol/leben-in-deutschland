@@ -34,6 +34,12 @@ data class StudyAnswer(
     val image: ContentImage?,
 )
 
+data class StudyMemoryKey(
+    val questionCue: String,
+    val answerCue: String,
+    val status: String,
+)
+
 data class StudyQuestion(
     val releaseId: String,
     val id: String,
@@ -50,6 +56,7 @@ data class StudyQuestion(
     val answers: List<StudyAnswer>,
     val explanationStatus: String,
     val reviewed: Boolean,
+    val memoryKey: StudyMemoryKey? = null,
 )
 
 fun LocalQuestionBundle.toStudyQuestion(): StudyQuestion {
@@ -83,6 +90,17 @@ fun LocalQuestionBundle.toStudyQuestion(): StudyQuestion {
         answers = mappedAnswers,
         explanationStatus = studyContent.explanationStatus,
         reviewed = studyContent.reviewed,
+        memoryKey = question.toStudyMemoryKey(),
+    )
+}
+
+private fun QuestionEntity.toStudyMemoryKey(): StudyMemoryKey? {
+    val values = listOf(memoryQuestionCue, memoryAnswerCue, memoryKeyStatus)
+    if (values.all { it == null }) return null
+    return StudyMemoryKey(
+        questionCue = requireNotNull(memoryQuestionCue),
+        answerCue = requireNotNull(memoryAnswerCue),
+        status = requireNotNull(memoryKeyStatus),
     )
 }
 

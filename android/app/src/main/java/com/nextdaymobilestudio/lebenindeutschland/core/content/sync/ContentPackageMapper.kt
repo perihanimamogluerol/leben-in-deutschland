@@ -319,9 +319,31 @@ internal class ContentPackageMapper {
         val germanAnswers = german.requiredObjectList("answers")
         val studyAnswers = study.requiredObjectList("answers")
         val questionImage = german.optionalObject("questionImage")
+        val memoryKey = german.optionalObject("memoryKey")
+        val memoryQuestionCue = memoryKey?.requiredString("questionCue")
+        val memoryAnswerCue = memoryKey?.requiredString("answerCue")
+        val memoryKeyStatus = memoryKey?.requiredString("status")
 
         syncRequire(study.requiredString("languageCode") == languageCode) {
             "$questionId study language does not match package"
+        }
+        if (memoryKey != null) {
+            validateMemoryKey(
+                questionId = questionId,
+                questionCue = requireNotNull(memoryQuestionCue),
+                answerCue = requireNotNull(memoryAnswerCue),
+                status = requireNotNull(memoryKeyStatus),
+            )
+            val correctAnswerId = raw.requiredString("correctAnswerId")
+            val correctAnswer = germanAnswers.singleOrNull { answer ->
+                answer.requiredString("id") == correctAnswerId
+            }
+            syncRequire(correctAnswer != null) {
+                "$questionId memory key has no matching correct answer"
+            }
+            syncRequire(correctAnswer?.optionalObject("image") == null) {
+                "$questionId image answers must not contain a memory key"
+            }
         }
 
         val question = QuestionEntity(
@@ -346,6 +368,9 @@ internal class ContentPackageMapper {
             questionImageWidth = questionImage?.optionalInt("width"),
             questionImageHeight = questionImage?.optionalInt("height"),
             questionImageMimeType = questionImage?.optionalString("mimeType"),
+            memoryQuestionCue = memoryQuestionCue,
+            memoryAnswerCue = memoryAnswerCue,
+            memoryKeyStatus = memoryKeyStatus,
         )
 
         val answers = germanAnswers.mapIndexed { index, answer ->
@@ -446,11 +471,44 @@ internal class ContentPackageMapper {
         val translationAnswerAudits: List<TranslationAnswerAuditEntity>,
     )
 
+    private fun validateMemoryKey(
+        questionId: String,
+        questionCue: String,
+        answerCue: String,
+        status: String,
+    ) {
+        listOf("questionCue" to questionCue, "answerCue" to answerCue).forEach { (label, cue) ->
+            syncRequire(cue.length <= MEMORY_KEY_MAX_LENGTH) {
+                "$questionId memory key $label is too long"
+            }
+            syncRequire(
+                '\n' !in cue && '\r' !in cue &&
+                    MEMORY_KEY_ARROW !in cue && MEMORY_KEY_ASCII_ARROW !in cue,
+            ) {
+                "$questionId memory key $label contains a forbidden separator"
+            }
+            syncRequire(cue.trim().split(Regex("\\s+")).size <= MEMORY_KEY_MAX_WORDS) {
+                "$questionId memory key $label contains too many words"
+            }
+        }
+        syncRequire(status in MEMORY_KEY_STATUSES) {
+            "$questionId memory key status is not supported"
+        }
+    }
+
     private companion object {
         const val CHUNK_ID_WIDTH = 4
         const val GERMAN_LANGUAGE_CODE = "de"
         const val READY_STATUS = "READY"
         const val SUPPORTED_SCHEMA_VERSION = 3
+        const val MEMORY_KEY_MAX_LENGTH = 80
+        const val MEMORY_KEY_MAX_WORDS = 8
+        const val MEMORY_KEY_ARROW = "→"
+        const val MEMORY_KEY_ASCII_ARROW = "->"
+        val MEMORY_KEY_STATUSES = setOf(
+            "AI_GENERATED_NEEDS_REVIEW",
+            "HUMAN_REVIEWED",
+        )
     }
 }
 

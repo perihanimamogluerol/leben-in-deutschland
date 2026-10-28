@@ -143,9 +143,14 @@ private fun questionsForLanguage(languageCode: String): List<Map<String, Any?>> 
                     "bamfInternalId" to "18476",
                 ),
             ),
-            "correctAnswerId" to "D",
+            "correctAnswerId" to "A",
             "german" to mapOf(
                 "questionText" to "German question",
+                "memoryKey" to mapOf(
+                    "questionCue" to "Frage erkennen",
+                    "answerCue" to "Antwort A",
+                    "status" to "AI_GENERATED_NEEDS_REVIEW",
+                ),
                 "questionImage" to mapOf(
                     "sourcePath" to "images/question.jpeg",
                     "sourceUrl" to "https://example.com/question.jpeg",

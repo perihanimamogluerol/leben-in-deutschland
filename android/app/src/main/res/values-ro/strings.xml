@@ -35,7 +35,7 @@
     <string name="home_study_again">Studiați din nou</string>
     <string name="home_progress_title">Progresul dumneavoastră</string>
     <string name="home_progress_answered">%1$d din %2$d întrebări au răspuns</string>
-    <string name="home_progress_correct">%1$d răspunsuri corecte</string>
+    <string name="home_progress_correct">%1$d corecte / %2$d greșite</string>
     <string name="home_start_hint">Exersați întrebările generale și cele specifice landului în ritmul dvs.</string>
     <string name="study_title">Exersați întrebările</string>
     <string name="study_progress">Întrebarea %1$d din %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Corect</string>
     <string name="study_incorrect">Încă nu este corect</string>
     <string name="study_explanation">Explicație</string>
+    <string name="study_memory_key_title">Indiciu de memorare</string>
     <string name="study_check_answer">Verificați răspunsul</string>
     <string name="study_next_question">Întrebarea următoare</string>
     <string name="study_finish">Încheiați exercițiul</string>

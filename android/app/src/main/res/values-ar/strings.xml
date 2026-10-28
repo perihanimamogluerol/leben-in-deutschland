@@ -35,7 +35,7 @@
     <string name="home_study_again">الدراسة مرة أخرى</string>
     <string name="home_progress_title">تقدمك في الدراسة</string>
     <string name="home_progress_answered">تمت الإجابة عن %1$d من %2$d سؤالًا</string>
-    <string name="home_progress_correct">%1$d إجابات صحيحة</string>
+    <string name="home_progress_correct">%1$d صحيحة / %2$d خاطئة</string>
     <string name="home_start_hint">تدرّب على الأسئلة العامة والخاصة بالولاية بالسرعة التي تناسبك.</string>
     <string name="study_title">التدرّب على الأسئلة</string>
     <string name="study_progress">السؤال %1$d من %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">صحيح</string>
     <string name="study_incorrect">ليست صحيحة بعد</string>
     <string name="study_explanation">الشرح</string>
+    <string name="study_memory_key_title">تلميح للتذكّر</string>
     <string name="study_check_answer">تحقق من الإجابة</string>
     <string name="study_next_question">السؤال التالي</string>
     <string name="study_finish">إنهاء التدريب</string>

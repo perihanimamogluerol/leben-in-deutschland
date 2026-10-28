@@ -35,7 +35,7 @@
     <string name="home_study_again">مطالعه دوباره</string>
     <string name="home_progress_title">پیشرفت شما</string>
     <string name="home_progress_answered">به %1$d از %2$d پرسش پاسخ داده شد</string>
-    <string name="home_progress_correct">%1$d پاسخ درست</string>
+    <string name="home_progress_correct">%1$d درست / %2$d نادرست</string>
     <string name="home_start_hint">پرسش‌های عمومی و ویژه ایالت را با سرعت دلخواه خود تمرین کنید.</string>
     <string name="study_title">تمرین پرسش‌ها</string>
     <string name="study_progress">پرسش %1$d از %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">درست</string>
     <string name="study_incorrect">هنوز درست نیست</string>
     <string name="study_explanation">توضیح</string>
+    <string name="study_memory_key_title">راهنمای یادآوری</string>
     <string name="study_check_answer">بررسی پاسخ</string>
     <string name="study_next_question">پرسش بعدی</string>
     <string name="study_finish">پایان تمرین</string>

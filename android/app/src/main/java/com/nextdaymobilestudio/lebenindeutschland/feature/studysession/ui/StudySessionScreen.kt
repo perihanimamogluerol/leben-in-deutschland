@@ -1,6 +1,7 @@
 package com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -40,6 +43,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,6 +64,7 @@ import coil3.compose.AsyncImage
 import com.nextdaymobilestudio.lebenindeutschland.R
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.ContentImage
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyMemoryKey
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySessionUiState
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.StudySessionMode
@@ -188,6 +196,15 @@ private fun QuestionContent(
             }
         }
 
+        state.question.memoryKey?.let { memoryKey ->
+            item(key = "memory-key-${state.question.id}") {
+                ExpandableMemoryKey(
+                    questionId = state.question.id,
+                    memoryKey = memoryKey,
+                )
+            }
+        }
+
         state.question.questionImage?.let { image ->
             item {
                 StudyImage(
@@ -217,8 +234,66 @@ private fun QuestionContent(
         }
 
         if (state.isSubmitted) {
-            item {
+            item(key = "explanation-${state.question.id}") {
                 ExplanationCard(state = state)
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExpandableMemoryKey(
+    questionId: String,
+    memoryKey: StudyMemoryKey,
+) {
+    var isExpanded by rememberSaveable(questionId) { mutableStateOf(false) }
+
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Surface(
+            onClick = { isExpanded = !isExpanded },
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(StudySessionTestTags.MEMORY_KEY_TOGGLE),
+            shape = RoundedCornerShape(18.dp),
+            color = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.study_memory_key_title),
+                    modifier = Modifier.weight(1f),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+                Icon(
+                    imageVector = if (isExpanded) {
+                        Icons.Filled.KeyboardArrowUp
+                    } else {
+                        Icons.Filled.KeyboardArrowDown
+                    },
+                    contentDescription = null,
+                )
+            }
+        }
+
+        AnimatedVisibility(visible = isExpanded) {
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(StudySessionTestTags.MEMORY_KEY),
+                shape = RoundedCornerShape(20.dp),
+                color = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            ) {
+                Text(
+                    text = "${memoryKey.questionCue} → ${memoryKey.answerCue}",
+                    modifier = Modifier.padding(20.dp),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
             }
         }
     }
@@ -388,6 +463,7 @@ private fun ExplanationCard(state: StudySessionUiState.Ready) {
             .testTag(StudySessionTestTags.EXPLANATION),
         shape = RoundedCornerShape(20.dp),
         color = background,
+        contentColor = foreground,
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -401,27 +477,23 @@ private fun ExplanationCard(state: StudySessionUiState.Ready) {
                         Icons.Filled.Warning
                     },
                     contentDescription = null,
-                    tint = foreground,
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     text = stringResource(
                         if (state.isCorrect) R.string.study_correct else R.string.study_incorrect,
                     ),
-                    color = foreground,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
             }
             Text(
                 text = stringResource(R.string.study_explanation),
-                color = foreground,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
             )
             Text(
                 text = state.question.explanation,
-                color = foreground,
                 style = MaterialTheme.typography.bodyLarge,
             )
         }
@@ -668,4 +740,9 @@ private fun previewQuestion(): StudyQuestion = StudyQuestion(
     ),
     explanationStatus = "AI_GENERATED_NEEDS_REVIEW",
     reviewed = false,
+    memoryKey = StudyMemoryKey(
+        questionCue = "Regierung kritisieren",
+        answerCue = "Meinungsfreiheit",
+        status = "AI_GENERATED_NEEDS_REVIEW",
+    ),
 )

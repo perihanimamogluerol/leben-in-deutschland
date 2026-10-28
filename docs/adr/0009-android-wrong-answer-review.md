@@ -17,7 +17,7 @@ sources of truth and make content-release cleanup harder.
 
 - Derive the wrong-answer set from persisted `study_question_progress` rows
   whose latest answer is incorrect.
-- Preserve the official eligible-question order when building a review session.
+- Randomize the current incorrect-question set whenever a new review session is created.
 - Reuse the existing study screen and answer-persistence path with an explicit
   `WRONG_ANSWERS` session mode.
 - Replace the current progress row on every attempt. A correct retry therefore

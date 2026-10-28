@@ -35,7 +35,7 @@
     <string name="home_study_again">Study again</string>
     <string name="home_progress_title">Your study progress</string>
     <string name="home_progress_answered">%1$d of %2$d questions answered</string>
-    <string name="home_progress_correct">%1$d answered correctly</string>
+    <string name="home_progress_correct">%1$d correct / %2$d wrong</string>
     <string name="home_start_hint">Practice general and state-specific questions at your own pace.</string>
     <string name="study_title">Practice questions</string>
     <string name="study_progress">Question %1$d of %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Correct</string>
     <string name="study_incorrect">Not quite right</string>
     <string name="study_explanation">Explanation</string>
+    <string name="study_memory_key_title">Memory aid</string>
     <string name="study_check_answer">Check answer</string>
     <string name="study_next_question">Next question</string>
     <string name="study_finish">Finish practice</string>

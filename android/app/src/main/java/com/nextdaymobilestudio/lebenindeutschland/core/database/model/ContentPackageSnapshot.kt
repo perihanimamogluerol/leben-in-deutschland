@@ -9,6 +9,7 @@ import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyAnsw
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.StudyContentEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAnswerAuditEntity
 import com.nextdaymobilestudio.lebenindeutschland.core.database.entity.TranslationAuditEntity
+import java.util.Locale
 
 data class ContentPackageSnapshot(
     val release: ContentReleaseEntity,
@@ -100,6 +101,7 @@ data class ContentPackageSnapshot(
 
         val answersByQuestion = answers.groupBy(AnswerEntity::questionId)
         val studyAnswersByQuestion = studyAnswers.groupBy(StudyAnswerEntity::questionId)
+        val memoryKeyPairs = mutableSetOf<Pair<String, String>>()
         questions.forEach { question ->
             val germanAnswers = answersByQuestion.getValue(question.questionId)
             val localizedAnswers = studyAnswersByQuestion.getValue(question.questionId)
@@ -119,6 +121,31 @@ data class ContentPackageSnapshot(
             require(germanAnswers.any { it.answerId == question.correctAnswerId }) {
                 "${question.questionId} correct answer is missing"
             }
+            val memoryValues = listOf(
+                question.memoryQuestionCue,
+                question.memoryAnswerCue,
+                question.memoryKeyStatus,
+            )
+            require(memoryValues.all { it == null } || memoryValues.all { !it.isNullOrBlank() }) {
+                "${question.questionId} memory key must be complete or absent"
+            }
+            if (memoryValues.all { it != null }) {
+                val correctAnswer = germanAnswers.single {
+                    it.answerId == question.correctAnswerId
+                }
+                require(correctAnswer.imageSourcePath == null) {
+                    "${question.questionId} image answers must not contain a memory key"
+                }
+                require(question.memoryKeyStatus in MEMORY_KEY_STATUSES) {
+                    "${question.questionId} memory key status is not supported"
+                }
+                val pair = requireNotNull(question.memoryQuestionCue)
+                    .normalizedMemoryCue() to requireNotNull(question.memoryAnswerCue)
+                    .normalizedMemoryCue()
+                require(memoryKeyPairs.add(pair)) {
+                    "${question.questionId} memory key pair is duplicated"
+                }
+            }
         }
 
         val auditKeys = translationAudits.map { it.questionId to it.languageCode }.toSet()
@@ -131,5 +158,12 @@ data class ContentPackageSnapshot(
         const val ANSWERS_PER_QUESTION = 4
         const val READY_STATUS = "READY"
         const val SUPPORTED_SCHEMA_VERSION = 3
+        val MEMORY_KEY_STATUSES = setOf(
+            "AI_GENERATED_NEEDS_REVIEW",
+            "HUMAN_REVIEWED",
+        )
     }
 }
+
+private fun String.normalizedMemoryCue(): String =
+    trim().lowercase(Locale.ROOT).replace(Regex("\\s+"), " ")

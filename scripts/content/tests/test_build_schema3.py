@@ -24,6 +24,16 @@ FIXTURE = Path(__file__).parent / "fixtures" / "schema2_minimal.json"
 class Schema3PipelineTest(unittest.TestCase):
     def setUp(self) -> None:
         self.catalog = read_json(FIXTURE)
+        self.catalog["questions"][0]["german"]["memoryKey"] = {
+            "questionCue": "Meinung frei äußern",
+            "answerCue": "Meinungsfreiheit",
+            "status": "AI_GENERATED_NEEDS_REVIEW",
+        }
+        self.catalog["questions"][1]["german"]["memoryKey"] = {
+            "questionCue": "Hauptstadt Hessen",
+            "answerCue": "Wiesbaden",
+            "status": "AI_GENERATED_NEEDS_REVIEW",
+        }
         self.temp_dir = tempfile.TemporaryDirectory()
         self.root = Path(self.temp_dir.name)
 
@@ -54,12 +64,40 @@ class Schema3PipelineTest(unittest.TestCase):
             question["german"]["questionText"],
             "Warum dürfen Menschen ihre Meinung frei äußern?",
         )
+        self.assertEqual(
+            question["german"]["memoryKey"]["answerCue"],
+            "Meinungsfreiheit",
+        )
+        self.assertEqual(result["memoryKeyCount"], 2)
 
         validation = validate_release(
             output,
             expected_question_count=2,
         )
         self.assertTrue(validation["readyForUpload"])
+        self.assertEqual(validation["memoryKeyCount"], 2)
+
+    def test_missing_memory_key_requires_draft_flag(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        del catalog["questions"][0]["german"]["memoryKey"]
+        output = self.root / "release"
+
+        with self.assertRaises(BuildError):
+            build_release(catalog, output)
+
+        result = build_release(catalog, output, allow_incomplete=True)
+
+        self.assertEqual(result["status"], "DRAFT")
+        self.assertGreater(result["qualityIssueCount"], 0)
+
+    def test_duplicate_memory_key_pair_is_rejected(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        catalog["questions"][1]["german"]["memoryKey"] = copy.deepcopy(
+            catalog["questions"][0]["german"]["memoryKey"]
+        )
+
+        with self.assertRaises(BuildError):
+            build_release(catalog, self.root / "release")
 
     def test_incomplete_explanation_requires_draft_flag(self) -> None:
         catalog = copy.deepcopy(self.catalog)

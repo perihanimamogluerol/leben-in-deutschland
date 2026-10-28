@@ -35,7 +35,7 @@
     <string name="home_study_again">Studia di nuovo</string>
     <string name="home_progress_title">I tuoi progressi</string>
     <string name="home_progress_answered">%1$d domande risposte su %2$d</string>
-    <string name="home_progress_correct">%1$d risposte corrette</string>
+    <string name="home_progress_correct">%1$d corrette / %2$d sbagliate</string>
     <string name="home_start_hint">Esercitati con le domande generali e specifiche dello stato al tuo ritmo.</string>
     <string name="study_title">Esercizio con le domande</string>
     <string name="study_progress">Domanda %1$d di %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Corretto</string>
     <string name="study_incorrect">Non ancora corretto</string>
     <string name="study_explanation">Spiegazione</string>
+    <string name="study_memory_key_title">Aiuto per ricordare</string>
     <string name="study_check_answer">Controlla la risposta</string>
     <string name="study_next_question">Domanda successiva</string>
     <string name="study_finish">Termina esercizio</string>

@@ -51,7 +51,7 @@ class HomeLocalizationTest {
     private fun Context.localizedString(stringResource: Int): String = when (stringResource) {
         R.string.home_questions_available -> getString(stringResource, 460)
         R.string.home_progress_answered -> getString(stringResource, 12, 310)
-        R.string.home_progress_correct -> getString(stringResource, 9)
+        R.string.home_progress_correct -> getString(stringResource, 9, 3)
         R.string.home_wrong_answers_count -> getString(stringResource, 3)
         else -> getString(stringResource)
     }

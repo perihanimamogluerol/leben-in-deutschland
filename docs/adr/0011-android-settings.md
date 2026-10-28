@@ -20,6 +20,8 @@ Study progress is already scoped by content release, language and federal state.
 - Do not re-download content after only a federal-state change because the installed content package already includes every state question.
 - Keep Back non-destructive: leaving a selection screen without continuing changes nothing.
 - Localize the settings surface for every supported language and retain RTL behavior.
+- Use the same top bar, typography, spacing and neutral selected-row treatment on both selection screens.
+- Position an existing federal-state selection inside the visible list viewport so it is not clipped by the fixed continuation panel.
 
 ## Consequences
 
