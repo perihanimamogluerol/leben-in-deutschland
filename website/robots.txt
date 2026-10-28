@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leben-in-deutschland.netlify.app/sitemap.xml
+Sitemap: https://lebenindeutschland-pruefung.netlify.app/sitemap.xml
