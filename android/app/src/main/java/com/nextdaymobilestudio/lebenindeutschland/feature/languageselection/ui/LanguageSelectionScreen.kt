@@ -33,6 +33,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -73,6 +74,9 @@ fun LanguageSelectionScreen(
             .fillMaxSize()
             .testTag(LanguageSelectionTestTags.SCREEN),
         containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            LanguageSelectionTopBar(onBack = onBack)
+        },
         bottomBar = {
             ContinueSection(
                 enabled = uiState.canContinue,
@@ -84,18 +88,17 @@ fun LanguageSelectionScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .statusBarsPadding()
                 .selectableGroup(),
             contentPadding = PaddingValues(
                 start = 20.dp,
-                top = 24.dp,
+                top = 16.dp,
                 end = 20.dp,
                 bottom = 24.dp,
             ),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             item(key = "header") {
-                LanguageSelectionHeader(onBack = onBack)
+                LanguageSelectionHeader()
             }
 
             item(key = "search") {
@@ -147,39 +150,60 @@ fun LanguageSelectionScreen(
 }
 
 @Composable
-private fun LanguageSelectionHeader(onBack: (() -> Unit)?) {
-    Row(
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        if (onBack != null) {
-            FilledTonalIconButton(
-                onClick = onBack,
-                modifier = Modifier.testTag(LanguageSelectionTestTags.BACK),
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.state_selection_back),
-                )
-            }
-        }
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+private fun LanguageSelectionTopBar(onBack: (() -> Unit)?) {
+    Surface(color = MaterialTheme.colorScheme.background) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(horizontal = 20.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
+            if (onBack != null) {
+                FilledTonalIconButton(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .size(48.dp)
+                        .testTag(LanguageSelectionTestTags.BACK),
+                    colors = IconButtonDefaults.filledTonalIconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                    ),
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.state_selection_back),
+                        modifier = Modifier.size(26.dp),
+                    )
+                }
+                Spacer(modifier = Modifier.size(12.dp))
+            }
+
             Text(
                 text = stringResource(R.string.language_selection_title),
-                modifier = Modifier.semantics { heading() },
+                modifier = Modifier
+                    .weight(1f)
+                    .semantics { heading() },
                 color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
-            Text(
-                text = stringResource(R.string.language_selection_description),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
         }
+    }
+}
+
+@Composable
+private fun LanguageSelectionHeader() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text(
+            text = stringResource(R.string.language_selection_description),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyLarge,
+        )
     }
 }
 
@@ -208,7 +232,7 @@ private fun LanguageOptionRow(
             ),
         shape = RoundedCornerShape(16.dp),
         color = if (selected) {
-            MaterialTheme.colorScheme.primaryContainer
+            MaterialTheme.colorScheme.surfaceVariant
         } else {
             MaterialTheme.colorScheme.surface
         },

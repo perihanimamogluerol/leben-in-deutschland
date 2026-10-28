@@ -33,6 +33,11 @@ class MockExamCoordinatorTest {
         assertEquals(33, exam.questionIds.distinct().size)
         assertEquals(30, exam.questionIds.count { it.startsWith("general_") })
         assertEquals(3, exam.questionIds.count { it.startsWith("state_he_") })
+        assertEquals(
+            listOf("state_he_008", "state_he_009", "state_he_010"),
+            exam.questionIds.take(3),
+        )
+        assertEquals("general_011", exam.questionIds[3])
         assertEquals("HE", exam.stateCode)
         assertEquals(3_700_000L, exam.deadlineEpochMillis)
         assertEquals(exam, preferencesRepository.saved.value)

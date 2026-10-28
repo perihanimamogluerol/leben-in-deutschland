@@ -15,6 +15,8 @@ Questions contain official German text, localized study text, optional images, a
 - Replace the completed content-bootstrap destination with a home destination.
 - Show the installed question count and the persisted language and federal state on the home dashboard.
 - Start a study session from the active Room release. The eligible set contains general questions plus questions for the selected federal state.
+- Randomize unanswered questions whenever a new study session is created, while keeping the in-memory order stable for the lifetime of that session.
+- Keep already answered questions before the randomized remainder so resumed study starts at a random unanswered question without repeating completed work.
 - Load each question and its selected-language study content from Room through `LocalContentRepository`.
 - Present German and localized question and answer text together when they differ.
 - Require an answer selection before submission, then show correctness and the localized explanation before allowing navigation to the next question.
@@ -22,6 +24,9 @@ Questions contain official German text, localized study text, optional images, a
 - Keep navigation state in Navigation 3 and screen state in a lifecycle-aware `ViewModel`.
 - Provide localized home and study interface strings for all 21 supported languages.
 - Preserve the dark, high-contrast design with large controls and touch targets.
+- Keep progress neutral and show both correct and wrong answer counts in one summary.
+- Use warm amber for wrong-answer review while work remains, success green only when the list is empty, and deep blue for the timed mock exam.
+- Present wrong-answer review as a full-width, left-aligned action row with a trailing arrow instead of refresh icons.
 
 ## Consequences
 

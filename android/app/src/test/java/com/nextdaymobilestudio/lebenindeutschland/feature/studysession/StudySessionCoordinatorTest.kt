@@ -22,7 +22,10 @@ class StudySessionCoordinatorTest {
             activeRelease = releaseEntity(),
             eligibleIds = listOf("general_001", "state_he_001"),
         )
-        val coordinator = StudySessionCoordinator(repository)
+        val coordinator = StudySessionCoordinator(
+            localContentRepository = repository,
+            shuffle = { values -> values },
+        )
 
         val session = coordinator.start(languageCode = "tr", stateCode = "he")
 
@@ -87,6 +90,29 @@ class StudySessionCoordinatorTest {
     }
 
     @Test
+    fun startKeepsAnsweredPrefixAndRandomizesRemainingQuestions() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "general_002", "state_he_001"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "A", true, 100L, 1),
+            ),
+        )
+        val coordinator = StudySessionCoordinator(
+            localContentRepository = repository,
+            shuffle = { values -> values.reversed() },
+        )
+
+        val session = coordinator.start("tr", "he")
+
+        assertEquals(
+            listOf("general_001", "state_he_001", "general_002"),
+            session.questionIds,
+        )
+        assertEquals(1, session.startIndex)
+    }
+
+    @Test
     fun recordAnswerPersistsCorrectnessAndTimestamp() = runBlocking {
         val question = studyQuestion("state_he_001")
         val repository = FakeStudyRepository(
@@ -144,6 +170,34 @@ class StudySessionCoordinatorTest {
         assertEquals(0, session.startIndex)
         assertEquals(0, session.answeredCount)
         assertEquals(0, repository.clearCount)
+    }
+
+    @Test
+    fun wrongAnswersModeRandomizesTheCurrentWrongQuestionSet() = runBlocking {
+        val repository = FakeStudyRepository(
+            activeRelease = releaseEntity(),
+            eligibleIds = listOf("general_001", "general_002", "state_he_001"),
+            progress = listOf(
+                StudyAnswerProgress("general_001", "B", false, 100L, 1),
+                StudyAnswerProgress("state_he_001", "B", false, 200L, 1),
+            ),
+        )
+        val coordinator = StudySessionCoordinator(
+            localContentRepository = repository,
+            shuffle = { values -> values.reversed() },
+        )
+
+        val session = coordinator.start(
+            languageCode = "tr",
+            stateCode = "he",
+            mode = StudySessionMode.WRONG_ANSWERS,
+        )
+
+        assertEquals(
+            listOf("state_he_001", "general_001"),
+            session.questionIds,
+        )
+        assertEquals(0, session.startIndex)
     }
 
     @Test

@@ -78,6 +78,10 @@ class LocalContentDatabaseTest {
         assertEquals("image/jpeg", question?.questionImage?.mimeType)
         assertEquals("answer-D.png", question?.answers?.last()?.image?.sourcePath)
 
+        val stateQuestion = repository.getStudyQuestion(RELEASE_ID, "state_be_001", "en")
+        assertEquals("Bundesland erkennen", stateQuestion?.memoryKey?.questionCue)
+        assertEquals("Antwort D", stateQuestion?.memoryKey?.answerCue)
+
         val audit = database.contentDao().getTranslationAudit(
             RELEASE_ID,
             "general_001",
@@ -448,6 +452,17 @@ class LocalContentDatabaseTest {
         questionImageWidth = if (questionId == "general_001") 1200 else null,
         questionImageHeight = if (questionId == "general_001") 857 else null,
         questionImageMimeType = if (questionId == "general_001") "image/jpeg" else null,
+        memoryQuestionCue = if (questionId == "state_be_001") {
+            "Bundesland erkennen"
+        } else {
+            null
+        },
+        memoryAnswerCue = if (questionId == "state_be_001") "Antwort D" else null,
+        memoryKeyStatus = if (questionId == "state_be_001") {
+            "AI_GENERATED_NEEDS_REVIEW"
+        } else {
+            null
+        },
     )
 
     private companion object {

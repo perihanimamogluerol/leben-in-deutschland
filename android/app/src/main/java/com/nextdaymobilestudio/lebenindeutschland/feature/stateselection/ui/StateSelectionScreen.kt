@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
@@ -65,6 +66,15 @@ fun StateSelectionScreen(
     onContinue: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val selectedIndex = uiState.selectedState?.let(uiState.states::indexOf) ?: -1
+    val listState = rememberLazyListState(
+        initialFirstVisibleItemIndex = if (selectedIndex >= 0) {
+            maxOf(selectedIndex - 1, 0)
+        } else {
+            0
+        },
+    )
+
     Scaffold(
         modifier = modifier
             .fillMaxSize()
@@ -81,6 +91,7 @@ fun StateSelectionScreen(
         },
     ) { innerPadding ->
         LazyColumn(
+            state = listState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -88,7 +99,7 @@ fun StateSelectionScreen(
                 .selectableGroup(),
             contentPadding = PaddingValues(
                 start = 20.dp,
-                top = 18.dp,
+                top = 16.dp,
                 end = 20.dp,
                 bottom = 24.dp,
             ),
@@ -123,7 +134,7 @@ private fun StateSelectionTopBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .statusBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(horizontal = 20.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             FilledTonalIconButton(
@@ -152,6 +163,7 @@ private fun StateSelectionTopBar(
                     .semantics { heading() },
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -198,7 +210,7 @@ private fun StateOptionRow(
             ),
         shape = RoundedCornerShape(16.dp),
         color = if (selected) {
-            MaterialTheme.colorScheme.primaryContainer
+            MaterialTheme.colorScheme.surfaceVariant
         } else {
             MaterialTheme.colorScheme.surface
         },

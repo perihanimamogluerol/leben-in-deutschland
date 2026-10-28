@@ -153,6 +153,27 @@ class StateSelectionScreenTest {
     }
 
     @Test
+    fun existingSelectionIsFullyVisibleWhenScreenOpens() {
+        composeRule.setContent {
+            LebenInDeutschlandTheme {
+                StateSelectionScreen(
+                    uiState = StateSelectionUiState(
+                        selectedState = GermanState.HESSE,
+                    ),
+                    onBack = {},
+                    onStateSelected = {},
+                    onContinue = {},
+                )
+            }
+        }
+
+        composeRule
+            .onNodeWithTag(StateSelectionTestTags.option("he"))
+            .assertIsDisplayed()
+            .assertIsSelected()
+    }
+
+    @Test
     fun allSixteenStatesAreReachableByScrolling() {
         setRoute()
 

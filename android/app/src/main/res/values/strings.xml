@@ -37,7 +37,7 @@
     <string name="home_study_again">Erneut lernen</string>
     <string name="home_progress_title">Ihr Lernfortschritt</string>
     <string name="home_progress_answered">%1$d von %2$d Fragen beantwortet</string>
-    <string name="home_progress_correct">%1$d richtig beantwortet</string>
+    <string name="home_progress_correct">%1$d richtig / %2$d falsch beantwortet</string>
     <string name="home_start_hint">Üben Sie allgemeine und landesspezifische Fragen in Ihrem eigenen Tempo.</string>
     <string name="study_title">Fragen üben</string>
     <string name="study_progress">Frage %1$d von %2$d</string>
@@ -46,6 +46,7 @@
     <string name="study_correct">Richtig</string>
     <string name="study_incorrect">Noch nicht richtig</string>
     <string name="study_explanation">Erklärung</string>
+    <string name="study_memory_key_title">Merkhilfe</string>
     <string name="study_check_answer">Antwort prüfen</string>
     <string name="study_next_question">Nächste Frage</string>
     <string name="study_finish">Übung beenden</string>

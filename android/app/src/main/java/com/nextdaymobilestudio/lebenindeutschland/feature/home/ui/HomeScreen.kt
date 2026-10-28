@@ -1,6 +1,7 @@
 package com.nextdaymobilestudio.lebenindeutschland.feature.home.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,9 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -45,7 +45,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextdaymobilestudio.lebenindeutschland.R
 import com.nextdaymobilestudio.lebenindeutschland.feature.home.HomeProgressUiState
+import com.nextdaymobilestudio.lebenindeutschland.ui.theme.ExamBlueAccent
+import com.nextdaymobilestudio.lebenindeutschland.ui.theme.ExamBlueContainer
 import com.nextdaymobilestudio.lebenindeutschland.ui.theme.LebenInDeutschlandTheme
+import com.nextdaymobilestudio.lebenindeutschland.ui.theme.OnExamBlueContainer
+import com.nextdaymobilestudio.lebenindeutschland.ui.theme.OnReviewAmberContainer
+import com.nextdaymobilestudio.lebenindeutschland.ui.theme.ReviewAmberContainer
 
 @Composable
 fun HomeScreen(
@@ -194,7 +199,7 @@ private fun MockExamSummary(
             .fillMaxWidth()
             .testTag(HomeTestTags.MOCK_EXAM),
         shape = RoundedCornerShape(24.dp),
-        color = MaterialTheme.colorScheme.tertiaryContainer,
+        color = ExamBlueContainer,
     ) {
         Column(
             modifier = Modifier.padding(22.dp),
@@ -202,13 +207,13 @@ private fun MockExamSummary(
         ) {
             Text(
                 text = stringResource(R.string.home_mock_exam_title),
-                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                color = OnExamBlueContainer,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
             )
             Text(
                 text = stringResource(R.string.home_mock_exam_description),
-                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                color = OnExamBlueContainer,
                 style = MaterialTheme.typography.bodyLarge,
             )
             Button(
@@ -243,6 +248,10 @@ private fun MockExamSummary(
                     .heightIn(min = 54.dp)
                     .testTag(HomeTestTags.OPEN_EXAM_HISTORY),
                 shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = ExamBlueAccent.copy(alpha = 0.16f),
+                    contentColor = OnExamBlueContainer,
+                ),
             ) {
                 Text(
                     text = stringResource(R.string.home_exam_history),
@@ -259,63 +268,77 @@ private fun WrongAnswersSummary(
     progress: HomeProgressUiState,
     onReviewWrongAnswers: () -> Unit,
 ) {
+    val containerColor = if (progress.hasWrongAnswers) {
+        ReviewAmberContainer
+    } else {
+        MaterialTheme.colorScheme.secondaryContainer
+    }
+    val contentColor = if (progress.hasWrongAnswers) {
+        OnReviewAmberContainer
+    } else {
+        MaterialTheme.colorScheme.onSecondaryContainer
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .testTag(HomeTestTags.WRONG_ANSWERS),
         shape = RoundedCornerShape(24.dp),
-        color = MaterialTheme.colorScheme.secondaryContainer,
+        color = containerColor,
+        contentColor = contentColor,
     ) {
         Column(
             modifier = Modifier.padding(22.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = if (progress.hasWrongAnswers) {
-                        Icons.Filled.Refresh
-                    } else {
-                        Icons.Filled.CheckCircle
-                    },
-                    contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = stringResource(R.string.home_wrong_answers_title),
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                )
-            }
+            Text(
+                text = stringResource(R.string.home_wrong_answers_title),
+                color = contentColor,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
             Text(
                 text = if (progress.hasWrongAnswers) {
                     stringResource(R.string.home_wrong_answers_count, progress.wrongCount)
                 } else {
                     stringResource(R.string.home_wrong_answers_empty)
                 },
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                color = contentColor,
                 style = MaterialTheme.typography.bodyLarge,
             )
             if (progress.hasWrongAnswers) {
-                FilledTonalButton(
+                Surface(
                     onClick = onReviewWrongAnswers,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 56.dp)
                         .testTag(HomeTestTags.REVIEW_WRONG_ANSWERS),
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.14f),
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.50f),
+                    ),
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Refresh,
-                        contentDescription = null,
-                    )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        text = stringResource(R.string.home_review_wrong_answers),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 18.dp, vertical = 15.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = stringResource(R.string.home_review_wrong_answers),
+                            modifier = Modifier.weight(1f),
+                            textAlign = TextAlign.Start,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                        )
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                        )
+                    }
                 }
             }
         }
@@ -363,6 +386,7 @@ private fun StudyProgressSummary(progress: HomeProgressUiState) {
                     text = stringResource(
                         R.string.home_progress_correct,
                         progress.correctCount,
+                        progress.wrongCount,
                     ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium,

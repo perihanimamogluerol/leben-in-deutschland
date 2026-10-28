@@ -35,7 +35,7 @@
     <string name="home_study_again">Tekrar çalış</string>
     <string name="home_progress_title">Çalışma ilerlemeniz</string>
     <string name="home_progress_answered">%1$d / %2$d soru cevaplandı</string>
-    <string name="home_progress_correct">%1$d doğru cevap</string>
+    <string name="home_progress_correct">%1$d doğru / %2$d yanlış cevap</string>
     <string name="home_start_hint">Genel ve eyalete özel soruları kendi hızınızda çalışın.</string>
     <string name="study_title">Soru çalışması</string>
     <string name="study_progress">Soru %1$d / %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Doğru</string>
     <string name="study_incorrect">Henüz doğru değil</string>
     <string name="study_explanation">Açıklama</string>
+    <string name="study_memory_key_title">Hatırlama ipucu</string>
     <string name="study_check_answer">Cevabı kontrol et</string>
     <string name="study_next_question">Sonraki soru</string>
     <string name="study_finish">Çalışmayı bitir</string>

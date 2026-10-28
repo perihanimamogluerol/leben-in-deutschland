@@ -42,6 +42,24 @@ class ContentPackageSnapshotTest {
         }
     }
 
+    @Test
+    fun partialMemoryKeyIsRejected() {
+        val snapshot = snapshot()
+        val invalid = snapshot.copy(
+            questions = snapshot.questions.map { question ->
+                question.copy(
+                    memoryQuestionCue = "Frage erkennen",
+                    memoryAnswerCue = null,
+                    memoryKeyStatus = "AI_GENERATED_NEEDS_REVIEW",
+                )
+            },
+        )
+
+        assertThrows(IllegalArgumentException::class.java) {
+            invalid.requireValid()
+        }
+    }
+
     private fun snapshot(): ContentPackageSnapshot {
         val releaseId = "release-1"
         val questionId = "general_001"

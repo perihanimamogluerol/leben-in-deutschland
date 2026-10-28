@@ -35,7 +35,7 @@
     <string name="home_study_again">Пройти ещё раз</string>
     <string name="home_progress_title">Ваш прогресс</string>
     <string name="home_progress_answered">Отвечено на %1$d из %2$d вопросов</string>
-    <string name="home_progress_correct">%1$d правильных ответов</string>
+    <string name="home_progress_correct">%1$d правильных / %2$d неправильных</string>
     <string name="home_start_hint">Изучайте общие вопросы и вопросы вашей земли в удобном темпе.</string>
     <string name="study_title">Практика вопросов</string>
     <string name="study_progress">Вопрос %1$d из %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Правильно</string>
     <string name="study_incorrect">Пока неверно</string>
     <string name="study_explanation">Объяснение</string>
+    <string name="study_memory_key_title">Подсказка для запоминания</string>
     <string name="study_check_answer">Проверить ответ</string>
     <string name="study_next_question">Следующий вопрос</string>
     <string name="study_finish">Завершить практику</string>

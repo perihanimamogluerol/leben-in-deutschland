@@ -25,6 +25,9 @@ ALLOWED_EXPLANATION_STATUSES = {
     "AI_GENERATED_NEEDS_REVIEW",
     "HUMAN_REVIEWED",
 }
+ALLOWED_MEMORY_KEY_STATUSES = ALLOWED_EXPLANATION_STATUSES
+MAX_MEMORY_KEY_LENGTH = 80
+MAX_MEMORY_KEY_WORDS = 8
 
 
 class BuildError(RuntimeError):
@@ -120,6 +123,28 @@ def answer_ids(answers: Any) -> list[str]:
     return result
 
 
+def normalized_memory_key_pair(question_cue: str, answer_cue: str) -> str:
+    return "|".join(
+        re.sub(r"[^\wäöüß]+", " ", value.casefold()).strip()
+        for value in (question_cue, answer_cue)
+    )
+
+
+def validate_memory_cue(value: Any) -> bool:
+    if not isinstance(value, str) or not value.strip():
+        return False
+    cue = value.strip()
+    words = re.findall(r"[\wÄÖÜäöüß-]+", cue)
+    return (
+        len(cue) <= MAX_MEMORY_KEY_LENGTH
+        and 1 <= len(words) <= MAX_MEMORY_KEY_WORDS
+        and "→" not in cue
+        and "->" not in cue
+        and "\n" not in cue
+        and "\r" not in cue
+    )
+
+
 def issue(
     code: str,
     message: str,
@@ -146,6 +171,12 @@ def inspect_source(
     quality: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
     explanations: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    memory_key_enabled = any(
+        isinstance(question.get("german"), dict)
+        and question["german"].get("memoryKey") is not None
+        for question in questions
+    )
+    memory_key_pairs: dict[str, str] = {}
 
     for index, question in enumerate(questions):
         question_id = question.get("id")
@@ -208,6 +239,85 @@ def inspect_source(
                 issue(
                     "INVALID_CORRECT_ANSWER",
                     "Correct answer identifier is not present in German answers.",
+                    question_id=question_id,
+                )
+            )
+
+        correct_answer = next(
+            (
+                answer
+                for answer in german.get("answers", [])
+                if isinstance(answer, dict) and answer.get("id") == correct_answer_id
+            ),
+            None,
+        )
+        correct_answer_has_image = (
+            isinstance(correct_answer, dict)
+            and isinstance(correct_answer.get("image"), dict)
+            and bool(correct_answer["image"])
+        )
+        memory_key = german.get("memoryKey")
+        if memory_key is not None:
+            if not isinstance(memory_key, dict):
+                structural.append(
+                    issue(
+                        "INVALID_MEMORY_KEY",
+                        "German memory key must be an object.",
+                        language_code="de",
+                        question_id=question_id,
+                    )
+                )
+            elif correct_answer_has_image:
+                structural.append(
+                    issue(
+                        "MEMORY_KEY_FOR_IMAGE_ANSWER",
+                        "Image-answer questions must not contain a memory key.",
+                        language_code="de",
+                        question_id=question_id,
+                    )
+                )
+            else:
+                question_cue = memory_key.get("questionCue")
+                answer_cue = memory_key.get("answerCue")
+                if not validate_memory_cue(question_cue) or not validate_memory_cue(
+                    answer_cue
+                ):
+                    structural.append(
+                        issue(
+                            "INVALID_MEMORY_KEY_CUE",
+                            "Memory-key cues must contain 1-8 words and at most 80 characters.",
+                            language_code="de",
+                            question_id=question_id,
+                        )
+                    )
+                else:
+                    pair = normalized_memory_key_pair(question_cue, answer_cue)
+                    previous = memory_key_pairs.get(pair)
+                    if previous is not None:
+                        structural.append(
+                            issue(
+                                "DUPLICATE_MEMORY_KEY_PAIR",
+                                f"Memory-key pair duplicates {previous}.",
+                                language_code="de",
+                                question_id=question_id,
+                            )
+                        )
+                    memory_key_pairs[pair] = question_id
+                if memory_key.get("status") not in ALLOWED_MEMORY_KEY_STATUSES:
+                    quality.append(
+                        issue(
+                            "UNVERIFIED_MEMORY_KEY_PROVENANCE",
+                            "German memory-key provenance is not verified.",
+                            language_code="de",
+                            question_id=question_id,
+                        )
+                    )
+        elif memory_key_enabled and not correct_answer_has_image:
+            quality.append(
+                issue(
+                    "MISSING_MEMORY_KEY",
+                    "German memory key is missing for a text-answer question.",
+                    language_code="de",
                     question_id=question_id,
                 )
             )
@@ -338,11 +448,14 @@ def inspect_source(
 
 def german_source(question: dict[str, Any]) -> dict[str, Any]:
     german = question["german"]
-    return {
+    result = {
         "questionText": german.get("questionText"),
         "questionImage": copy.deepcopy(german.get("questionImage")),
         "answers": copy.deepcopy(german.get("answers")),
     }
+    if "memoryKey" in german:
+        result["memoryKey"] = copy.deepcopy(german["memoryKey"])
+    return result
 
 
 def study_content(
@@ -487,6 +600,11 @@ def build_release(
     release_id = f"lid-{safe_identifier(effective_version)}-schema-{SCHEMA_VERSION}"
     release_status = "READY" if not quality_issues else "DRAFT"
     source_hash = sha256_json(catalog)
+    memory_key_count = sum(
+        1
+        for question in questions
+        if isinstance(question["german"].get("memoryKey"), dict)
+    )
     generated_at = utc_now()
     temporary = prepare_output_directory(output_dir, force)
     package_hashes: dict[str, str] = {}
@@ -528,6 +646,7 @@ def build_release(
                 "jsonBytes": json_size(transformed),
                 "qualityIssueCount": len(language_issues),
                 "explanationReady": not language_issues,
+                "memoryKeyCount": memory_key_count,
                 "status": package_status,
                 "createdAt": generated_at,
             }
@@ -548,6 +667,7 @@ def build_release(
             "catalogSha256": release_hash,
             "packageHashes": package_hashes,
             "qualityIssueCount": len(quality_issues),
+            "memoryKeyCount": memory_key_count,
             "status": release_status,
             "createdAt": generated_at,
         }
@@ -560,6 +680,7 @@ def build_release(
             "questionCount": len(questions),
             "languageCount": len(languages),
             "qualityIssueCount": len(quality_issues),
+            "memoryKeyCount": memory_key_count,
             "qualityIssues": quality_issues,
             "packages": package_summaries,
         }
@@ -580,6 +701,7 @@ def build_release(
         "questionCount": len(questions),
         "languageCount": len(languages),
         "qualityIssueCount": len(quality_issues),
+        "memoryKeyCount": memory_key_count,
         "output": str(output_dir),
     }
 

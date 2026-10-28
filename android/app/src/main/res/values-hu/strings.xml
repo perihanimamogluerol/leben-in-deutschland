@@ -35,7 +35,7 @@
     <string name="home_study_again">Újratanulás</string>
     <string name="home_progress_title">Tanulási eredmény</string>
     <string name="home_progress_answered">%1$d / %2$d kérdés megválaszolva</string>
-    <string name="home_progress_correct">%1$d helyes válasz</string>
+    <string name="home_progress_correct">%1$d helyes / %2$d hibás válasz</string>
     <string name="home_start_hint">Gyakorolja az általános és tartományi kérdéseket a saját tempójában.</string>
     <string name="study_title">Kérdések gyakorlása</string>
     <string name="study_progress">%1$d. kérdés / %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Helyes</string>
     <string name="study_incorrect">Még nem helyes</string>
     <string name="study_explanation">Magyarázat</string>
+    <string name="study_memory_key_title">Emlékeztető</string>
     <string name="study_check_answer">Válasz ellenőrzése</string>
     <string name="study_next_question">Következő kérdés</string>
     <string name="study_finish">Gyakorlás befejezése</string>

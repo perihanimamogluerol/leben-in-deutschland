@@ -35,7 +35,7 @@
     <string name="home_study_again">Учете отново</string>
     <string name="home_progress_title">Вашият напредък</string>
     <string name="home_progress_answered">Отговорени %1$d от %2$d въпроса</string>
-    <string name="home_progress_correct">%1$d верни отговора</string>
+    <string name="home_progress_correct">%1$d верни / %2$d грешни отговора</string>
     <string name="home_start_hint">Упражнявайте общите и провинциалните въпроси със собствено темпо.</string>
     <string name="study_title">Упражняване на въпроси</string>
     <string name="study_progress">Въпрос %1$d от %2$d</string>
@@ -44,6 +44,7 @@
     <string name="study_correct">Правилно</string>
     <string name="study_incorrect">Все още не е правилно</string>
     <string name="study_explanation">Обяснение</string>
+    <string name="study_memory_key_title">Подсказка за запомняне</string>
     <string name="study_check_answer">Провери отговора</string>
     <string name="study_next_question">Следващ въпрос</string>
     <string name="study_finish">Завърши упражнението</string>

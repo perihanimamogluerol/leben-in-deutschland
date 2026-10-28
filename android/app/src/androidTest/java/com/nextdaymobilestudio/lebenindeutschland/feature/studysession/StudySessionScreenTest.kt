@@ -7,8 +7,10 @@ import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyAnswer
+import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyMemoryKey
 import com.nextdaymobilestudio.lebenindeutschland.core.database.model.StudyQuestion
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionScreen
 import com.nextdaymobilestudio.lebenindeutschland.feature.studysession.ui.StudySessionTestTags
@@ -43,7 +45,7 @@ class StudySessionScreenTest {
     }
 
     @Test
-    fun submittedAnswerShowsCorrectnessAndExplanation() {
+    fun submittedAnswerShowsCollapsedMemoryKeyAndExpandedExplanation() {
         setScreen(
             state = readyState(
                 selectedAnswerId = "A",
@@ -51,9 +53,91 @@ class StudySessionScreenTest {
             ),
         )
 
-        composeRule.onNodeWithTag(StudySessionTestTags.EXPLANATION).assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertDoesNotExist()
+        composeRule.onNodeWithTag(StudySessionTestTags.EXPLANATION)
+            .performScrollTo()
+            .assertIsDisplayed()
         composeRule.onNodeWithText("Das ist die Erklärung.").assertIsDisplayed()
         composeRule.onNodeWithTag(StudySessionTestTags.ACTION).assertIsEnabled()
+    }
+
+    @Test
+    fun memoryKeyStartsCollapsedAndCanOpenBeforeSubmission() {
+        setScreen(state = readyState())
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertDoesNotExist()
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).performClick()
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertIsDisplayed()
+    }
+
+    @Test
+    fun memoryKeyIsHiddenWhenContentHasNone() {
+        setScreen(
+            state = readyState(
+                selectedAnswerId = "A",
+                isSubmitted = true,
+                question = testQuestion(memoryKey = null),
+            ),
+        )
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).assertDoesNotExist()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertDoesNotExist()
+    }
+
+    @Test
+    fun submittedWrongAnswerReviewShowsMemoryKey() {
+        setScreen(
+            state = readyState(selectedAnswerId = "B", isSubmitted = true),
+            mode = StudySessionMode.WRONG_ANSWERS,
+        )
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).assertIsDisplayed()
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertDoesNotExist()
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).performClick()
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertIsDisplayed()
+    }
+
+    @Test
+    fun longQuestionKeepsMemoryKeyAvailableBeforeTheQuestion() {
+        val longAnswer = "Diese Antwort ist absichtlich sehr lang, damit die Liste mehr Platz benötigt."
+        setScreen(
+            state = readyState(
+                question = testQuestion(
+                    germanQuestionText = "Diese Frage ist absichtlich besonders lang und prüft die Position der Merkhilfe.",
+                    localizedQuestionText = "Bu soru hatırlama ipucunun konumunu sınamak için özellikle uzundur.",
+                    answers = listOf(
+                        StudyAnswer("A", 0, "$longAnswer A", "$longAnswer A", null),
+                        StudyAnswer("B", 1, "$longAnswer B", "$longAnswer B", null),
+                        StudyAnswer("C", 2, "$longAnswer C", "$longAnswer C", null),
+                        StudyAnswer("D", 3, "$longAnswer D", "$longAnswer D", null),
+                    ),
+                ),
+            ),
+        )
+
+        val memoryKeyTop = composeRule
+            .onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE)
+            .assertIsDisplayed()
+            .fetchSemanticsNode()
+            .boundsInRoot
+            .top
+        val questionTop = composeRule
+            .onNodeWithTag(StudySessionTestTags.QUESTION)
+            .assertIsDisplayed()
+            .fetchSemanticsNode()
+            .boundsInRoot
+            .top
+
+        assertTrue(memoryKeyTop < questionTop)
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY_TOGGLE).performClick()
+
+        composeRule.onNodeWithTag(StudySessionTestTags.MEMORY_KEY).assertIsDisplayed()
     }
 
     @Test
@@ -127,15 +211,28 @@ class StudySessionScreenTest {
 private fun readyState(
     selectedAnswerId: String? = null,
     isSubmitted: Boolean = false,
+    question: StudyQuestion = testQuestion(),
 ): StudySessionUiState.Ready = StudySessionUiState.Ready(
-    question = testQuestion(),
+    question = question,
     currentIndex = 0,
     totalCount = 2,
     selectedAnswerId = selectedAnswerId,
     isSubmitted = isSubmitted,
 )
 
-private fun testQuestion(): StudyQuestion = StudyQuestion(
+private fun testQuestion(
+    memoryKey: StudyMemoryKey? = StudyMemoryKey(
+        questionCue = "Frage erkennen",
+        answerCue = "Antwort erinnern",
+        status = "AI_GENERATED_NEEDS_REVIEW",
+    ),
+    germanQuestionText: String = "Was ist richtig?",
+    localizedQuestionText: String = "Hangisi doğrudur?",
+    answers: List<StudyAnswer> = listOf(
+        StudyAnswer("A", 0, "Antwort A", "Cevap A", null),
+        StudyAnswer("B", 1, "Antwort B", "Cevap B", null),
+    ),
+): StudyQuestion = StudyQuestion(
     releaseId = "release-3",
     id = "general_001",
     officialNumber = 1,
@@ -143,15 +240,13 @@ private fun testQuestion(): StudyQuestion = StudyQuestion(
     stateCode = null,
     category = null,
     correctAnswerId = "A",
-    germanQuestionText = "Was ist richtig?",
-    localizedQuestionText = "Hangisi doğrudur?",
+    germanQuestionText = germanQuestionText,
+    localizedQuestionText = localizedQuestionText,
     explanation = "Das ist die Erklärung.",
     languageCode = "tr",
     questionImage = null,
-    answers = listOf(
-        StudyAnswer("A", 0, "Antwort A", "Cevap A", null),
-        StudyAnswer("B", 1, "Antwort B", "Cevap B", null),
-    ),
+    answers = answers,
     explanationStatus = "AI_GENERATED_NEEDS_REVIEW",
     reviewed = false,
+    memoryKey = memoryKey,
 )

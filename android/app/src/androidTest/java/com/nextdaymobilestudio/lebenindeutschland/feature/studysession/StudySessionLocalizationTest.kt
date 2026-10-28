@@ -65,6 +65,7 @@ class StudySessionLocalizationTest {
             R.string.study_correct,
             R.string.study_incorrect,
             R.string.study_explanation,
+            R.string.study_memory_key_title,
             R.string.study_check_answer,
             R.string.study_next_question,
             R.string.study_finish,
